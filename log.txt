@@ -1,0 +1,4 @@
+
+Sign Up Failed :( user details: fristName lastName email@gmail.com Fri Nov 05 2021 18:48:13 GMT+0530 (India Standard Time)
+Sign Up Failed :( user details: fristName lastName email@gmail.com Fri Nov 05 2021 18:48:27 GMT+0530 (India Standard Time)
+Sign Up Failed :( user details: fristName lastName Email Mon Nov 08 2021 11:27:01 GMT+0530 (India Standard Time)
