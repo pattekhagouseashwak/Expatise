@@ -26,7 +26,7 @@ const registerAuctioneer = async (req, res) => {
   try {
     const id = req.body.id;
     const companyName = req.body.companyName;
-    const fristName = req.body.fristName;
+    const firstName = req.body.fristName;
     const lastName = req.body.lastName;
     const streetAddress = req.body.streetAddress;
     const zip = req.body.zip;
@@ -52,7 +52,7 @@ const registerAuctioneer = async (req, res) => {
     await Auctioneer.findOneAndUpdate({id,is_PhoneVerified:true},
                                       {
                                         CompanyName:companyName,
-                                        FirstName:fristName,
+                                        FirstName:firstName,
                                         LastName:lastName,
                                         StreetAddress:streetAddress,
                                         City:city,
@@ -93,7 +93,7 @@ const registerAuctioneer = async (req, res) => {
 const registerBidder = async (req, res) => { console.log("body:",req.body)
   try {
     const id = req.body.id;
-    const fristName = req.body.fristName;
+    const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const streetAddress = req.body.streetAddress;
     const zip = req.body.zip;
@@ -101,7 +101,6 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
     const state = req.body.state;
     const country = req.body.country;
     const Email = req.body.Email;
-    const photo = req.body.photo;
     const rounds = appInfo.rounds;
     const password = await bcrypt.hash(req.body.password, rounds);
     const Email_Expiry_time = await getForwardTime(240.00);
@@ -117,7 +116,7 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
 
     await Bidder.findOneAndUpdate({id,is_PhoneVerified:true},
                                       {
-                                        FirstName:fristName,
+                                        FirstName:firstName,
                                         LastName:lastName,
                                         StreetAddress:streetAddress,
                                         City:city,

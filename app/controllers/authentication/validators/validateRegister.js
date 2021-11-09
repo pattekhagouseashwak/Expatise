@@ -20,9 +20,9 @@ const validateRegister = [
     .isEmpty()
     .withMessage('Name IS_EMPTY'),
 
-    check('fristName')
+    check('firstName')
     .exists()
-    .withMessage('fristName MISSING')
+    .withMessage('firstName MISSING')
     .not()
     .isEmpty()
     .withMessage('firstName IS_EMPTY'),

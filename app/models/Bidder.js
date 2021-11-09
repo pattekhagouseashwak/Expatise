@@ -42,8 +42,6 @@ const BidderSchema = new mongoose.Schema(
 
     is_PhoneVerified :{type:Boolean, default:false},
 
-    Photo:{type:String},
-
     DrivingLicenseNo:{type:String},
 
     DrivingLicensePhoto:{type:String},
