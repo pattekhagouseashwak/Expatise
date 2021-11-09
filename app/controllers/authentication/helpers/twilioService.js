@@ -12,7 +12,7 @@ const twilioService = async(MobileNumber,OTP)=>{
 
     await client.messages
       .create({
-        body: "Please use the otp:"+OTP+" to login in StudyHox App",
+        body: "Please use the otp:"+OTP+" to login in Auction Journal",
         to: MobileNumber, // Text this number
         from: appInfo.Twilio_Trail_Number // From a valid Twilio number
       })

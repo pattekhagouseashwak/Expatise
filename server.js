@@ -11,7 +11,7 @@ const path = require('path')
 
 global.appInfo = appInfo
 // Setup express server port from ENV, default: 3000
-app.set('port', appInfo.PORT || 3000)
+app.set('port', appInfo.PORT || 4000)
 
 // for parsing json
 app.use(

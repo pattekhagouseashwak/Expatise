@@ -15,7 +15,7 @@ const Bidder = require('../../models/Bidder')
  * @param {Object} res - response object
  */
 
-const verifyOtp = async (req, res) => {
+const verifyOtp = async (req, res) => { console.log(req.body)
   try {
     // req = matchedData(req)
     const Phone = req.body.Phone;
@@ -25,7 +25,7 @@ const verifyOtp = async (req, res) => {
     if(reqType == 1){
     await Auctioneer.findOne({Phone})
                     .then(async(data)=>{
-                        //console.log(Date.now(),data.Expiry_time);
+                        console.log(Date.now(),data);
                         if(data.otp == otp && data.Expiry_time >= Date.now()){
                            await Auctioneer.findOneAndUpdate({Phone},{is_PhoneVerified:true},{new:true})
                                             .then(()=>{
