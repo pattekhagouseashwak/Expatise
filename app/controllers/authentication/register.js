@@ -12,7 +12,7 @@ const {getForwardTime} = require('./helpers/getForwardTime')
 
 const appInfo = require('../../../settings.json')
 
-//const {mailchimpService} = require('./helpers/mailchimpService')
+const {mailchimpService} = require('./helpers/mailchimpService')
 
 const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
 
@@ -71,7 +71,7 @@ const registerAuctioneer = async (req, res) => {
               .then(async(data)=>{
                         if(data.Email == Email)
                        {
-                         //await mailchimpService(Email,fristName,lastName);
+                         await mailchimpService(Email,fristName,lastName);
                          let host=req.get('host');
 	                       console.log("host:",host);
                          await sendEmailToCustomer(host,Email,Email_otp,1);
@@ -135,7 +135,7 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
               .then(async(data)=>{
                         if(data.Email == Email)
                        {
-                         //await mailchimpService(Email,fristName,lastName);
+                         await mailchimpService(Email,fristName,lastName);
                          let host=req.get('host');
 	                       console.log("host:",host);
                          await sendEmailToCustomer(host,Email,Email_otp,2);
