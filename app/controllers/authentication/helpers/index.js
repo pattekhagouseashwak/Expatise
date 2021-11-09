@@ -4,6 +4,6 @@ const {twilioService} = require("../helpers/twilioService")
 const {sendEmailToCustomer} = require("../helpers/sendEmailToCustomer")
 const {decrypt} = require("./decrypt")
 const {encrypt} = require("./encrypt ")
-const {mailchimpService} = require("./mailchimpService")
+//const {mailchimpService} = require("./mailchimpService")
 
-module.exports ={generateOTP,getForwardTime,twilioService,sendEmailToCustomer,decrypt,encrypt,mailchimpService}
+module.exports ={generateOTP,getForwardTime,twilioService,sendEmailToCustomer,decrypt,encrypt}
