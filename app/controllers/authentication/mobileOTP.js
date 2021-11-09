@@ -26,7 +26,7 @@ exports.mobileNumberExists = async (mobleNumber, reqType) => {
   var cursor;
 
   if(reqType == 1){
-                    await Auctioneer.findOne({ MobileNumber: mobleNumber }).then((data) => {
+                    await Auctioneer.findOne({ Phone: mobleNumber }).then((data) => {
                       if(data!=null){
                           cursor = data}
                       else if(data == null){
@@ -39,7 +39,7 @@ exports.mobileNumberExists = async (mobleNumber, reqType) => {
                     return cursor;
                   }
   else if(reqType == 2){
-                    await Bidder.findOne({ MobileNumber: mobleNumber }).then((data) => {
+                    await Bidder.findOne({ Phone: mobleNumber }).then((data) => {
                       if(data!=null){
                           cursor = data}
                       else if(data == null){
@@ -53,7 +53,7 @@ exports.mobileNumberExists = async (mobleNumber, reqType) => {
                   }
 };
 
-const mobileOTP = async (req, res) => {
+const mobileOTP = async (req, res) => { console.log(req.body)
   try {
     // req = matchedData(req)
     const Phone = req.body.Phone;
@@ -68,7 +68,7 @@ const mobileOTP = async (req, res) => {
 
     const doesMobileExists = await this.mobileNumberExists(Phone,reqType);
 
-    //console.log(doesMobileExists)
+    console.log(doesMobileExists)
 
     if(doesMobileExists.is_PhoneVerified == true){
       return  res.status(400).send({ status: 400, message: "phone number has already registered!!"})

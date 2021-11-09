@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
@@ -10,8 +11,10 @@ const appInfo = require('./settings.json')
 const path = require('path')
 
 global.appInfo = appInfo
-// Setup express server port from ENV, default: 3000
-app.set('port', appInfo.PORT || 4000)
+// Setup express server port from ENV, default: 4000
+//app.set('port', appInfo.PORT || 4000)
+
+app.set('port', (process.env.PORT));
 
 // for parsing json
 app.use(

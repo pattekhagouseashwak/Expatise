@@ -24,8 +24,8 @@ module.exports = () => {
           // Prints initialization
           console.log('****************************')
           console.log('*    Starting Server')
-          console.log(`*    Port: ${appInfo.PORT || 3000}`)
-          console.log(`*    NODE_ENV: ${appInfo.NODE_ENV}`)
+          console.log(`*    Port: ${process.env.PORT|| 4000 ||appInfo.PORT}`)
+          console.log(`*    NODE_ENV: ${process.env.NODE_ENV}`)
           console.log(`*    Database: MongoDB Atlas`)
           console.log(dbStatus)
         }
