@@ -15,7 +15,8 @@ const {
 const {
   validateMobileNumber,
   validateVerifyOTP,
-  validateRegister
+  validateRegister,
+  validateBidderRegister
 } = require('../controllers/authentication/validators')
 /*
  * Users routes
@@ -54,7 +55,7 @@ router.post(
 router.post(
   '/registerBidder',
   trimRequest.all,
-  //validateRegister,
+  validateBidderRegister,
   registerBidder
 )
 

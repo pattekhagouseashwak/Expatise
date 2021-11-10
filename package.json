@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@sendgrid/mail": "^7.6.0",
     "async-await-foreach": "^1.0.4",
     "aws-sdk": "^2.937.0",
     "babel-eslint": "^10.1.0",

@@ -124,7 +124,6 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
                                         Country:country,
                                         ZipCode:zip,
                                         Email:Email,
-                                        Photo:photo,
                                         password:password,
                                         Email_otp,
                                         Email_Expiry_time,

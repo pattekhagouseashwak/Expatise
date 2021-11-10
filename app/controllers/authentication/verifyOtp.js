@@ -29,7 +29,8 @@ const verifyOtp = async (req, res) => { console.log(req.body)
                         if(data.otp == otp && data.Expiry_time >= Date.now()){
                            await Auctioneer.findOneAndUpdate({Phone},{is_PhoneVerified:true},{new:true})
                                             .then(()=>{
-                                                      res.status(200).send({ status: 200, message: "successfully otp has verified!!",data})
+                                                      const id = data._id
+                                                      res.status(200).send({ status: 200, message: "successfully otp has verified!!",id})
                                             }).catch(Err => {
                                                 res.status(500).send({
                                                 status: 500,
