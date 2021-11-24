@@ -9,14 +9,17 @@ const {
   registerBidder,
   registerAuctioneer,
   verifyEmailAuctioneer,
-  verifyEmailBidder
+  verifyEmailBidder,
+  login,
+  logout
 } = require('../controllers/authentication')
 
 const {
   validateMobileNumber,
   validateVerifyOTP,
   validateRegister,
-  validateBidderRegister
+  validateBidderRegister,
+  validateLogin
 } = require('../controllers/authentication/validators')
 /*
  * Users routes
@@ -69,5 +72,18 @@ router.get(
   '/verifyBidder',
   trimRequest.all,
   verifyEmailBidder
+)
+
+router.post(
+  '/loginAuctioneer',
+  trimRequest.all,
+  validateLogin,
+  login
+)
+
+router.post(
+  '/logout',
+  trimRequest.all,
+  logout
 )
 module.exports = router

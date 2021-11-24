@@ -14,6 +14,8 @@ router.use(baseUr, require('./authentication'))
 
 router.use(baseUr, require('./zipCode'))
 
+router.use(baseUr, require('./profile'))
+
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {

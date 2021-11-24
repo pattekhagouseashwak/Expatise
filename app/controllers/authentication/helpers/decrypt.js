@@ -1,7 +1,5 @@
 const crypto = require('crypto')
 
-const appInfo = require('../../../../settings.json')
-
 const secret = appInfo.JWT_SECRET
 const algorithm = 'aes-256-cbc'
 // Key length is dependent on the algorithm. In this case for aes256, it is
@@ -13,7 +11,7 @@ const iv = Buffer.alloc(16, 0) // Initialization crypto vector
  * Decrypts text
  * @param {string} text - text to decrypt
  */
-const decrypt = async(text = '') => {
+const decrypt = (text = '') => {
   const decipher = crypto.createDecipheriv(algorithm, key, iv)
 
   try {

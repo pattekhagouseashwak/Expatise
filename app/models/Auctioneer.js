@@ -37,6 +37,8 @@ const AuctioneerSchema = new mongoose.Schema(
 
     Phone        :{type:String, required:true},
 
+    AlternateContact:{type:String, required:true},
+
     otp          :{type:String,required:true},
 
     Expiry_time :{type:Date,required:true},
@@ -49,7 +51,17 @@ const AuctioneerSchema = new mongoose.Schema(
 
     AuctioneerLicenscePhoto:{type:Object},
 
+    AuctioneerBio:{type:Object},
+
     Website:{type:String},
+
+    facebook:{type:String},
+
+    youtube:{type:String},
+
+    instagram:{type:String},
+
+    linkedin:{type:String},
 
     password:{type:String},
   },

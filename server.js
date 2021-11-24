@@ -9,6 +9,7 @@ const app = express()
 const initMongo = require('./config/mongo')
 const appInfo = require('./settings.json')
 const path = require('path')
+const cookieParser = require("cookie-parser");
 
 global.appInfo = appInfo
 // Setup express server port from ENV, default: 4000
@@ -34,6 +35,7 @@ app.use(
 app.use(cors())
 // app.use(passport.initialize())
 app.use(compression())
+app.use(cookieParser());
 app.use(helmet())
 app.get('/', function(req, res) {
 	res.send('Welcome to Auction  journal backend application!!!');
