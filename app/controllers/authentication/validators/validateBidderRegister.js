@@ -75,7 +75,7 @@ const validateBidderRegister = [
     .isEmpty()
     .withMessage('Email IS_EMPTY'),
 
-    check('DrivingLicenseNo')
+   /* check('DrivingLicenseNo')
     .exists()
     .withMessage('DrivingLicenseNo MISSING')
     .not()
@@ -89,7 +89,7 @@ const validateBidderRegister = [
     .isEmpty()
     .withMessage('DrivingLicensePhoto IS_EMPTY')
     .isURL()
-    .withMessage('DrivingLicensePhoto link is not in url fomrat'),
+    .withMessage('DrivingLicensePhoto link is not in url fomrat'),*/
 
     check('password')
     .exists()
