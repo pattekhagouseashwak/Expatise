@@ -90,7 +90,7 @@ const registerAuctioneer = async (req, res) => {
   }
 }
 
-const registerBidder = async (req, res) => { //console.log("body:",req.body)
+const registerBidder = async (req, res) => { console.log("body:",req.body)
   try {
     const id = req.body.id;
     const firstName = req.body.firstName;
@@ -106,8 +106,8 @@ const registerBidder = async (req, res) => { //console.log("body:",req.body)
     const Email_Expiry_time = await getForwardTime(240.00);
     const Emailotp = await generateOTP(appInfo.emailOtpLength);
     const Email_otp = await bcrypt.hash(Emailotp, rounds);
-    //const DrivingLicenseNo = req.body.DrivingLicenseNo;
-    //const DrivingLicensePhoto = req.body.DrivingLicensePhoto;
+    const DrivingLicenseNo = req.body.DrivingLicenseNo;
+    const DrivingLicensePhoto = req.body.DrivingLicensePhoto;
 
 
     if(await Bidder.findOne({id,is_PhoneVerified:true}) == null){
@@ -127,8 +127,8 @@ const registerBidder = async (req, res) => { //console.log("body:",req.body)
                                         password:password,
                                         Email_otp,
                                         Email_Expiry_time,
-                                        //DrivingLicenseNo,
-                                        //DrivingLicensePhoto
+                                        DrivingLicenseNo,
+                                        DrivingLicensePhoto
                                       })
               .then(async(data)=>{
                         if(data.Email == Email)
