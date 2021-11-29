@@ -37,7 +37,7 @@ const AuctioneerSchema = new mongoose.Schema(
 
     Phone        :{type:String, required:true},
 
-    AlternateContact:{type:String, required:true},
+    AlternateContact:{type:String},
 
     otp          :{type:String,required:true},
 
