@@ -20,13 +20,15 @@ const BidderSchema = new mongoose.Schema(
 
     ZipCode      :{type:String},
 
-    Email: {type: String,unique: [true, "Email is already present  "],
-      validate(value) {
-        if (!validator.isEmail(value)) {
-          throw new error("Invalid Email");
-        }
-      },
-    },
+    // Email: {type: String,unique: [true, "Email is already present  "],
+    //   validate(value) {
+    //     if (!validator.isEmail(value)) {
+    //       throw new error("Invalid Email");
+    //     }
+    //   },
+    // },
+
+    Email : {type:String},
 
     Email_otp          :{type:String},
 
