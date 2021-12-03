@@ -4,7 +4,7 @@ const { check } = require('express-validator')
 /**
  * Validates verify request
  */
-const validateEditProfile = [
+const validateAuctioneerEditProfile = [
 
     check('companyName')
     .optional()
@@ -96,4 +96,70 @@ const validateEditProfile = [
   }
 ]
 
-module.exports = { validateEditProfile }
+
+const validateBidderEditProfile = [
+
+  check('firstName')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('firstName IS_EMPTY'),
+
+ check('lastName')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('lastName IS_EMPTY'),
+
+ check('Email')
+ .optional()
+ .isEmail()
+ .withMessage('Email is invalid')
+ .not()
+ .isEmpty()
+ .withMessage('Email IS_EMPTY'),
+
+ check('Phone')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('Phone no is empty')
+ .isLength({
+   min: 12, max: 14
+ })
+ .withMessage('Phone Number length should be 12 including country code +1'),
+
+ check('Telephone')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('Telephone no is empty')
+ .isLength({
+   min: 12, max: 14
+ })
+ .withMessage('Telephone Number length should be 12 including country code +1'),
+
+ check('Nickname')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('Nickname IS_EMPTY'),
+
+ check('CardHolderName')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('CardHolderName IS_EMPTY'),
+
+ check('CardCountry')
+ .optional()
+ .not()
+ .isEmpty()
+ .withMessage('CardCountry IS_EMPTY'),
+
+(req, res, next) => {
+ validateResult(req, res, next)
+}
+]
+
+module.exports = { validateAuctioneerEditProfile, validateBidderEditProfile }

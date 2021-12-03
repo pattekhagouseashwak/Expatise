@@ -22,8 +22,40 @@ const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
  * @param {Object} res - response object
  */
 
+//check registered Email Id or username
+exports.checkEmail = async (emailId,reqType) => {
+  var cursorData;
+  if(reqType == 1)
+  {await Auctioneer.findOne({Email:emailId})
+      .select("Email")
+      .then((result) => {
+          cursorData = result;
+      }).catch(err => {
+          cursorData=null;
+      });
+  }
+  else if(reqType == 2)
+    {await Bidder.findOne({Email:emailId})
+      .select("Email")
+      .then((result) => {
+          cursorData = result;
+      }).catch(err => {
+          cursorData=null;
+      });
+  }
+  return cursorData;
+}
+
 const registerAuctioneer = async (req, res) => {
   try {
+
+    const user = await this.checkEmail(req.body.Email,1);
+
+    if(user!=null){
+      if(user.Email == req.body.Email){
+        return res.status(400).send({status:400,message:"Email is already registered"});
+      }
+    }
     const id = req.body.id;
     const companyName = req.body.companyName;
     const firstName = req.body.fristName;
@@ -44,11 +76,10 @@ const registerAuctioneer = async (req, res) => {
     const Emailotp = await generateOTP(appInfo.emailOtpLength);
     const Email_otp = await bcrypt.hash(Emailotp, rounds);
 
-
     if(await Auctioneer.findOne({id,is_PhoneVerified:true}) == null){
       return res.status(400).send({status:400,message:"please verify mobile number"});
     }
-
+    
     await Auctioneer.findOneAndUpdate({id,is_PhoneVerified:true},
                                       {
                                         CompanyName:companyName,
@@ -67,7 +98,7 @@ const registerAuctioneer = async (req, res) => {
                                         password:password,
                                         Email_otp,
                                         Email_Expiry_time
-                                      })
+                                      },{new:true})
               .then(async(data)=>{
                         if(data.Email == Email)
                        {
@@ -92,6 +123,14 @@ const registerAuctioneer = async (req, res) => {
 
 const registerBidder = async (req, res) => { console.log("body:",req.body)
   try {
+    const user = await this.checkEmail(req.body.Email,2);
+    
+    if(user!=null){
+      if(user.Email == req.body.Email){
+        return res.status(400).send({status:400,message:"Email is already registered"});
+      }
+    }
+
     const id = req.body.id;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
@@ -129,7 +168,7 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
                                         Email_Expiry_time,
                                         DrivingLicenseNo,
                                         DrivingLicensePhoto
-                                      })
+                                      },{new:true})
               .then(async(data)=>{
                         if(data.Email == Email)
                        {

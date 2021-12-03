@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
-const { encrypt } = require('../helpers')
+const { encrypt } = require('../helpers/encrypt ')
 const appInfo = require('../../../../settings.json')
 
 /**
  * Generates a token
  * @param {Object} user - user object
  */
-const generateToken = (user = '') => { console.log(user)
+const generateToken = (user = '',reqType ="") => { //console.log("user",user,reqType)
   try {
     // Gets expiration time
     const expiration =
@@ -17,7 +17,8 @@ const generateToken = (user = '') => { console.log(user)
       jwt.sign(
         {
           data: {
-            _id: user
+            _id: user,
+            reqType
           },
           exp: expiration
         },

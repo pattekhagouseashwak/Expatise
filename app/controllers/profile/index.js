@@ -1,4 +1,5 @@
-const {myProfile} = require('./myProfile')
-const {editProfile} = require('./editProfile')
+const {auctioneerProfile, bidderProfile} = require('./myProfile')
+const {editAuctioneerProfile, editBidderProfile} = require('./editProfile')
+const {bidHistory} = require('./bidHistory')
 
-module.exports ={myProfile,editProfile}
+module.exports ={bidderProfile, auctioneerProfile,editAuctioneerProfile, editBidderProfile, bidHistory}

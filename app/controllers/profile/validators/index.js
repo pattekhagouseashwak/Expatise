@@ -1,3 +1,3 @@
-const{validateEditProfile} = require('./validateEditProfile')
+const{validateAuctioneerEditProfile,validateBidderEditProfile} = require('./validateEditProfile')
 
-module.exports = {validateEditProfile};
+module.exports = {validateAuctioneerEditProfile,validateBidderEditProfile};

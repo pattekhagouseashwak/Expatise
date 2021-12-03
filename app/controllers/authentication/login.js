@@ -24,7 +24,7 @@ exports.checkEmail = async (emailId) => {
   return cursorData;
 }
 
-const login = async (req, res) => {
+const login = async (req, res) => { console.log(req.body)
 
   try {
     const data = matchedData(req)
@@ -47,8 +47,9 @@ const login = async (req, res) => {
       res.status(400).send({status:"400",message:"The creditials entered here do not match"})
     } else {
       // all ok then return token,AuctioneerLicensceNo, Name and Photo
-      console.log(user._id)
-      let accessToken = await generateToken(user._id)
+     //console.log(user._id)
+      let reqType = 1; console.log("accesstoken")
+      let accessToken = await generateToken(user._id,reqType); //console.log(accessToken)
       let _id = user._id;
       let AuctioneerLicensceNo = user.AuctioneerLicensceNo;
       let Email = user.Email;
@@ -56,12 +57,12 @@ const login = async (req, res) => {
       let LastName = user.LastName;
       let Photo = user.Photo;
       res 
-    .cookie("access_token", accessToken, {
+     .cookie("access_token", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
-    .send({status:200,message:"Successfully Login!!",_id,AuctioneerLicensceNo,Email,LastName,Photo});
+    .send({status:200,message:"Successfully Login!!",_id,AuctioneerLicensceNo,Email,FristName,LastName,Photo});
     }
   }
   else{

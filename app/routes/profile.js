@@ -8,12 +8,16 @@ const requireAuth = passport.authenticate('jwt', {
 })
 
 const {
-  myProfile,
-  editProfile
+  bidderProfile,
+  auctioneerProfile,
+  editBidderProfile,
+  editAuctioneerProfile,
+  bidHistory
 } = require('../controllers/profile')
 
 const {
-  validateEditProfile
+  validateBidderEditProfile,
+  validateAuctioneerEditProfile
 } = require('../controllers/profile/validators')
 /*
  * Users routes
@@ -21,18 +25,40 @@ const {
 
 
 router.get(
-  '/myProfile',
+  '/bidHistory',
   trimRequest.all,
   requireAuth,
-  myProfile
+  bidHistory
+)
+
+
+router.get(
+  '/auctioneerProfile',
+  trimRequest.all,
+  requireAuth,
+  auctioneerProfile
+)
+
+router.get(
+  '/bidderProfile',
+  trimRequest.all,
+  requireAuth,
+  bidderProfile
 )
 
 router.post(
-  '/editProfile',
+  '/editAuctioneerProfile',
   trimRequest.all,
   requireAuth,
-  validateEditProfile,
-  editProfile
+  validateAuctioneerEditProfile,
+  editAuctioneerProfile
 )
 
+router.post(
+  '/editBidderProfile',
+  trimRequest.all,
+  requireAuth,
+  validateBidderEditProfile,
+  editBidderProfile
+)
 module.exports = router
