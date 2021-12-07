@@ -66,9 +66,8 @@ const editAuctioneerProfile = async (req, res) => {
 
 const editBidderProfile = async (req, res) => {
   try {
-    
+  
     const id = req.user._id
-
     const FirstName = req.body.firstName
     const LastName = req.body.lastName
     const StreetAddress =  req.body.StreetAddress

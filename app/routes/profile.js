@@ -12,12 +12,15 @@ const {
   auctioneerProfile,
   editBidderProfile,
   editAuctioneerProfile,
-  bidHistory
+  bidHistory,
+  uploadAuctioneerProfile,
+  removeProfilePhoto
 } = require('../controllers/profile')
 
 const {
   validateBidderEditProfile,
-  validateAuctioneerEditProfile
+  validateAuctioneerEditProfile,
+  validateuploadPhoto
 } = require('../controllers/profile/validators')
 /*
  * Users routes
@@ -60,5 +63,20 @@ router.post(
   requireAuth,
   validateBidderEditProfile,
   editBidderProfile
+)
+
+router.post(
+  '/uploadPhoto',
+  trimRequest.all,
+  requireAuth,
+  validateuploadPhoto,
+  uploadAuctioneerProfile
+)
+
+router.post(
+  '/removeProfilePhoto',
+  trimRequest.all,
+  requireAuth,
+  removeProfilePhoto
 )
 module.exports = router

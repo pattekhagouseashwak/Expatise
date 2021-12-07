@@ -17,7 +17,7 @@ const auctioneerProfile = async (req, res) => {
     
     const id = req.user._id
     
-    console.log(id)
+    //console.log(id)
     
     await Auctioneer.findOne({_id:id})
               .select("-password -is_EmailVerified -otp -Expiry_time -is_PhoneVerified -createdAt -updatedAt -Email_Expiry_time -Email_otp")

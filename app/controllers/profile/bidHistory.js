@@ -2,7 +2,6 @@ const { handleError } = require('../../middleware/utils')
 
 const Bidder = require('../../models/Bidder')
 
-
 /**
  * Register function called by route
  * @param {Object} req - request object
