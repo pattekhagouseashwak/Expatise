@@ -62,7 +62,7 @@ const login = async (req, res) => { console.log(req.body)
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
-    .send({status:200,message:"Successfully Login!!",_id,AuctioneerLicensceNo,Email,FristName,LastName,Photo});
+    .send({status:200,message:"Successfully Login!!",_id,AuctioneerLicensceNo,Email,FristName,LastName,Photo,accessToken});
     }
   }
   else{
