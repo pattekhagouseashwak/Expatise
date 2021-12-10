@@ -66,5 +66,5 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type) => { //console.log(t
       console.error(error)
     })
   }
-
+  
   module.exports ={sendEmailToCustomer}

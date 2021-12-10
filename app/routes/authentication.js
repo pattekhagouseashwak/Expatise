@@ -15,7 +15,8 @@ const {
   registerAuctioneer,
   verifyEmailAuctioneer,
   verifyEmailBidder,
-  login,
+  loginAuctioneer,
+  loginBidder,
   logout
 } = require('../controllers/authentication')
 
@@ -83,7 +84,14 @@ router.post(
   '/loginAuctioneer',
   trimRequest.all,
   validateLogin,
-  login
+  loginAuctioneer
+)
+
+router.post(
+  '/loginBidder',
+  trimRequest.all,
+  validateLogin,
+  loginBidder
 )
 
 router.post(
@@ -92,4 +100,5 @@ router.post(
   trimRequest.all,
   logout
 )
+
 module.exports = router

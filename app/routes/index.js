@@ -20,6 +20,11 @@ router.use(baseUr, require('./auctionListing'))
 
 router.use(baseUr, require('./addContent'))
 
+router.use(baseUr, require('./getPasses'))
+
+router.use(baseUr, require('./getRequests'))
+
+router.use(baseUr, require('./contact'))
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {

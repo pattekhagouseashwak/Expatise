@@ -14,7 +14,8 @@ const {
   editAuctioneerProfile,
   bidHistory,
   uploadAuctioneerProfile,
-  removeProfilePhoto
+  removeProfilePhoto,
+  bidRequest
 } = require('../controllers/profile')
 
 const {
@@ -78,5 +79,12 @@ router.post(
   trimRequest.all,
   requireAuth,
   removeProfilePhoto
+)
+
+router.post(
+  '/bidRequest',
+  trimRequest.all,
+  requireAuth,
+  bidRequest
 )
 module.exports = router

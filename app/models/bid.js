@@ -4,19 +4,17 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const BidSchema = new mongoose.Schema(
   {
-    auctioneerCompanyName: {type:String,required:true},
-    productName: {type:String,required:true},
-    address: {type:String,required:true},
-    date: {type:Date,required:true},
-    time: {type:String,required:true}
-  },
+    auctionType:{type:String,required:true},
+    userId: {type:ObjectId, ref:"Bidder",requried:true},
+    auctionId:{type:ObjectId, ref:"AuctionLisintg",requried:true}
 
+    // qrCodeString: {type:String,required:false, default: undefined}
+  },
+ 
   {
     versionKey: false,
     timestamps: true
   }
-
-
 )
 
 BidSchema.plugin(mongoosePaginate)

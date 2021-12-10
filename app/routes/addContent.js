@@ -31,6 +31,4 @@ router.post(
   trimRequest.all,
   postContent
 )
-
-
 module.exports = router
