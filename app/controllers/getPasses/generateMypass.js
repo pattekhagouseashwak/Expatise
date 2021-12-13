@@ -1,4 +1,4 @@
-const Bid = require('../../models/Bid')
+const Bid = require('../../models/bid')
 /**
  * Register function called by route
  * @param {Object} req - request object
