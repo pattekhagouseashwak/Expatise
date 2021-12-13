@@ -103,6 +103,7 @@ const loginBidder = async (req, res) => {
     const validPassword = await bcrypt.compare(password,user.password);
 
     //console.log(validPassword,password,user.password)
+    
 
     //compare password
 

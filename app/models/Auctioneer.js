@@ -49,6 +49,8 @@ const AuctioneerSchema = new mongoose.Schema(
 
     Photo:{type:String},
 
+    AuctioneerID:{type:String},
+
     AuctioneerLicensceNo:{type:String},
 
     AuctioneerLicenscePhoto:{type:Object},

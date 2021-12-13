@@ -67,6 +67,7 @@ const registerAuctioneer = async (req, res) => {
     const country = req.body.country;
     const Email = req.body.Email;
     const photo = req.body.photo;
+    const auctioneerID = "AUC"+await generateOTP(appInfo.otpLength);
     const auctioneerLicensceNo = req.body.auctioneerLicensceNo;
     const auctioneerLicenscePhoto = req.body.auctioneerLicenscePhoto;
     const website = req.body.website;
@@ -92,6 +93,7 @@ const registerAuctioneer = async (req, res) => {
                                         ZipCode:zip,
                                         Email:Email,
                                         Photo:photo,
+                                        AuctioneerID:auctioneerID,
                                         AuctioneerLicensceNo:auctioneerLicensceNo,
                                         AuctioneerLicenscePhoto:auctioneerLicenscePhoto,
                                         Website:website,
