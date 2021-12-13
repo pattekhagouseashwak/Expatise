@@ -149,6 +149,7 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
     const Email_otp = await bcrypt.hash(Emailotp, rounds);
     const DrivingLicenseNo = req.body.DrivingLicenseNo;
     const DrivingLicensePhoto = req.body.DrivingLicensePhoto;
+    const bidderID = "BID"+await generateOTP(appInfo.otpLength);
 
 
     if(await Bidder.findOne({id,is_PhoneVerified:true}) == null){
@@ -169,7 +170,8 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
                                         Email_otp,
                                         Email_Expiry_time,
                                         DrivingLicenseNo,
-                                        DrivingLicensePhoto
+                                        DrivingLicensePhoto,
+                                        BidderID:bidderID
                                       },{new:true})
               .then(async(data)=>{
                         if(data.Email == Email)

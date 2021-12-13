@@ -71,7 +71,7 @@ const postContent = async (req, res) => {
         //Blog content.........
         if(reqType == 1){
 
-        if(files.length != 0){
+        if(Array.isArray(files) && files.length != 0){
 
             const resultSet = await this.fetchUser_ID(req.user.id)
           

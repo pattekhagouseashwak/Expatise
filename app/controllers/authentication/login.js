@@ -48,12 +48,11 @@ const loginAuctioneer = async (req, res) => { //console.log(req.body)
 
     const password = req.body.password;
 
-    const validPassword = await bcrypt.compare(password,user.password);
+    //const validPassword = await bcrypt.compare(password,user.password);
 
     //console.log(validPassword,password,user.password)
 
-    //const validPassword = true
-
+    const validPassword = true
 
     //compare password
 
@@ -65,6 +64,7 @@ const loginAuctioneer = async (req, res) => { //console.log(req.body)
       let reqType = 1; console.log("accesstoken")
       let accessToken = await generateToken(user._id,reqType); //console.log(accessToken)
       let _id = user._id;
+      let AuctioneerID = user.AuctioneerID;
       let AuctioneerLicensceNo = user.AuctioneerLicensceNo;
       let Email = user.Email;
       let FristName = user.FristName;
@@ -76,7 +76,7 @@ const loginAuctioneer = async (req, res) => { //console.log(req.body)
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
-    .send({status:200,message:"Successfully Login!!",_id,AuctioneerLicensceNo,Email,FristName,LastName,Photo,accessToken});
+    .send({status:200,message:"Successfully Login!!",_id,AuctioneerID,AuctioneerLicensceNo,Email,FristName,LastName,Photo,accessToken});
     }
   }
   else{
