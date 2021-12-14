@@ -29,12 +29,23 @@ const createGetRequest = async (req, res) => {
 
         const auctionId = req.body.auctionId;
 
+        const category = req.body.category;
+        const auctioneerCompanyName = req.body.auctioneerCompanyName;
+        const productName= req.body.productName;
+        const address=req.body.address;
+        const date=req.body.date;
+        const time=req.body.time;
+        const BidderName=req.body.BidderName;
+        const BidderEmail=req.body.BidderEmail;
+        const BidderContact=req.body.BidderContact;
+
+
         const resultSet = await this.checkUserhasPass(userId,auctionId)
 
             if(resultSet == "NA" || resultSet.length !=0){
             return res.status(400).send({ status: 400, message: "Request has created already, Please check in Profile DashBoard!!"})
         }
-        await Bid.create({userId,auctionId,auctionType:"getRequest"})
+        await Bid.create({userId,auctionId,auctionType:"getRequest",category,auctioneerCompanyName,productName,address,date,time,BidderName,BidderEmail,BidderContact})
                  .then(()=>{
                             res.status(200).send({ status: 200, message: "Successfully bid request has created!!"})
                            }

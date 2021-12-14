@@ -7,8 +7,8 @@ const Bid = require('../../models/bid')
 const getRequests = async (req, res) => {
     try {
         await Bid.find()
-                  .populate("userId","FirstName LastName Phone")
-                  .populate({path:"auctionId",select:"name User_id NameOfProduct uploadPhoto AuctionTitle AuctionDate AuctionTime Auctioneer",populate:{path:'Auctioneer',model:'Auctioneer', select:'CompanyName'}})
+                  //.populate("userId","FirstName LastName Phone")
+                  //.populate({path:"auctionId",select:"name User_id NameOfProduct uploadPhoto AuctionTitle AuctionDate AuctionTime Auctioneer",populate:{path:'Auctioneer',model:'Auctioneer', select:'CompanyName'}})
                   .then((data)=>{
                                 res.status(200).send({ status: 200, message: "successfully fetched all auction requests!!",data})
                                 }

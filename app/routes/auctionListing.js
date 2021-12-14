@@ -14,7 +14,8 @@ const requireAuth = passport.authenticate('jwt', {
 const {
   createListing,
   fetchListing,
-  featureAuction
+  featureAuction,
+  downladBidRequest
 } = require('../controllers/auctionListing')
 
 const {
@@ -43,9 +44,16 @@ router.get(
 
 router.post(
   '/featureAuction',
-  //requireAuth,
+  requireAuth,
   trimRequest.all,
   featureAuction
+)
+
+router.post(
+  '/downladBidRequest',
+  requireAuth,
+  trimRequest.all,
+  downladBidRequest
 )
 
 module.exports = router

@@ -1,0 +1,3 @@
+category,auctionType,BidderName,BidderEmail,BidderContact
+online,getRequest,BidderName,BidderEmail,BidderContact
+online,Passes,BidderName,BidderEmail,BidderContact

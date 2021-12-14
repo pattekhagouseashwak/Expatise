@@ -14,6 +14,7 @@ const bidRequest = async (req, res) => {
         await Bid.find({auctionId:"61a21e49db7e3b2a479fa80d"})
                   .populate("userId","FirstName LastName Phone")
                   .then((data)=>{
+                                
                                 res.status(200).send({ status: 200, message: "Successfully fetch Bid Request for respective auction List!!",data})
                                 })
                   .catch(Err => {
