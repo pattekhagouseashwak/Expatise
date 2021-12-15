@@ -24,7 +24,7 @@ const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
                                                             .then(async()=>{
                                                                       await sendEmailToCustomer(host,email,"NA",3);
                                                                       res
-                                                                      .redirect('https://peaceful-shannon-16165f.netlify.app')
+                                                                      .redirect('https://peaceful-shannon-16165f.netlify.app/signin')
                                                                       .status(200)
                                                                       .send({ status: 200, message: "Your E-mail has been succesfully verified. Please wait for 24-48 hours to get an update about account activiation"});
                                                             }).catch(Err => {
