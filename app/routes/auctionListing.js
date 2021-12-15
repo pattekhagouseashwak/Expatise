@@ -32,10 +32,12 @@ router.post(
   '/createListing',
   requireAuth,
   //validateCreateListing,
-  upload.array('file', 10000),
+  //upload.array('file', 10000),
   trimRequest.all,
   createListing
 )
+
+
 
 router.get(
   '/fetchListing',

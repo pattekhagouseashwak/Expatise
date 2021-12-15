@@ -2,11 +2,11 @@ const { handleError } = require('../../middleware/utils')
 
 const AuctionListing = require('../../models/auctionListing')
 
-const Auctioneer = require('../../models/Auctioneer')
+//const Auctioneer = require('../../models/Auctioneer')
 
-var AWS = require("aws-sdk");
+//var AWS = require("aws-sdk");
 
-const appConstants = require('../../../config/aws.config');
+//const appConstants = require('../../../config/aws.config');
 
 /**
  * Register function called by route
@@ -14,51 +14,51 @@ const appConstants = require('../../../config/aws.config');
  * @param {Object} res - response object
  */
 
-// AWS S3 configuration
-var s3bucket = new AWS.S3({
-    accessKeyId: appConstants.AWS_ACCESS_KEY_ID,
-    secretAccessKey: appConstants.AWS_SECRET_ACCESS_KEY,
-    region: appConstants.AWS_REGION
-  });
+// // AWS S3 configuration
+// var s3bucket = new AWS.S3({
+//     accessKeyId: appConstants.AWS_ACCESS_KEY_ID,
+//     secretAccessKey: appConstants.AWS_SECRET_ACCESS_KEY,
+//     region: appConstants.AWS_REGION
+//   });
 
-//checkUser-ID
-exports.fetchUser_ID = async (obj_id) => {
+// //checkUser-ID
+// exports.fetchUser_ID = async (obj_id) => {
  
-    var cursor;
-    await Auctioneer.findOne({ _id: obj_id }).then(data => {
-      cursor = data;
-    })
-      .catch(err => {
-        cursor = null;
-      });
-    return cursor;
-  };
+//     var cursor;
+//     await Auctioneer.findOne({ _id: obj_id }).then(data => {
+//       cursor = data;
+//     })
+//       .catch(err => {
+//         cursor = null;
+//       });
+//     return cursor;
+//   };
  
-  //upload document to S3
-  exports.uploadDocToS3 = async (s3bucket,params,s3FileURL,file) =>{
+//   //upload document to S3
+//   exports.uploadDocToS3 = async (s3bucket,params,s3FileURL,file) =>{
  
-    var isUploaded;
-    await s3bucket.upload(params, function(err, data) {
-     if (err) {
-       console.log(err);
-       isUploaded = null;
-       return isUploaded;
-     } else {
-       //res.send({ data });
-       isUploaded = s3FileURL + params.Key+ file.originalname;
-       //console.log(isUploaded)
-       return isUploaded;
-     }
-   });
+//     var isUploaded;
+//     await s3bucket.upload(params, function(err, data) {
+//      if (err) {
+//        console.log(err);
+//        isUploaded = null;
+//        return isUploaded;
+//      } else {
+//        //res.send({ data });
+//        isUploaded = s3FileURL + params.Key+ file.originalname;
+//        //console.log(isUploaded)
+//        return isUploaded;
+//      }
+//    });
  
- };
+//  };
 
 const createListing = async (req, res) => {//console.log(req.files )
   try {
     
     const files = req.files
     
-    const resultSet = await this.fetchUser_ID(req.user.id)
+    //const resultSet = await this.fetchUser_ID(req.user.id)
 
     //console.log(resultSet)
 
@@ -80,38 +80,39 @@ const createListing = async (req, res) => {//console.log(req.files )
     const BiddingNotice = req.body.BiddingNotice;
     const AuctionNotice= req.body.AuctionNotice;
     const TermsAndCondition = req.body.TermsAndCondition;
+    const uploadPhoto = req.body.uploadPhoto;
 
-    if(files.length != 0){ 
+//     if(files.length != 0)
+//{ 
       
-        //console.log("with media")
+//         //console.log("with media")
         
-        const s3FileURL = appConstants.AWS_Uploaded_File_URL_LINK;
+//         const s3FileURL = appConstants.AWS_Uploaded_File_URL_LINK;
     
-        var photos = [];
+//         var photos = [];
     
-        for(var i=0;i<files.length;i++){
+//         for(var i=0;i<files.length;i++){
     
-           var file = files[i];
+//            var file = files[i];
           
-           //Where you want to store your file
+//            //Where you want to store your file
     
-           var params = {
-            Bucket: appConstants.AWS_BUCKET_NAME,
-            Key: resultSet.FirstName+'/'+file.originalname,
-            Body: file.buffer,
-            ContentType: file.mimetype,
-            ACL: "public-read"
-           };
+//            var params = {
+//             Bucket: appConstants.AWS_BUCKET_NAME,
+//             Key: resultSet.FirstName+'/'+file.originalname,
+//             Body: file.buffer,
+//             ContentType: file.mimetype,
+//             ACL: "public-read"
+//            };
            
-           await this.uploadDocToS3(s3bucket,params,s3FileURL,file);
+//            await this.uploadDocToS3(s3bucket,params,s3FileURL,file);
         
-           photos.push(s3FileURL + params.Key);
+//            photos.push(s3FileURL + params.Key);
     
-    }
+//     }
 
-}
-
-    const uploadPhoto = photos;
+// }
+    
         
     
     await AuctionListing.create({
