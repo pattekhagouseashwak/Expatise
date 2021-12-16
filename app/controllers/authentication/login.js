@@ -48,11 +48,11 @@ const loginAuctioneer = async (req, res) => { //console.log(req.body)
 
     const password = req.body.password;
 
-    //const validPassword = await bcrypt.compare(password,user.password);
+    const validPassword = await bcrypt.compare(password,user.password);
 
     //console.log(validPassword,password,user.password)
 
-    const validPassword = true
+    //const validPassword = true
 
     //compare password
 
@@ -87,7 +87,7 @@ const loginAuctioneer = async (req, res) => { //console.log(req.body)
   }
 }
 
-const loginBidder = async (req, res) => {
+const loginBidder = async (req, res) => { 
 
   try {
     const data = matchedData(req)
@@ -98,11 +98,11 @@ const loginBidder = async (req, res) => {
     
     if(user !=null ){
 
-    const password = req.body.password;
+      const password = req.body.password;
 
-    const validPassword = await bcrypt.compare(password,user.password);
+      const validPassword = await bcrypt.compare(password,user.password);
 
-    //console.log(validPassword,password,user.password)
+      console.log(validPassword)
     
 
     //compare password

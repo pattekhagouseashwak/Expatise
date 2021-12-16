@@ -48,7 +48,7 @@ const BidderSchema = new mongoose.Schema(
 
     DrivingLicensePhoto:{type:String},
 
-    Passwords:{type:String},
+    password:{type:String},
 
     BidderID:{type:String}
   },
