@@ -69,10 +69,10 @@ const createListing = async (req, res) => {//console.log(req.files )
     const AuctionTime = req.body.AuctionTime;
     const Address1 = req.body.Address1;
     const Address2 = req.body.Address2;
-    const City = req.body.city;
-    const State = req.body.state;
-    const Country = req.body.country;
-    const Zip = req.body.zip;
+    const City = req.body.City;
+    const State = req.body.State;
+    const Country = req.body.Country;
+    const Zip = req.body.Zip;
     const AuctionCategory = req.body.AuctionCategory;
     const CategoryDetails = req.body.CategoryDetails;
     const NameOfProduct = req.body.NameOfProduct;
@@ -82,7 +82,7 @@ const createListing = async (req, res) => {//console.log(req.files )
     const TermsAndCondition = req.body.TermsAndCondition;
     const uploadPhoto = req.body.uploadPhoto;
 
-//     if(files.length != 0)
+ //     if(files.length != 0)
 //{ 
       
 //         //console.log("with media")
@@ -154,7 +154,7 @@ const createListing = async (req, res) => {//console.log(req.files )
     
         TermsAndCondition,
       })
-              .then(()=>{
+              .then((data)=>{
                          res.status(200).send({ status: 200, message: "your iteam has been successfully listed"})
                                         }).catch(Err => {
                                             res.status(500).send({
