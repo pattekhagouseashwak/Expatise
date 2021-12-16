@@ -18,7 +18,8 @@ const {
   downladBidRequest,
   uploadAuctionImage,
   editAuctionListing,
-  searchAuction
+  searchAuction,
+  fetchAuctionByTypeAndState
 } = require('../controllers/auctionListing')
 
 const {
@@ -79,5 +80,12 @@ router.post(
   requireAuth,
   trimRequest.all
   ,searchAuction)
+
+
+  router.post(
+    '/fetchAuctionByType&State',
+    requireAuth,
+    trimRequest.all,
+   fetchAuctionByTypeAndState)
 
 module.exports = router

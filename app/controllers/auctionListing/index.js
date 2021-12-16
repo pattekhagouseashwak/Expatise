@@ -5,5 +5,6 @@ const {downladBidRequest} = require('./downladBidRequest')
 const {uploadAuctionImage} = require('./uploadAuctionImage')
 const {editAuctionListing} = require('./editAuctionListing')
 const {searchAuction} = require('./searchAuction')
+const {fetchAuctionByTypeAndState} = require('./fetchAuctionByTypeAndState')
 
-module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,uploadAuctionImage,editAuctionListing,searchAuction}
+module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,uploadAuctionImage,editAuctionListing,searchAuction,fetchAuctionByTypeAndState}

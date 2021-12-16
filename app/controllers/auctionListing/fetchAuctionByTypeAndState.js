@@ -8,7 +8,7 @@ const AuctionLisintg = require('../../models/auctionListing')
  * @param {Object} res - response object
  */
 
-const searchAuction = async (req, res) => { //console.log(req.body)
+const fetchAuctionByTypeAndState = async (req, res) => { console.log(req.body)
   try {
     
     const id = req.user._id
@@ -23,24 +23,8 @@ const searchAuction = async (req, res) => { //console.log(req.body)
       searchValue.push({State:req.body.State});
       //console.log(searchValue)
     }
-    if(req.body.City.length !=0 ){
-      searchValue.push({City : req.body.City});
-      //console.log(searchValue)
-    }
-    if(req.body.Zip.length !=0 ){
-      searchValue.push({Zip : req.body.Zip});
-      //console.log(searchValue)
-    }
-    if(req.body.Miles.length !=0){
-      searchValue.push({Miles : req.body.Miles});
-      //console.log(searchValue)
-    }
-    if(req.body.Category.length !=0 ){
-      searchValue.push({Category  : req.body.Category});
-      //console.log(searchValue)
-    }
-    if(req.body.Keywords.length !=0){ 
-      searchValue.push({Keywords : req.body.Keywords});
+    if(req.body.AuctionType.length !=0 ){
+      searchValue.push({AuctionType : req.body.AuctionType});
       //console.log(searchValue)
     }
     
@@ -48,7 +32,7 @@ const searchAuction = async (req, res) => { //console.log(req.body)
     
     await AuctionLisintg.find({ $and: searchValue } )
               .then((data)=>{
-                            res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details!!",data})
+                            res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details for "+req.body.State+" "+req.body.AuctionType, data})
                             }
                                         ).catch(Err => {
                                             res.status(500).send({
@@ -63,4 +47,4 @@ const searchAuction = async (req, res) => { //console.log(req.body)
   }
 }
 
-module.exports = { searchAuction }
+module.exports = { fetchAuctionByTypeAndState }
