@@ -81,7 +81,7 @@ const registerAuctioneer = async (req, res) => {
       return res.status(400).send({status:400,message:"please verify mobile number"});
     }
     
-    await Auctioneer.findOneAndUpdate({id,is_PhoneVerified:true},
+    await Auctioneer.findByIdAndUpdate({_id:id,is_PhoneVerified:true},
                                       {
                                         CompanyName:companyName,
                                         FirstName:firstName,
