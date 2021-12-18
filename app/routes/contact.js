@@ -10,8 +10,14 @@ const trimRequest = require('trim-request')
 const {
     contactUs,
     gotATip,
-    advertiseWithUs
+    advertiseWithUs,
+    createRecommandVideo,
+    recommendedVideo
 } = require('../controllers/contact')
+
+const {
+  validateCreateRecommandVideo
+} = require('../controllers/contact/validator')
 
 router.post(
   '/contactUs',
@@ -33,5 +39,19 @@ router.post(
     requireAuth,
     advertiseWithUs
 )
+
+router.post(
+  '/createRecommandVideo',
+  trimRequest.all,
+  requireAuth,
+  validateCreateRecommandVideo,
+createRecommandVideo)
+
+
+router.get(
+  '/recommendedVideo',
+  trimRequest.all,
+  requireAuth,
+recommendedVideo)
 
 module.exports = router
