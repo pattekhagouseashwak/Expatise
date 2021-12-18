@@ -6,5 +6,6 @@ const {uploadAuctionImage} = require('./uploadAuctionImage')
 const {editAuctionListing} = require('./editAuctionListing')
 const {searchAuction} = require('./searchAuction')
 const {fetchAuctionByTypeAndState} = require('./fetchAuctionByTypeAndState')
+const {displayListingOverMap} = require('./displayListingOverMap')
 
-module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,uploadAuctionImage,editAuctionListing,searchAuction,fetchAuctionByTypeAndState}
+module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,uploadAuctionImage,editAuctionListing,searchAuction,fetchAuctionByTypeAndState,displayListingOverMap}

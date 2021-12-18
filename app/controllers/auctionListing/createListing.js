@@ -2,7 +2,7 @@ const { handleError } = require('../../middleware/utils')
 
 const AuctionListing = require('../../models/auctionListing')
 
-//const Auctioneer = require('../../models/Auctioneer')
+const { fetchLatitudeLongitude } = require('../../middleware/utils')
 
 //var AWS = require("aws-sdk");
 
@@ -23,7 +23,7 @@ const AuctionListing = require('../../models/auctionListing')
 
 // //checkUser-ID
 // exports.fetchUser_ID = async (obj_id) => {
- 
+
 //     var cursor;
 //     await Auctioneer.findOne({ _id: obj_id }).then(data => {
 //       cursor = data;
@@ -33,10 +33,10 @@ const AuctionListing = require('../../models/auctionListing')
 //       });
 //     return cursor;
 //   };
- 
+
 //   //upload document to S3
 //   exports.uploadDocToS3 = async (s3bucket,params,s3FileURL,file) =>{
- 
+
 //     var isUploaded;
 //     await s3bucket.upload(params, function(err, data) {
 //      if (err) {
@@ -50,17 +50,18 @@ const AuctionListing = require('../../models/auctionListing')
 //        return isUploaded;
 //      }
 //    });
- 
+
 //  };
 
 const createListing = async (req, res) => {//console.log(req.files )
   try {
-    
+
     const files = req.files
-    
+
     //const resultSet = await this.fetchUser_ID(req.user.id)
 
     //console.log(resultSet)
+
 
     const Auctioneer = req.user.id;
     const AuctionType = req.body.AuctionType;
@@ -73,96 +74,109 @@ const createListing = async (req, res) => {//console.log(req.files )
     const State = req.body.State;
     const Country = req.body.Country;
     const Zip = req.body.Zip;
+    const resultSet = await fetchLatitudeLongitude(Address1 + " " + City + " " + State + " " + Country + " " + Zip)
+    let location;
+    if (resultSet.status == 200) {
+      const geoData = resultSet.message;
+      location = { type: "Point", coordinates: [geoData[0].longitude, geoData[0].latitude] };
+      console.log(location)
+    }
+    else if (resultSet.status == 500) {
+      return res.status(500).send({ status: 500, message: "currently facing technical issue please try again" });
+    }
     const AuctionCategory = req.body.AuctionCategory;
     const CategoryDetails = req.body.CategoryDetails;
     const NameOfProduct = req.body.NameOfProduct;
     const ProductDescription = req.body.ProductDescription;
     const BiddingNotice = req.body.BiddingNotice;
-    const AuctionNotice= req.body.AuctionNotice;
+    const AuctionNotice = req.body.AuctionNotice;
     const TermsAndCondition = req.body.TermsAndCondition;
     const uploadPhoto = req.body.uploadPhoto;
 
- //     if(files.length != 0)
-//{ 
-      
-//         //console.log("with media")
-        
-//         const s3FileURL = appConstants.AWS_Uploaded_File_URL_LINK;
-    
-//         var photos = [];
-    
-//         for(var i=0;i<files.length;i++){
-    
-//            var file = files[i];
-          
-//            //Where you want to store your file
-    
-//            var params = {
-//             Bucket: appConstants.AWS_BUCKET_NAME,
-//             Key: resultSet.FirstName+'/'+file.originalname,
-//             Body: file.buffer,
-//             ContentType: file.mimetype,
-//             ACL: "public-read"
-//            };
-           
-//            await this.uploadDocToS3(s3bucket,params,s3FileURL,file);
-        
-//            photos.push(s3FileURL + params.Key);
-    
-//     }
+    //     if(files.length != 0)
+    //{ 
 
-// }
-    
-        
-    
-    await AuctionListing.create({
-        Auctioneer      ,
-    
-        AuctionType     ,
-        
-        AuctionTitle    ,
-    
-        AuctionDate     ,
-    
-        AuctionTime     ,
-    
-        Address1 ,
-    
-        Address2 ,
-    
-        City     ,
-    
-        State    ,
-    
-        Country ,
-    
-        Zip     ,
-    
-        AuctionCategory ,
-        
-        CategoryDetails ,
-    
-        NameOfProduct   ,
-    
-        uploadPhoto     ,
-    
-        ProductDescription ,
-    
-        BiddingNotice ,
-    
-        AuctionNotice,
-    
-        TermsAndCondition,
-      })
-              .then((data)=>{
-                         res.status(200).send({ status: 200, message: "your iteam has been successfully listed"})
-                                        }).catch(Err => {
-                                            res.status(500).send({
-                                            status: 500,
-                                            message:
-                                                Err.message || "Some error occurred while listing item."
-                                            });
-                                        });
+    //         //console.log("with media")
+
+    //         const s3FileURL = appConstants.AWS_Uploaded_File_URL_LINK;
+
+    //         var photos = [];
+
+    //         for(var i=0;i<files.length;i++){
+
+    //            var file = files[i];
+
+    //            //Where you want to store your file
+
+    //            var params = {
+    //             Bucket: appConstants.AWS_BUCKET_NAME,
+    //             Key: resultSet.FirstName+'/'+file.originalname,
+    //             Body: file.buffer,
+    //             ContentType: file.mimetype,
+    //             ACL: "public-read"
+    //            };
+
+    //            await this.uploadDocToS3(s3bucket,params,s3FileURL,file);
+
+    //            photos.push(s3FileURL + params.Key);
+
+    //     }
+
+    // }
+
+
+
+
+     await AuctionListing.create({
+       Auctioneer,
+
+       AuctionType,
+
+       AuctionTitle,
+
+      AuctionDate,
+
+      AuctionTime,
+
+      Address1,
+
+      Address2,
+
+      City,
+
+      State,
+
+      Country,
+
+      Zip,
+
+      location,
+
+      AuctionCategory,
+
+      CategoryDetails,
+
+      NameOfProduct,
+
+      uploadPhoto,
+
+      ProductDescription,
+
+      BiddingNotice,
+
+      AuctionNotice,
+
+      TermsAndCondition,
+    })
+      .then((data) => {
+        res.status(200).send({ status: 200, message: "your iteam has been successfully listed" })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message:
+            Err.message || "Some error occurred while listing item."
+        });
+      });
   } catch (error) {
     console.log(error)
     handleError(res, error)

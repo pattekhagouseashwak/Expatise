@@ -1,47 +1,59 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const {ObjectId} = mongoose.Schema.Types
+const { ObjectId } = mongoose.Schema.Types
 const mongoosePaginate = require('mongoose-paginate-v2')
 
 const auctionListingSchema = new mongoose.Schema(
   {
-    Auctioneer      :{type:ObjectId,ref:"Auctioneer"},
+    Auctioneer: { type: ObjectId, ref: "Auctioneer" },
 
-    AuctionType     :{type:String},
-    
-    AuctionTitle    :{type:String},
+    AuctionType: { type: String },
 
-    AuctionDate     :{type:String},
+    AuctionTitle: { type: String },
 
-    AuctionTime     :{type:String},
+    AuctionDate: { type: String },
 
-    Address1 :{type:String},
+    AuctionTime: { type: String },
 
-    Address2 :{type:String},
+    Address1: { type: String },
 
-    City     :{type:String},
+    Address2: { type: String },
 
-    State    :{type:String},
+    City: { type: String },
 
-    Country :{type:String},
+    State: { type: String },
 
-    Zip     :{type:String},
+    Country: { type: String },
 
-    AuctionCategory :{type:String},
-    
-    CategoryDetails :{type:String},
+    Zip: { type: String },
 
-    NameOfProduct   :{type:String},
+    location: {
+      type: {
+        type: String, // Don't do `{ location: { type: String } }`
+        enum: ['Point'], // 'location.type' must be 'Point'
+        required: true
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      }
+    },
 
-    uploadPhoto     :{type:Object},
+    AuctionCategory: { type: String },
 
-    ProductDescription :{type:Object},
+    CategoryDetails: { type: String },
 
-    BiddingNotice :{type:Object},
+    NameOfProduct: { type: String },
 
-    AuctionNotice:{type:Object},
+    uploadPhoto: { type: Object },
 
-    TermsAndCondition:{type:Object},
+    ProductDescription: { type: Object },
+
+    BiddingNotice: { type: Object },
+
+    AuctionNotice: { type: Object },
+
+    TermsAndCondition: { type: Object },
   },
   {
     versionKey: false,
@@ -49,5 +61,6 @@ const auctionListingSchema = new mongoose.Schema(
   }
 )
 
+auctionListingSchema.index({ location: "2dsphere" });
 auctionListingSchema.plugin(mongoosePaginate)
-module.exports = mongoose.model('AuctionLisintg',auctionListingSchema)
+module.exports = mongoose.model('AuctionLisintg', auctionListingSchema)
