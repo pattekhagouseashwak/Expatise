@@ -156,7 +156,7 @@ const registerBidder = async (req, res) => { console.log("body:",req.body)
       return res.status(400).send({status:400,message:"please verify mobile number"});
     }
 
-    await Bidder.findOneAndUpdate({id,is_PhoneVerified:true},
+    await Bidder.findByIdAndUpdate({id,is_PhoneVerified:true},
                                       {
                                         FirstName:firstName,
                                         LastName:lastName,
