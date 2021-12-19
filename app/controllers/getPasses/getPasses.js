@@ -6,9 +6,10 @@ const Bid = require('../../models/bid')
  */
 const getPasses = async (req, res) => {
     try {
-        await Bid.find()
-                //   .populate("userId","FirstName LastName Phone")
-                //   .populate({path:"auctionId",select:"name User_id NameOfProduct uploadPhoto AuctionTitle AuctionDate AuctionTime Auctioneer",populate:{path:'Auctioneer',model:'Auctioneer', select:'CompanyName'}})
+        console.log(req.user._id)
+        await Bid.find({$and: [{auctionType:"Passes",userId:req.user._id}]})
+                    //.populate("userId","FirstName LastName Phone")
+                   .populate({path:"auctionId",select:"name User_id NameOfProduct uploadPhoto AuctionTitle AuctionDate AuctionTime Auctioneer",populate:{path:'Auctioneer',model:'Auctioneer', select:'CompanyName'}})
                    .then((data)=>{
                                 let qrCodeString = "";
                                 // qrCodeString = data[0];
