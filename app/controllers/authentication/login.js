@@ -111,7 +111,7 @@ const loginBidder = async (req, res) => {
       res.status(400).send({status:"400",message:"The creditials entered here do not match"})
     } else {
       // all ok then return token,AuctioneerLicensceNo, Name and Photo
-      let reqType = 2; console.log("accesstoken")
+      let reqType = 2; //console.log("accesstoken",user._id,reqType)
       let accessToken = await generateToken(user._id,reqType)
       let _id = user._id;
       let Email = user.Email;

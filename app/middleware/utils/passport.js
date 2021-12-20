@@ -46,11 +46,12 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {//console.log(p
     }
     return !user ? done(null, false) : done(null, user)
   })
-}else if(payload.data.reqType == 2){
+}else if(payload.data.reqType == 2){ console.log(payload.data.reqType)
   Bidder.findById(payload.data._id, (err, user) => {
     if (err) {
       return done(err, false)
     }
+    //console.log(user)
     return !user ? done(null, false) : done(null, user)
   })
 }

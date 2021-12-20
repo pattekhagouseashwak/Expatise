@@ -50,7 +50,9 @@ const BidderSchema = new mongoose.Schema(
 
     password:{type:String},
 
-    BidderID:{type:String}
+    BidderID:{type:String},
+
+    Photo :{type:String}
   },
   {
     versionKey: false,
