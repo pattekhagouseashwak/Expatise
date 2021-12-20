@@ -96,7 +96,6 @@ const editBidderProfile = async (req, res) => {
                                         State,
                                         Telephone,
                                         Email,
-                                        website,
                                         ZipCode,
                                         Nickname,
                                         CardHolderName,
