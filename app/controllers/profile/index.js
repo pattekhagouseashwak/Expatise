@@ -5,5 +5,9 @@ const {uploadAuctioneerProfile} = require('./uploadPhoto')
 const {uploadBidderProfile} = require('./uploadPhoto')
 const {removeProfilePhoto} = require('./removeProfilePhoto')
 const {bidRequest} = require('./bidRequest')
+const {fetchAuctioneerBio}= require('./fetchAuctioneerBio')
 
-module.exports ={bidderProfile, auctioneerProfile,editAuctioneerProfile, editBidderProfile, bidHistory,uploadAuctioneerProfile,removeProfilePhoto,bidRequest,uploadBidderProfile}
+module.exports ={bidderProfile, auctioneerProfile,editAuctioneerProfile,
+                editBidderProfile, bidHistory,
+                uploadAuctioneerProfile,removeProfilePhoto,bidRequest,
+                uploadBidderProfile,fetchAuctioneerBio}

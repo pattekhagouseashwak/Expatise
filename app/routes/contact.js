@@ -12,7 +12,11 @@ const {
     gotATip,
     advertiseWithUs,
     createRecommandVideo,
-    recommendedVideo
+    recommendedVideo,
+    requestACallback,
+    getRequestACallbackDetails,
+    writeToUs,
+    getWriteToUsDetails
 } = require('../controllers/contact')
 
 const {
@@ -54,4 +58,32 @@ router.get(
   requireAuth,
 recommendedVideo)
 
+router.post(
+  '/requestACallback',
+  trimRequest.all,
+  requireAuth,
+  requestACallback
+)
+
+router.get(
+  '/getRequestACallbackDetails',
+  trimRequest.all,
+  requireAuth,
+  getRequestACallbackDetails
+)
+
+
+router.post(
+  '/writeToUs',
+  trimRequest.all,
+  requireAuth,
+  writeToUs
+)
+
+router.get(
+  '/getWriteToUsDetails',
+  trimRequest.all,
+  requireAuth,
+  getWriteToUsDetails
+)
 module.exports = router

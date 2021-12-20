@@ -10,13 +10,13 @@ const fetchLatitudeLongitude = async (address) => {
     const options = {
         provider: 'google',
 
-        // Optional depending on the providers
+        //Optional depending on the providers 
 
         //fetch: customFetchImplementation,
-
-        apiKey: 'AIzaSyB82EP31CW8F5bIijUL2Harwpkh-K0Ay_Y', // for Mapquest, OpenCage, Google Premier
         
-        formatter: null // 'gpx', 'string', ...
+        apiKey: 'AIzaSyB82EP31CW8F5bIijUL2Harwpkh-K0Ay_Y', // for Mapquest, OpenCage, Google Premier
+
+        formatter: null // 'gpx', 'string', ....
     };
     const geocoder = NodeGeocoder(options);
 

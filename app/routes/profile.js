@@ -16,7 +16,8 @@ const {
   uploadAuctioneerProfile,
   uploadBidderProfile,
   removeProfilePhoto,
-  bidRequest
+  bidRequest,
+  fetchAuctioneerBio
 } = require('../controllers/profile')
 
 const {
@@ -49,6 +50,13 @@ router.get(
   trimRequest.all,
   requireAuth,
   bidderProfile
+)
+
+router.post(
+  '/fetchAuctioneerBio',
+  trimRequest.all,
+  requireAuth,
+  fetchAuctioneerBio
 )
 
 router.post(
