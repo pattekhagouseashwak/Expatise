@@ -6,7 +6,6 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 const advertiseWithUsSchema = new mongoose.Schema(
   {
 
-
     name:{type:String},
     phoneNumber:{type:String},
     email:{type:String},

@@ -16,6 +16,7 @@ const {
     requestACallback,
     getRequestACallbackDetails,
     writeToUs,
+    dashboardAdvert,
     getWriteToUsDetails
 } = require('../controllers/contact')
 
@@ -78,6 +79,12 @@ router.post(
   trimRequest.all,
   requireAuth,
   writeToUs
+)
+
+router.get(
+  '/dashboardAdverts',
+  trimRequest.all,
+  dashboardAdvert
 )
 
 router.get(
