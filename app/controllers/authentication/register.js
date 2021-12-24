@@ -58,7 +58,7 @@ const registerAuctioneer = async (req, res) => {
     }
     const id = req.body.id;
     const companyName = req.body.companyName;
-    const firstName = req.body.fristName;
+    const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const streetAddress = req.body.streetAddress;
     const zip = req.body.zip;
@@ -101,7 +101,7 @@ const registerAuctioneer = async (req, res) => {
                                         Email_otp,
                                         Email_Expiry_time
                                       },{new:true})
-              .then(async(data)=>{
+              .then(async(data)=>{console.log(data)
                         if(data.Email == Email)
                        {
                          //await mailchimpService(Email,fristName,lastName);
@@ -123,7 +123,7 @@ const registerAuctioneer = async (req, res) => {
   }
 }
 
-const registerBidder = async (req, res) => { console.log("body:",req.body)
+const registerBidder = async (req, res) => {
   try {
     const user = await this.checkEmail(req.body.Email,2);
     
