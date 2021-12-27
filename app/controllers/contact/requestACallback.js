@@ -2,18 +2,27 @@ const { handleError } = require('../../middleware/utils')
 
 const RequestACallBack = require('../../models/requestACallBack')
 
+
 /**
  * Register function called by route
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
 
+//unique random number---
+ function uuidv4() {
+    return 'xxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(9);
+    });
+  }
+
 const requestACallback = async (req, res) => {
     try {
-    
-        const userID = req.body.userID;
+        
+        
+        const userID = req.user.id;
         const entityType = req.body.entityType;
-
         const reqName = req.body.reqName;
         const desc = req.body.desc;
         const time = req.body.time;
@@ -23,7 +32,20 @@ const requestACallback = async (req, res) => {
         const phoneNumber = req.body.phoneNumber;
         const email = req.body.email;
 
-        await RequestACallBack.create({userID,entityType,reqName,phoneNumber,desc,email,time,date,firstName,lastName})
+        const random = uuidv4();
+        const TicketID = "RAC_"+random;
+
+        await RequestACallBack.create({TicketID,
+                                       userID,
+                                       entityType,
+                                       reqName,
+                                       phoneNumber,
+                                       desc,
+                                       email,
+                                       time,
+                                       date,
+                                       firstName,
+                                       lastName})
                                .then(()=>{
                                           res.status(200).send({ status: 200, message: "message succesfully added"})
                                                           }).catch(Err => {
@@ -39,14 +61,12 @@ const requestACallback = async (req, res) => {
       }
 }
 
-
 const getRequestACallbackDetails = async (req, res) => {
     try {
         
-        const userID = req.body.userID;
+        const userID = req.user.id;
 
-
-         await RequestACallBack.find({userID:userID})
+        await RequestACallBack.find({userID:userID})
 
               .then((data)=>{
                             if(data != null){
