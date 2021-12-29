@@ -9,6 +9,7 @@ const trimRequest = require('trim-request')
 
 const {
     auctionGroupByStates,
+    calender
 } = require('../controllers/auctioneerDirectories')
 
 // const {
@@ -21,5 +22,13 @@ router.get(
   //requireAuth,
   auctionGroupByStates
 )
+
+router.get(
+  '/calender',
+  trimRequest.all,
+  //requireAuth,
+  calender
+)
+
 
 module.exports = router

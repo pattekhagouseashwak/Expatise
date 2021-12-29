@@ -11,6 +11,8 @@ const auctionListingSchema = new mongoose.Schema(
 
     AuctionTitle: { type: String },
 
+    AuctionMonthYear: { type: String },
+
     AuctionDate: { type: String },
 
     AuctionTime: { type: String },

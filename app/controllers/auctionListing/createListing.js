@@ -92,6 +92,7 @@ const createListing = async (req, res) => {//console.log(req.files )
     const AuctionNotice = req.body.AuctionNotice;
     const TermsAndCondition = req.body.TermsAndCondition;
     const uploadPhoto = req.body.uploadPhoto;
+    const AuctionMonthYear = req.body.AuctionDate.slice(0, 7);
 
     //     if(files.length != 0)
     //{ 
@@ -133,6 +134,8 @@ const createListing = async (req, res) => {//console.log(req.files )
        AuctionType,
 
        AuctionTitle,
+
+       AuctionMonthYear,
 
       AuctionDate,
 
