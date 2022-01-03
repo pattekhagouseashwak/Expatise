@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@mailchimp/mailchimp_marketing": "^3.0.72",
     "@sendgrid/mail": "^7.6.0",
     "async-await-foreach": "^1.0.4",
     "aws-sdk": "^2.937.0",

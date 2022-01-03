@@ -68,6 +68,10 @@ const AuctioneerSchema = new mongoose.Schema(
     linkedin:{type:String},
 
     password:{type:String},
+
+    tickerSymbol: {type:String},
+
+    subscribedNewsletter:{type:Boolean, default: false},
   },
   {
     versionKey: false,

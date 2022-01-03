@@ -16,6 +16,8 @@ const appInfo = require('../../../settings.json')
 
 const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
 
+const {generateTickerSymbol} = require('./helpers/generateTickerSymbol')
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -76,6 +78,7 @@ const registerAuctioneer = async (req, res) => {
     const Email_Expiry_time = await getForwardTime(240.00);
     const Emailotp = await generateOTP(appInfo.emailOtpLength);
     const Email_otp = await bcrypt.hash(Emailotp, rounds);
+    const tickerSymbol = await generateTickerSymbol(req.body.companyName, req.body.city);
 
     if(await Auctioneer.findOne({id,is_PhoneVerified:true}) == null){
       return res.status(400).send({status:400,message:"please verify mobile number"});
@@ -99,7 +102,8 @@ const registerAuctioneer = async (req, res) => {
                                         Website:website,
                                         password:password,
                                         Email_otp,
-                                        Email_Expiry_time
+                                        Email_Expiry_time,
+                                        tickerSymbol
                                       },{new:true})
               .then(async(data)=>{console.log(data)
                         if(data.Email == Email)
