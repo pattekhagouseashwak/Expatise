@@ -13,9 +13,11 @@ const AuctionListing = require('../../models/auctionListing')
 const calender = async (req, res) => {
   try {
 
+    
+
     await AuctionListing.aggregate(
       [
-        { $match: { AuctionMonthYear: "2021-06" } },
+        { $match: { AuctionMonthYear: req.body.year_month } },
 
         {
           "$group": {
