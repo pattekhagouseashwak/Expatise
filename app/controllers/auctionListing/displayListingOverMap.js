@@ -32,7 +32,7 @@ const displayListingOverMap = async (req, res) => {
                     }
                 }
             }]
-        })
+        }).populate("Auctioneer","CompanyName")
             .then((data) => {
                 res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details", data })
             }
