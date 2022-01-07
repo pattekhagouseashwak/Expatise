@@ -56,7 +56,7 @@ createRecommandVideo)
 router.get(
   '/recommendedVideo',
   trimRequest.all,
-  requireAuth,
+  //requireAuth,
 recommendedVideo)
 
 router.post(

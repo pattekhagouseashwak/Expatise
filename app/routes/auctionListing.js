@@ -49,7 +49,7 @@ router.get(
 
 router.post(
   '/featureAuction',
-  requireAuth,
+  //requireAuth,
   trimRequest.all,
   featureAuction
 )
@@ -78,20 +78,20 @@ router.post(
 
 router.post(
   '/searchAuction',
-  requireAuth,
+  //requireAuth,
   trimRequest.all
   ,searchAuction)
 
 
   router.post(
     '/fetchAuctionByType&State',
-    requireAuth,
+    //requireAuth,
     trimRequest.all,
    fetchAuctionByTypeAndState)
 
    router.post(
     '/displayListingOverMap',
-    requireAuth,
+    //requireAuth,
     trimRequest.all,
    displayListingOverMap)
 
