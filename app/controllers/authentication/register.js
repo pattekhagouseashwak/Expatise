@@ -130,6 +130,8 @@ const registerAuctioneer = async (req, res) => {
 const registerBidder = async (req, res) => {
   try {
     const user = await this.checkEmail(req.body.Email,2);
+
+    console.log(req.body.Phone)
     
     if(user!=null){
       if(user.Email == req.body.Email){
@@ -137,10 +139,15 @@ const registerBidder = async (req, res) => {
       }
     }
 
-    const id = req.body.id;
+    if(await Bidder.findOne({Phone:req.body.Phone}) != null){
+      return res.status(400).send({status:400,message:"Phone Nmber is already registered"});
+    }
+
+    //const id = req.body.id;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const streetAddress = req.body.streetAddress;
+    const Phone = req.body.Phone;
     const zip = req.body.zip;
     const city = req.body.city;
     const state = req.body.state;
@@ -155,17 +162,16 @@ const registerBidder = async (req, res) => {
     const DrivingLicensePhoto = req.body.DrivingLicensePhoto;
     const bidderID = "BID"+await generateOTP(appInfo.otpLength);
 
-
-    if(await Bidder.findOne({id,is_PhoneVerified:true}) == null){
-      return res.status(400).send({status:400,message:"please verify mobile number"});
-    }
-
-    await Bidder.findByIdAndUpdate({id,is_PhoneVerified:true},
-                                      {
+    // if(await Bidder.findOne({id,is_PhoneVerified:true}) == null){
+    //   return res.status(400).send({status:400,message:"please verify mobile number"});
+    // }
+    
+    await Bidder.create({
                                         FirstName:firstName,
                                         LastName:lastName,
                                         StreetAddress:streetAddress,
                                         City:city,
+                                        Phone:Phone,
                                         State:state,
                                         Country:country,
                                         ZipCode:zip,
@@ -176,10 +182,10 @@ const registerBidder = async (req, res) => {
                                         DrivingLicenseNo,
                                         DrivingLicensePhoto,
                                         BidderID:bidderID
-                                      },{new:true})
+                                      })
               .then(async(data)=>{
                         if(data.Email == Email)
-                       {
+                       { //console.log(data)
                          //await mailchimpService(Email,fristName,lastName);
                          let host=req.get('host');
 	                       console.log("host:",host);

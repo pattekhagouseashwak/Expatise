@@ -36,13 +36,13 @@ const BidderSchema = new mongoose.Schema(
 
     is_EmailVerified :{type:Boolean, default:false},
 
-    Phone        :{type:Number, required:true},
+    Phone        :{type:String, required:true},
 
-    otp          :{type:String,required:true},
+    // otp          :{type:String,required:true},
 
-    Expiry_time :{type:Date,required:true},
+    // Expiry_time :{type:Date,required:true},
 
-    is_PhoneVerified :{type:Boolean, default:false},
+    //is_PhoneVerified :{type:Boolean, default:false},
 
     DrivingLicenseNo:{type:String},
 

@@ -6,12 +6,12 @@ const { check } = require('express-validator')
  */
 const validateBidderRegister = [
 
-    check('id')
-    .exists()
-    .withMessage('id MISSING')
-    .not()
-    .isEmpty()
-    .withMessage('id IS_EMPTY'),
+    // check('id')
+    // .exists()
+    // .withMessage('id MISSING')
+    // .not()
+    // .isEmpty()
+    // .withMessage('id IS_EMPTY'),
 
     check('firstName')
     .exists()
@@ -26,6 +26,17 @@ const validateBidderRegister = [
     .not()
     .isEmpty()
     .withMessage('lastName IS_EMPTY'),
+
+    check('Phone')
+    .exists()
+    .withMessage('Phone no missing')
+    .not()
+    .isEmpty()
+    .withMessage('Phone no is empty')
+    .isLength({
+      min: 12, max: 14
+    })
+    .withMessage('Phone Number length should be 12 including country code +1'),
 
     check('streetAddress')
     .exists()

@@ -45,44 +45,38 @@ router.get(
   '/fetchListing',
   requireAuth,
   trimRequest.all,
-  fetchListing
-)
+  fetchListing)
 
 router.post(
   '/featureAuction',
   //requireAuth,
   trimRequest.all,
-  featureAuction
-)
+  featureAuction)
 
 router.post(
   '/downladBidRequest',
   requireAuth,
   trimRequest.all,
-  downladBidRequest
-)
+  downladBidRequest)
 
 router.post(
   '/uploadAuctionImage',
   requireAuth,
   upload.array('file', 10000),
   trimRequest.all,
-  uploadAuctionImage
-)
+  uploadAuctionImage)
 
 router.post(
   '/editAuctionListing',
   requireAuth,
   trimRequest.all,
-  editAuctionListing
-)
+  editAuctionListing)
 
 router.post(
   '/searchAuction',
   //requireAuth,
   trimRequest.all
   ,searchAuction)
-
 
   router.post(
     '/fetchAuctionByType&State',
@@ -95,7 +89,6 @@ router.post(
     //requireAuth,
     trimRequest.all,
    displayListingOverMap)
-
 
    router.post(
     '/fetchSingleAuction',
