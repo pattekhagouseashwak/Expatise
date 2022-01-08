@@ -105,8 +105,8 @@ const mobileOTP = async (req, res) => { console.log(req.body)
                 const status = await twilioService(Phone,otp);
                 console.log(status)
                 if(status == "200"){
-                await Auctioneer.findOneAndUpdate({Phone},{otp, Expiry_time})
-                .then(()=>{
+                await Auctioneer.findOneAndUpdate({Phone},{otp, Expiry_time},{new:true})
+                .then((data)=>{ console.log(data.otp,otp)
 
                     res.status(200).send({ status: 200, message: "successfully sent otp to your mobile number!!"})
                 }).catch(Err => {

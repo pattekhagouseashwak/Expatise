@@ -27,7 +27,7 @@ const featureAuction = async (req, res) => {
                                                     });
                                                 });
     }
-    else if(req.body.AuctionType != "all"){
+    else if(req.body.AuctionType != "ALL"){
       await AuctionLisintg.find({AuctionType:req.body.AuctionType})
       .then((data)=>{
                     res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details!!",data})
