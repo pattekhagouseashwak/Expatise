@@ -29,7 +29,7 @@ const AuctioneerSchema = new mongoose.Schema(
     //   },
     // },
 
-    Email : {type:String},
+    Email : { type: String, index:true,sparse:true},
 
     Email_otp          :{type:String},
 
