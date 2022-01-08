@@ -20,7 +20,8 @@ const {
   editAuctionListing,
   searchAuction,
   fetchAuctionByTypeAndState,
-  displayListingOverMap
+  displayListingOverMap,
+  fetchSingleAuction
 } = require('../controllers/auctionListing')
 
 const {
@@ -95,4 +96,11 @@ router.post(
     trimRequest.all,
    displayListingOverMap)
 
+
+   router.post(
+    '/fetchSingleAuction',
+    //requireAuth,
+    trimRequest.all,
+   fetchSingleAuction)
+   
 module.exports = router
