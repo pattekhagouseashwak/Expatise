@@ -79,7 +79,7 @@ router.post(
   ,searchAuction)
 
   router.post(
-    '/fetchAuctionByType&State',
+    '/fetchAuctionByTypeAndState',
     //requireAuth,
     trimRequest.all,
    fetchAuctionByTypeAndState)

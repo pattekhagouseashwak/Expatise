@@ -11,7 +11,7 @@ const AuctionLisintg = require('../../models/auctionListing')
 const fetchAuctionByTypeAndState = async (req, res) => { console.log(req.body)
   try {
     
-    const id = req.user._id
+    //const id = req.user._id
 
     let searchValue = [];
 
