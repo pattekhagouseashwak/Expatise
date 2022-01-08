@@ -84,7 +84,7 @@ const verifyEmailBidder = async (req, res) => { console.log(req.query)
                                           //console.log(Date.now(),data.Email_Expiry_time,data);
                                           if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
                                              await Bidder.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
-                                                              .then((data)=>{ console.log(data)
+                                                              .then((data)=>{// console.log(data)
                                                                         res
                                                                         .status(200)        
                                                                         .redirect('https://peaceful-shannon-16165f.netlify.app/waitingpage?type=bidder')
