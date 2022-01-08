@@ -23,7 +23,7 @@ router.get(
   auctionGroupByStates
 )
 
-router.get(
+router.post(
   '/calender',
   trimRequest.all,
   //requireAuth,
