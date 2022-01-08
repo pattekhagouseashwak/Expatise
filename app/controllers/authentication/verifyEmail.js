@@ -84,13 +84,15 @@ const verifyEmailBidder = async (req, res) => { console.log(req.query)
                                           //console.log(Date.now(),data.Email_Expiry_time,data);
                                           if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
                                              await Bidder.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
-                                                              .then((data)=>{
-                                                                        res.status(200).send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
+                                                              .then((data)=>{ console.log(data)
+                                                                        res
+                                                                        .status(200)        
+                                                                        .redirect('https://peaceful-shannon-16165f.netlify.app/waitingpage?type=bidder')
+                                                                      //.send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
                                                               }).catch(Err => {
                                                                   res.status(500).send({
                                                                   status: 500,
-                                                                  message:
-                                                                      Err.message || "Some error occurred while verifing email, Please try after sometime."
+                                                                  message:Err.message || "Some error occurred while verifing email, Please try after sometime."
                                                                   });
                                                               });
 
