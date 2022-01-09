@@ -16,7 +16,7 @@ const {
 //   validateCreateRecommandVideo
 // } = require('../controllers/contact/validator')
 
-router.get(
+router.post(
   '/auctionGroupByStates',
   trimRequest.all,
   //requireAuth,

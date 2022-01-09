@@ -41,17 +41,6 @@ const validateRegister = [
     .isEmpty()
     .withMessage('city IS_EMPTY'),
 
-    check('Phone')
-    .exists()
-    .withMessage('Phone no missing')
-    .not()
-    .isEmpty()
-    .withMessage('Phone no is empty')
-    .isLength({
-      min: 12, max: 14
-    })
-    .withMessage('Phone Number length should be 12 including country code +1'),
-
     check('state')
     .exists()
     .withMessage('state MISSING')
