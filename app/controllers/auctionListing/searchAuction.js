@@ -36,17 +36,22 @@ const searchAuction = async (req, res) => { //console.log(req.body)
       //console.log(searchValue)
     }
     if(req.body.Category.length !=0 ){
-      searchValue.push({Category  : req.body.Category});
+      searchValue.push({AuctionCategory : req.body.Category});
       //console.log(searchValue)
     }
     if(req.body.Keywords.length !=0){ 
-      searchValue.push({Keywords : req.body.Keywords});
+      searchValue.push({ProductDescription : req.body.Keywords});
+      //console.log(searchValue)
+    }
+
+    if(req.body.Date.length !=0){
+      searchValue.push({AuctionDate : req.body.Date});
       //console.log(searchValue)
     }
     
     console.log("searchValue",searchValue)
     
-    await AuctionLisintg.find({ $and: searchValue } )
+    await AuctionLisintg.find({ $and: searchValue })
               .then((data)=>{
                             res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details!!",data})
                             }

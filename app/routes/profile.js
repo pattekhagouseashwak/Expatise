@@ -55,7 +55,7 @@ router.get(
 router.post(
   '/fetchAuctioneerBio',
   trimRequest.all,
-  requireAuth,
+  //requireAuth,
   fetchAuctioneerBio
 )
 

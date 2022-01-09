@@ -17,13 +17,11 @@ const fetchListing = async (req, res) => {
 
     let pastAuctionListings =[];
     
-    const today = new Date();
-    const day = today.getDate();
-    const month = today.getMonth()+1;     // 10 (Month is 0-based, so 10 means 11th Month)
-    const year = today.getFullYear();
-    const currentDate = (day+"/"+month+"/"+year);
-
-    console.log(currentDate)
+    var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                var currentDate = (yyyy+"-"+mm+"-"+dd);
     
     await AuctionLisintg.find({Auctioneer:id})
               .then((allObjects)=>{
