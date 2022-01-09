@@ -31,16 +31,20 @@ const searchAuction = async (req, res) => { //console.log(req.body)
       searchValue.push({Zip : req.body.Zip});
       //console.log(searchValue)
     }
-    if(req.body.Miles.length !=0){
-      searchValue.push({Miles : req.body.Miles});
-      //console.log(searchValue)
-    }
+      // if(req.body.Miles.length !=0){
+      //   searchValue.push({Miles : req.body.Miles});
+      //   //console.log(searchValue)
+      // }
     if(req.body.Category.length !=0 ){
       searchValue.push({AuctionCategory : req.body.Category});
       //console.log(searchValue)
     }
-    if(req.body.Keywords.length !=0){ 
-      searchValue.push({ProductDescription : req.body.Keywords});
+    if(req.body.Keywords.length !=0){
+      const Keywords = req.body.Keywords;
+      searchValue.push({$or:[{AuctionType:{$regex:Keywords,'$options' : 'i'}},{AuctionTitle:{$regex:Keywords,'$options' : 'i'}},
+                             {NameOfProduct:{$regex:Keywords,'$options' : 'i'}},{ProductDescription:{$regex:Keywords,'$options' : 'i'}},
+                             {BiddingNotice:{$regex:Keywords,'$options' : 'i'}},{AuctionNotice:{$regex:Keywords,'$options' : 'i'}},
+                             {TermsAndCondition:{$regex:Keywords,'$options' : 'i'}}]});
       //console.log(searchValue)
     }
 
