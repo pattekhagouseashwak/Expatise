@@ -17,11 +17,14 @@ const {
     getRequestACallbackDetails,
     writeToUs,
     dashboardAdvert,
-    getWriteToUsDetails
+    getWriteToUsDetails,
+    hostingServices,
+    webDevServices
 } = require('../controllers/contact')
 
 const {
-  validateCreateRecommandVideo
+  validateCreateRecommandVideo,
+  validateData
 } = require('../controllers/contact/validator')
 
 router.post(
@@ -92,5 +95,19 @@ router.get(
   trimRequest.all,
   requireAuth,
   getWriteToUsDetails
+)
+
+router.post(
+  '/hostingServices',
+  trimRequest.all,
+  validateData,
+  hostingServices
+)
+
+router.post(
+  '/webDevServices',
+  trimRequest.all,
+  validateData,
+  webDevServices
 )
 module.exports = router
