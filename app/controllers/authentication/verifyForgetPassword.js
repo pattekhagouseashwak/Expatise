@@ -8,7 +8,9 @@ const Auctioneer = require('../../models/Auctioneer')
 
 const Bidder = require('../../models/Bidder')
 
-const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
+const { generateToken } = require('../authentication/helpers/generateToken')
+
+const verifyForgetPasswordAuctioneer = async (req, res) => { console.log(req.query)
     try {
             var email = await decrypt(req.query.address);
             var emailOtp = req.query.id;
@@ -20,13 +22,15 @@ const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
                                     .then(async(data)=>{
                                         //console.log(Date.now(),data.Email_Expiry_time,data);
                                         if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
+                                            let reqType = 1; //console.log("accesstoken",user._id,reqType)
+                                            let accessToken = await generateToken(data._id,reqType)
                                            await Auctioneer.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
                                                             .then(async()=>{
                                                                       await sendEmailToCustomer(host,email,"NA",3);
                                                                       res
-                                                                      .redirect('https://peaceful-shannon-16165f.netlify.app/signin')
+                                                                      //.redirect('https://peaceful-shannon-16165f.netlify.app/signin')
                                                                       .status(200)
-                                                                      .send({ status: 200, message: "Your E-mail has been succesfully verified. Please wait for 24-48 hours to get an update about account activiation"});
+                                                                      .send({ status: 200, message: accessToken});
                                                             }).catch(Err => {
                                                                 res.status(500).send({
                                                                 status: 500,
@@ -72,7 +76,7 @@ const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
     }
   }
 
-const verifyEmailBidder = async (req, res) => { console.log(req.query)
+const verifyForgetPasswordBidder = async (req, res) => { console.log(req.query)
       try {
               var email = await decrypt(req.query.address);
               var emailOtp = req.query.id;
@@ -84,11 +88,14 @@ const verifyEmailBidder = async (req, res) => { console.log(req.query)
                                       .then(async(data)=>{ 
                                           //console.log(Date.now(),data.Email_Expiry_time,data);
                                           if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
-                                             await Bidder.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
+                                            let reqType = 2; //console.log("accesstoken",user._id,reqType)
+                                            let accessToken = await generateToken(data._id,reqType)
+                                            await Bidder.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
                                                               .then((data)=>{// console.log(data)
                                                                         res
-                                                                        .status(200)        
-                                                                        .redirect('https://peaceful-shannon-16165f.netlify.app/waitingpage?type=bidder')
+                                                                        .status(200)
+                                                                        .send({status:200, message:accessToken})       
+                                                                        //.redirect('https://peaceful-shannon-16165f.netlify.app/waitingpage?type=bidder')
                                                                       //.send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
                                                               }).catch(Err => {
                                                                   res.status(500).send({
@@ -132,6 +139,6 @@ const verifyEmailBidder = async (req, res) => { console.log(req.query)
            } catch (error) {
         handleError(res, error)
       }
-    }
+ }
 
-  module.exports = { verifyEmailAuctioneer, verifyEmailBidder }
+  module.exports = { verifyForgetPasswordAuctioneer, verifyForgetPasswordBidder }

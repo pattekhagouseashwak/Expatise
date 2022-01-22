@@ -1,4 +1,5 @@
 const WebDevServices = require('../../models/webDevServices')
+const {sendEmailToCustomer} = require('../../controllers/authentication/helpers/sendEmailToCustomer')
 
 /**
  * Register function called by route

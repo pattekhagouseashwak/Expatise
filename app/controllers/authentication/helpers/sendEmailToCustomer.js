@@ -34,6 +34,10 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type) => { //console.log(t
     {link="http://"+host+"/api/verifyAuctioneer?id="+rand+"&address="+email;}
     else if(type == 2)
     {link="http://"+host+"/api/verifyBidder?id="+rand+"&address="+email;}
+    else if(type == 4)
+    {link="http://"+host+"/api/verifyForgetPasswordAuctioneer?id="+rand+"&address="+email;}
+    else if(type == 5)
+    {link="http://"+host+"/api/verifyForgetPasswordBidder?id="+rand+"&address="+email;}
    
     //verification content for Auctioner and Bidder
     if(type == 1 || type == 2){
@@ -53,6 +57,16 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type) => { //console.log(t
         subject : "Thanks for completion the singup process",
         html: "Hello there!<br><br>Thanks for completing the sign-up process! Your auctioneer account will be active soon with Auction Journal. Grab your mug of coffee, and stay tuned for auction updates.<br><br>Kind Regards,<br><br>Auction Journal<br>"
      }
+    }
+    else if(type == 4 || type == 5){
+     
+      var mailOptions = {
+        to: toEmailId, // Change to your recipient
+        from: emailConfig.username,//'no-reply@auctionjournal.com', // Change to your verified sender
+        subject: "Verify Email with Auction Journal",
+        html: "Hi there!<br>Please verify yoour email Id to change Password.<br> Please click on the button below to confirm your email address. It will only take a couple of seconds.<br><a href="+link+">Click here to verify</a><br>Regards,<br>Auction Journal<br>Support Team.<br>"
+      }
+
     }
 
   //console.log(mailOptions);

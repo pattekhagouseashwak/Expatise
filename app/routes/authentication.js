@@ -17,7 +17,12 @@ const {
   verifyEmailBidder,
   loginAuctioneer,
   loginBidder,
-  logout
+  logout,
+  forgotPasswordAuctioneer,
+  forgotPasswordBidder,
+  verifyForgetPasswordAuctioneer,
+  verifyForgetPasswordBidder,
+  setNewPassword
 } = require('../controllers/authentication')
 
 const {
@@ -25,7 +30,8 @@ const {
   validateVerifyOTP,
   validateRegister,
   validateBidderRegister,
-  validateLogin
+  validateLogin,
+  validateSetPassword
 } = require('../controllers/authentication/validators')
 /*
  * Users routes
@@ -100,5 +106,33 @@ router.post(
   trimRequest.all,
   logout
 )
+
+router.post(
+  '/forgotPasswordBidder',
+  trimRequest.all,
+  forgotPasswordBidder)
+  
+router.post(
+  '/forgotPasswordAuctioneer',
+  trimRequest.all,
+  forgotPasswordAuctioneer)
+
+router.get(
+    '/verifyForgetPasswordAuctioneer',
+    trimRequest.all,
+    verifyForgetPasswordAuctioneer)
+    
+router.get(
+    '/verifyForgetPasswordBidder',
+    trimRequest.all,
+    verifyForgetPasswordBidder)
+
+    router.post(
+      '/setNewPassword',
+      requireAuth,
+      trimRequest.all,
+      validateSetPassword,
+      setNewPassword
+    )
 
 module.exports = router
