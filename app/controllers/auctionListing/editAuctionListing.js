@@ -6,6 +6,9 @@ const Auctioneer = require('../../models/Auctioneer')
 
 const appConstants = require('../../../config/aws.config');
 
+const emailConstants = require("../../constant/email-template/email-content")
+
+const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -33,7 +36,7 @@ const editAuctionListing = async (req, res) => {//console.log(req.files )
     
     const resultSet = await this.fetchAuctionListing(req.body.id)
 
-    //console.log(resultSet)
+    let data =req.user;
 
     const Auctioneer = req.user.id;
     const AuctionType = req.body.AuctionType;
@@ -56,7 +59,7 @@ const editAuctionListing = async (req, res) => {//console.log(req.files )
     const uploadPhoto = req.body.uploadPhoto;
         
     
-    await AuctionListing.findByIdAndUpdate({_id:req.body.id},{
+     await AuctionListing.findByIdAndUpdate({_id:req.body.id},{
         Auctioneer      ,
     
         AuctionType     ,
@@ -95,14 +98,17 @@ const editAuctionListing = async (req, res) => {//console.log(req.files )
     
         TermsAndCondition,
       })
-              .then(()=>{
+              .then(async()=>{
+                              let host = req.get('host');
+                              console.log("host:", host);
+                              await sendEmailToCustomer(host, data.Email, "NA",3,emailConstants.WehavemadesomeChanges, emailConstants.htmlCotent_WeHaveMadeSomeChanges, data.FirstName + data.LastName);
                          res.status(200).send({ status: 200, message: "your iteam has been successfully updated"})
                                         }).catch(Err => {
                                             res.status(500).send({
                                             status: 500,
                                             message:
-                                                Err.message || "Some error occurred while listing item."
-                                            });
+                                                 Err.message || "Some error occurred while listing item."
+                                             });
                                         });
   } catch (error) {
     console.log(error)

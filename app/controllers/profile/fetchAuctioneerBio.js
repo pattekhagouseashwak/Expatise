@@ -38,10 +38,13 @@ const fetchAuctioneerBio = async (req, res) => {
                     "City": 1,
                     "FirstName": 1,
                     "LastName": 1,
+                    "Photo":1,
+                    "AuctioneerBio":1,
                     "tickerSymbol": 1,
                     "ZipCode": 1,
                     "Phone": 1,
                     "Email": 1,
+                    "Website":1,
                     "Auction_List.Auctioneer": 1,
                     "Auction_List.AuctionCategory": 1,
                     "Auction_List.NameOfProduct": 1,
@@ -69,6 +72,9 @@ const fetchAuctioneerBio = async (req, res) => {
                 let City = allObjects[0].City;
                 let FirstName = allObjects[0].FirstName;
                 let LastName = allObjects[0].LastName;
+                let Photo = allObjects[0].Photo;
+                let AuctioneerBio = allObjects[0].AuctioneerBio;
+                let Website = allObjects[0].Website;
                 let tickerSymbol = allObjects[0].tickerSymbol;
                 let ZipCode = allObjects[0].ZipCode;
                 let Phone = allObjects[0].Phone;
@@ -117,7 +123,10 @@ const fetchAuctioneerBio = async (req, res) => {
                     City,
                     FirstName,
                     LastName,
+                    AuctioneerBio,
+                    Website,
                     tickerSymbol,
+                    Photo,
                     ZipCode,
                     Phone,
                     Email,

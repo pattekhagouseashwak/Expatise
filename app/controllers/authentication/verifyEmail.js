@@ -8,25 +8,26 @@ const Auctioneer = require('../../models/Auctioneer')
 
 const Bidder = require('../../models/Bidder')
 
+const emailConstants = require("../../constant/email-template/email-content")
+
 const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
-    try {
+    try {   
             var email = await decrypt(req.query.address);
             var emailOtp = req.query.id;
-
+            //console.log(req.query.address,email)
             let host=req.get('host');
-	        console.log("host:",host);
-            console.log(req.protocol+"://"+host);
+	        // console.log("host:",host);
+            // console.log(req.protocol+"://"+host);
             await Auctioneer.findOne({Email:email})
-                                    .then(async(data)=>{
-                                        //console.log(Date.now(),data.Email_Expiry_time,data);
+                            .then(async(data)=>{                                        
                                         if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
-                                           await Auctioneer.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
+                                           await Auctioneer.findByIdAndUpdate({_id:data._id},{is_EmailVerified:true},{new:true})
                                                             .then(async()=>{
-                                                                      await sendEmailToCustomer(host,email,"NA",3);
+                                                                      await sendEmailToCustomer(host,email,"NA",3,emailConstants.VerificationSuccessful,emailConstants.htmlContent_VerificationSuccessful,data.FirstName);
                                                                       res
-                                                                      .redirect('https://peaceful-shannon-16165f.netlify.app/signin')
                                                                       .status(200)
-                                                                      .send({ status: 200, message: "Your E-mail has been succesfully verified. Please wait for 24-48 hours to get an update about account activiation"});
+                                                                      .redirect('https://peaceful-shannon-16165f.netlify.app/signin')
+                                                                      //.send({ status: 200, message: "Your E-mail has been succesfully verified. Please wait for 24-48 hours to get an update about account activiation"});
                                                             }).catch(Err => {
                                                                 res.status(500).send({
                                                                 status: 500,
@@ -42,33 +43,16 @@ const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
                                         else if(data.Expiry_time != Date.now()){
                                             res.status(400).send({ status: 400, message: "verifivation link has expired!!"});
                                         }
-                                    }).catch(Err => {
+                        }).catch(Err => {
                                         res.status(500).send({
                                         status: 500,
                                         message:
                                             Err.message || "Some error occurred while verifing email, Please try after sometime."
                                         });
                                     });
-            // if((req.protocol+"://"+host)==("http://"+host))
-            // {
-            //     console.log("Domain is matched. Information is from Authentic email");
-            //     if(req.query.id==111)
-            //     {
-            //         console.log("email is verified");
-            //         res.end("Email "+"mailOptions.to"+" is been Successfully verified");
-            //     }
-            //     else
-            //     {
-            //         console.log("email is not verified");
-            //         res.end("Bad Request");
-            //     }
-            // }
-            // else
-            // {
-            //     res.end("Request is from unknown source");
-            // }
-         } catch (error) {
-      handleError(res, error)
+           } catch (error) {
+    //   handleError(res, error)
+    console.log(error)
     }
   }
 
@@ -81,7 +65,7 @@ const verifyEmailBidder = async (req, res) => { console.log(req.query)
 	          console.log("host:",host);
               console.log(req.protocol+"://"+host);
               await Bidder.findOne({Email:email})
-                                      .then(async(data)=>{ 
+                                      .then(async(data)=>{ console.log(data)
                                           //console.log(Date.now(),data.Email_Expiry_time,data);
                                           if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
                                              await Bidder.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})

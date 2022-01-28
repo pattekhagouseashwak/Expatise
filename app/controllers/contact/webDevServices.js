@@ -1,5 +1,8 @@
 const WebDevServices = require('../../models/webDevServices')
-const {sendEmailToCustomer} = require('../../controllers/authentication/helpers/sendEmailToCustomer')
+
+const emailConstants = require("../../constant/email-template/email-content")
+
+const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
 
 /**
  * Register function called by route
@@ -16,8 +19,11 @@ const webDevServices = async (req, res) => {
           const Email = req.body.Email;
           
           await WebDevServices.create({First_Name,Last_Name,Phone_Number,Email})
-                          .then(()=>{
-                                      res.status(200).send({ status: 200, message: "succesfully added details in DB"})
+                          .then(async (data) => {
+                                                 let host = req.get('host');
+                                                 console.log("host:", host);
+                                                 await sendEmailToCustomer(host, data.Email, "NA",3, emailConstants.RequestForWebsiteDevelopment, emailConstants.htmlcontent_WEBSITEDEVELOPMENTSERVICES, data.First_Name);
+                                                 res.status(200).send({ status: 200, message: "succesfully added details in DB"})
                                                       }).catch(Err => {
                                                           res.status(500).send({
                                                           status: 500,

@@ -2,15 +2,13 @@ const { handleError } = require('../../middleware/utils')
 
 const AuctionListing = require('../../models/auctionListing')
 
+const UnPublished = require('../../models/unPublished')
+
 const { fetchLatitudeLongitude } = require('../../middleware/utils')
 
 const emailConstants = require("../../constant/email-template/email-content")
 
 const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
-
-//var AWS = require("aws-sdk");
-
-//const appConstants = require('../../../config/aws.config');
 
 /**
  * Register function called by route
@@ -18,53 +16,8 @@ const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCust
  * @param {Object} res - response object
  */
 
-// // AWS S3 configuration
-// var s3bucket = new AWS.S3({
-//     accessKeyId: appConstants.AWS_ACCESS_KEY_ID,
-//     secretAccessKey: appConstants.AWS_SECRET_ACCESS_KEY,
-//     region: appConstants.AWS_REGION
-//   });
-
-// //checkUser-ID
-// exports.fetchUser_ID = async (obj_id) => {
-
-//     var cursor;
-//     await Auctioneer.findOne({ _id: obj_id }).then(data => {
-//       cursor = data;
-//     })
-//       .catch(err => {
-//         cursor = null;
-//       });
-//     return cursor;
-//   };
-
-//   //upload document to S3
-//   exports.uploadDocToS3 = async (s3bucket,params,s3FileURL,file) =>{
-
-//     var isUploaded;
-//     await s3bucket.upload(params, function(err, data) {
-//      if (err) {
-//        console.log(err);
-//        isUploaded = null;
-//        return isUploaded;
-//      } else {
-//        //res.send({ data });
-//        isUploaded = s3FileURL + params.Key+ file.originalname;
-//        //console.log(isUploaded)
-//        return isUploaded;
-//      }
-//    });
-
-//  };
-
-const createListing = async (req, res) => {//console.log(req.files )
+const removeUnPublishedAndAddListing = async (req, res) => {//console.log(req.files )
   try {
-
-    const files = req.files
-
-    //const resultSet = await this.fetchUser_ID(req.user.id)
-
-    //console.log(resultSet)
 
     let data =req.user;
     console.log(data)
@@ -82,6 +35,7 @@ const createListing = async (req, res) => {//console.log(req.files )
     const Zip = req.body.Zip;
     const resultSet = await fetchLatitudeLongitude(Address1 + " " + City + " " + State + " " + Country + " " + Zip)
     let location;
+
     if (resultSet.status == 200) {
       const geoData = resultSet.message;
       location = { type: "Point", coordinates: [geoData[0].longitude, geoData[0].latitude] };
@@ -100,41 +54,12 @@ const createListing = async (req, res) => {//console.log(req.files )
     const uploadPhoto = req.body.uploadPhoto;
     const AuctionMonthYear = req.body.AuctionDate.slice(0, 7);
 
-    //     if(files.length != 0)
-    //{ 
-
-    //         //console.log("with media")
-
-    //         const s3FileURL = appConstants.AWS_Uploaded_File_URL_LINK;
-
-    //         var photos = [];
-
-    //         for(var i=0;i<files.length;i++){
-
-    //            var file = files[i];
-
-    //            //Where you want to store your file
-
-    //            var params = {
-    //             Bucket: appConstants.AWS_BUCKET_NAME,
-    //             Key: resultSet.FirstName+'/'+file.originalname,
-    //             Body: file.buffer,
-    //             ContentType: file.mimetype,
-    //             ACL: "public-read"
-    //            };
-
-    //            await this.uploadDocToS3(s3bucket,params,s3FileURL,file);
-
-    //            photos.push(s3FileURL + params.Key);
-
-    //     }
-
-    // }
-
-
-
+    await UnPublished.findByIdAndDelete({_id:req.body.id})
 
      await AuctionListing.create({
+      
+       _id : req.body.id,
+
        Auctioneer,
 
        AuctionType,
@@ -195,4 +120,4 @@ const createListing = async (req, res) => {//console.log(req.files )
   }
 }
 
-module.exports = { createListing }
+module.exports = { removeUnPublishedAndAddListing }

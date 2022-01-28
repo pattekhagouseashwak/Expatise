@@ -8,6 +8,10 @@ var AWS = require("aws-sdk");
 
 const appConstants = require('../../../config/aws.config');
 
+const emailConstants = require("../../constant/email-template/email-content")
+
+const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -67,14 +71,16 @@ const postContent = async (req, res) => {
         const BlogContent = req.body.BlogContent;
         const reqType = req.body.reqType;
         let UploadPhoto;
+        
+        let resultSet = await this.fetchUser_ID(req.user.id)
+
+        //let resultSet = await this.fetchUser_ID('61d9dd9011c5504cb1b6a181')
          
         //Blog content.........
         if(reqType == 1){
 
         if(Array.isArray(files) && files.length != 0){
-
-            const resultSet = await this.fetchUser_ID(req.user.id)
-          
+        
             //console.log("with media")
             
             const s3FileURL = appConstants.AWS_Uploaded_File_URL_LINK;
@@ -102,15 +108,18 @@ const postContent = async (req, res) => {
             }
 
             UploadPhoto = photos;
-    }
-            
-        
+    }         
         await AddContent.create({
-            Auctioneer,
-            Title,
-            BlogContent,
-            UploadPhoto
-            }).then(()=>{res.status(200).send({ status: 200, message: "your content has been successfully submitted. we will notify you once it is reviewed and published."})
+                                  Auctioneer,
+                                  Title,
+                                  BlogContent,
+                                  UploadPhoto
+                                })
+                        .then(async () => {
+                                    let host = req.get('host');
+                                    console.log("host:", host);
+                                    await sendEmailToCustomer(host, resultSet.Email, "NA",3,emailConstants.BlogSuccessfullyAdded, emailConstants.htmlContent_BlogSuccessfullyAdded, resultSet.FirstName + resultSet.LastName);
+                                    res.status(200).send({ status: 200, message: "your content has been successfully submitted. we will notify you once it is reviewed and published."})
                         }).catch(Err => {
                                                 res.status(500).send({
                                                 status: 500,
@@ -126,7 +135,11 @@ const postContent = async (req, res) => {
                 Title,
                 videoUrl,
                 AddDescribtion
-                }).then(()=>{res.status(200).send({ status: 200, message: "your content has been successfully submitted. we will notify you once it is reviewed and published."})
+                }).then(async () => {
+                  let host = req.get('host');
+                  console.log("host:", host,resultSet);
+                  await sendEmailToCustomer(host, resultSet.Email, "NA",3,emailConstants.BlogSuccessfullyAdded, emailConstants.htmlContent_BlogSuccessfullyAdded, resultSet.FirstName + resultSet.LastName);        
+                  res.status(200).send({ status: 200, message: "your content has been successfully submitted. we will notify you once it is reviewed and published."})
                             }).catch(Err => {
                                                     res.status(500).send({
                                                     status: 500,

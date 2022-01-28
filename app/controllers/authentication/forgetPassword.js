@@ -14,6 +14,8 @@ const appInfo = require('../../../settings.json')
 
 const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
 
+const emailConstants = require("../../constant/email-template/email-content")
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -66,19 +68,18 @@ const forgotPasswordAuctioneer = async (req, res) => {
                                         Email_otp,
                                         Email_Expiry_time,
                                       },{new:true})
-              .then(async(data)=>{console.log(data)
+                    .then(async(data)=>{console.log(data)
                         if(data.Email == Email)
                        {
                          let host=req.get('host');
 	                     console.log("host:",host);
-                         await sendEmailToCustomer(host,Email,Email_otp,4);
+                         await sendEmailToCustomer(host,Email,Email_otp,4,emailConstants.ResetPassword,emailConstants.htmlContent_ResetPassword,data.FirstName);
                          res.status(200).send({ status: 200, message: "Kindly check your mail to verify your Email ID!!"})
                        }
                                         }).catch(Err => {
                                             res.status(500).send({
                                             status: 500,
-                                            message:
-                                                Err.message || "Some error occurred while sending verfication mail."
+                                            message:Err.message || "Some error occurred while sending verfication mail."
                                             });
                                         });
   } catch (error) {
@@ -116,7 +117,7 @@ const forgotPasswordBidder = async (req, res) => {
                        { 
                          let host=req.get('host');
 	                     console.log("host:",host);
-                         await sendEmailToCustomer(host,Email,Email_otp,5);
+                         await sendEmailToCustomer(host,Email,Email_otp,5,emailConstants.ResetPassword,emailConstants.htmlContent_ResetPassword,data.FirstName);
                          res.status(200).send({ status: 200, message: "Kindly check your mail to verify your Email ID!!"})
                        }
                                         }).catch(Err => {

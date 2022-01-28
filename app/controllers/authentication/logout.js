@@ -10,12 +10,12 @@ const { handleError } = require('../../middleware/utils')
 const logout = async (req, res) => {
 
   try {
-       const data = matchedData(req)
-       res
-        // .clearCookie("access_token")
-        .status(200)
-        .send({status:200,message: "Successfully logged out" });
-    } catch (error) {
+    const data = matchedData(req)
+    res
+      // .clearCookie("access_token")
+      .status(200)
+      .send({ status: 200, message: "Successfully logged out" });
+  } catch (error) {
     handleError(res, error)
   }
 }

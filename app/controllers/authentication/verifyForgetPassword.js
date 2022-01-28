@@ -26,7 +26,7 @@ const verifyForgetPasswordAuctioneer = async (req, res) => { console.log(req.que
                                             let accessToken = await generateToken(data._id,reqType)
                                            await Auctioneer.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
                                                             .then(async()=>{
-                                                                      await sendEmailToCustomer(host,email,"NA",3);
+                                                                    //   await sendEmailToCustomer(host,email,"NA",3,);
                                                                       res
                                                                       //.redirect('https://peaceful-shannon-16165f.netlify.app/signin')
                                                                       .status(200)
@@ -53,25 +53,7 @@ const verifyForgetPasswordAuctioneer = async (req, res) => { console.log(req.que
                                             Err.message || "Some error occurred while verifing email, Please try after sometime."
                                         });
                                     });
-            // if((req.protocol+"://"+host)==("http://"+host))
-            // {
-            //     console.log("Domain is matched. Information is from Authentic email");
-            //     if(req.query.id==111)
-            //     {
-            //         console.log("email is verified");
-            //         res.end("Email "+"mailOptions.to"+" is been Successfully verified");
-            //     }
-            //     else
-            //     {
-            //         console.log("email is not verified");
-            //         res.end("Bad Request");
-            //     }
-            // }
-            // else
-            // {
-            //     res.end("Request is from unknown source");
-            // }
-         } catch (error) {
+             } catch (error) {
       handleError(res, error)
     }
   }
@@ -118,24 +100,6 @@ const verifyForgetPasswordBidder = async (req, res) => { console.log(req.query)
                                               Err.message || "Some error occurred while verifing email, Please try after sometime."
                                           });
                                       });
-              // if((req.protocol+"://"+host)==("http://"+host))
-              // {
-              //     console.log("Domain is matched. Information is from Authentic email");
-              //     if(req.query.id==111)
-              //     {
-              //         console.log("email is verified");
-              //         res.end("Email "+"mailOptions.to"+" is been Successfully verified");
-              //     }
-              //     else
-              //     {
-              //         console.log("email is not verified");
-              //         res.end("Bad Request");
-              //     }
-              // }
-              // else
-              // {
-              //     res.end("Request is from unknown source");
-              // }
            } catch (error) {
         handleError(res, error)
       }

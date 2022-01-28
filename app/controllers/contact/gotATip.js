@@ -1,5 +1,10 @@
 const { handleError } = require('../../middleware/utils')
+
 const got_A_Tip = require('../../models/gotATip')
+
+const emailConstants = require("../../constant/email-template/email-content")
+
+const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
 
 /**
  * Register function called by route
@@ -15,9 +20,12 @@ const gotATip = async (req, res) => {
         const message = req.body.message;
   
         await got_A_Tip.create({name,phoneNumber,email,message})
-                  .then(()=>{
-                             res.status(200).send({ status: 200, message: "message succesfully added"})
-                            })
+                  .then(async (data) => {
+                                         let host = req.get('host');
+                                         console.log("host:", host);
+                                         await sendEmailToCustomer(host, data.email, "NA",6, emailConstants.ThankYouForYourValuableFeedback, emailConstants.htmlcontent_GOTATIPFORUS, data.name);        
+                                         res.status(200).send({ status: 200, message: "message succesfully added"})
+                                        })
                   .catch(Err => {
                                  res.status(500).send({status: 500,message:Err.message || "Some error occurred while listing item."});
                                 });

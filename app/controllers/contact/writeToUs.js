@@ -2,6 +2,10 @@ const { handleError } = require('../../middleware/utils')
 
 const WriteToUs = require('../../models/writeToUs')
 
+const emailConstants = require("../../constant/email-template/email-content")
+
+const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
+
 var AWS = require("aws-sdk");
 /**
  * Register function called by route
@@ -31,10 +35,13 @@ const writeToUs = async (req, res) => {
     const attachment = req.body.attachment;
 
     const random = uuidv4();
-    const TicketID = "WtUs_" + random;
+    const TicketID = "WTUS_" + random;
 
     await WriteToUs.create({ TicketID, userID, entityType, name, email, description, priority, message, attachment })
-      .then(() => {
+      .then(async(data) => {
+        let host=req.get('host');
+        console.log("host:",host);
+        await sendEmailToCustomer(host, data.email, "NA",8, emailConstants.Support, emailConstants.htmlcontent_TicketGeneratedViaEmail, data);
         res.status(200).send({ status: 200, message: "message succesfully added" })
       }).catch(Err => {
         res.status(500).send({

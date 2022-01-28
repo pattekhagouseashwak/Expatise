@@ -4,6 +4,10 @@ const { handleError } = require('../../middleware/utils')
 const mailchimp = require("@mailchimp/mailchimp_marketing")
 const mailchimpConfig = require("../../../config/mailchimp.config");
 
+const emailConstants = require("../../constant/email-template/email-content")
+
+const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
+
 mailchimp.setConfig(mailchimpConfig);
 /**
  * Register function called by route
@@ -22,6 +26,10 @@ const subscribeNewsletter = async (req, res) => {
                 status: 'subscribed',
                 email_type: 'html'
             })
+            
+            let host = req.get('host');
+            console.log("host:", host);
+            await sendEmailToCustomer(host, email,"NA",6, emailConstants.SubscribedSuccessfully, emailConstants.htmlContent_NEWSLETTER, "NA");
             res.status(200).send({ status: 200, message: "Successfully subscribed" })      
 
             // await Newsletter.create({

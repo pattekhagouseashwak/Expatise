@@ -12,7 +12,7 @@ const {getForwardTime} = require('./helpers/getForwardTime')
 
 const appInfo = require('../../../settings.json')
 
-//const {mailchimpService} = require('./helpers/mailchimpService')
+const emailConstants = require("../../constant/email-template/email-content")
 
 const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
 
@@ -111,7 +111,7 @@ const registerAuctioneer = async (req, res) => {
                          //await mailchimpService(Email,fristName,lastName);
                          let host=req.get('host');
 	                       console.log("host:",host);
-                         await sendEmailToCustomer(host,Email,Email_otp,1);
+                         await sendEmailToCustomer(host,Email,Email_otp,1,emailConstants.MailVerificationAuctioneer,emailConstants.htmlContent_SignUpAuctioneer,data.FirstName);                         //await sendEmailToCustomer(host,Email,Email_otp,1,emailConstants.MailVerificationAuctioneer,emailConstants.htmlContent_SignUpAuctioneer,data.FirstName);
                          res.status(200).send({ status: 200, message: "successfully User Details has uploaded and verification mail has been sent to the respested email !!"})
                        }
                                         }).catch(Err => {
@@ -189,7 +189,8 @@ const registerBidder = async (req, res) => {
                          //await mailchimpService(Email,fristName,lastName);
                          let host=req.get('host');
 	                       console.log("host:",host);
-                         await sendEmailToCustomer(host,Email,Email_otp,2);
+                         await sendEmailToCustomer(host,Email,Email_otp,2,emailConstants.SignUpBidder,emailConstants.htmlContent_SignUpBidder,data.FirstName);
+                         await sendEmailToCustomer(host,Email,Email_otp,2.1,emailConstants.VerificationEmailBidder,emailConstants.htmlContent_VerificationEmailBidder,data.FirstName);
                          res.status(200).send({ status: 200, message: "Thank you for Signing Up. Kindly check your mail to verify your Email ID!!"})
                        }
                                         }).catch(Err => {

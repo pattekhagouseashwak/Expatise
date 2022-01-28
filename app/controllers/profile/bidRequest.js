@@ -11,7 +11,7 @@ const bidRequest = async (req, res) => {
             return res.status(400).send({ status: 400, message: "auctionId can't be empty!!"})
         }
         const  auctionId = req.body.auctionId;
-        await Bid.find({auctionId:"61a21e49db7e3b2a479fa80d"})
+        await Bid.find({auctionId:auctionId})
                   .populate("userId","FirstName LastName Phone")
                   .then((data)=>{
                                 

@@ -10,12 +10,19 @@ const AuctionLisintg = require('../../models/auctionListing')
 
 const featureAuction = async (req, res) => {
   try {
-    
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    var currentDate = (yyyy+"-"+mm+"-"+dd);
+
+    //console.log(currentDate)
+
     if(req.body.AuctionType.length == 0){
       return res.status(400).send({ status: 400, message: "auction Type can't be empty!!",data})
     }
     else if(req.body.AuctionType == "ALL"){
-              await AuctionLisintg.find()
+              await AuctionLisintg.find({AuctionDate :{$gte:currentDate} })
                       .then((data)=>{
                                     res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details!!",data})
                                     }
@@ -28,7 +35,7 @@ const featureAuction = async (req, res) => {
                                                 });
     }
     else if(req.body.AuctionType != "ALL"){
-      await AuctionLisintg.find({AuctionType:req.body.AuctionType})
+      await AuctionLisintg.find({$and: [{AuctionType:req.body.AuctionType},{AuctionDate :{$gte:currentDate} } ] } )
       .then((data)=>{
                     res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details!!",data})
                     }

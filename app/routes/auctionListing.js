@@ -21,25 +21,26 @@ const {
   searchAuction,
   fetchAuctionByTypeAndState,
   displayListingOverMap,
-  fetchSingleAuction
+  fetchSingleAuction,
+  unPublished,
+  deleteUnPublishedItem,
+  removeUnPublishedAndAddListing
 } = require('../controllers/auctionListing')
 
 const {
     validateCreateListing
 } = require('../controllers/auctionListing/validators')
+
 /*
  * autionlisting routes
  */
-
-
 router.post(
   '/createListing',
   requireAuth,
   //validateCreateListing,
   //upload.array('file', 10000),
   trimRequest.all,
-  createListing
-)
+  createListing)
 
 router.get(
   '/fetchListing',
@@ -75,8 +76,8 @@ router.post(
 router.post(
   '/searchAuction',
   //requireAuth,
-  trimRequest.all
-  ,searchAuction)
+  trimRequest.all,
+  searchAuction)
 
   router.post(
     '/fetchAuctionByTypeAndState',
@@ -96,4 +97,23 @@ router.post(
     trimRequest.all,
    fetchSingleAuction)
    
+   router.post(
+    '/unPublished',
+    requireAuth,
+    trimRequest.all,
+    unPublished)
+
+    router.delete(
+      '/deleteUnPublishedItem',
+      requireAuth,
+      trimRequest.all,
+    deleteUnPublishedItem)  
+
+
+  router.post(
+      '/removeUnPublishedAndAddListing',
+      requireAuth,
+      trimRequest.all,
+     removeUnPublishedAndAddListing)
+
 module.exports = router
