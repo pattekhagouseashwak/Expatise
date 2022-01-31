@@ -92,8 +92,7 @@ const validateRegister = [
     .withMessage('auctioneerLicensceNo IS_EMPTY'),
 
     check('auctioneerLicenscePhoto')
-    .exists()
-    .withMessage('auctioneerLicenscePhoto MISSING')
+    .optional()
     .not()
     .isEmpty()
     .withMessage('auctioneerLicenscePhoto IS_EMPTY')
