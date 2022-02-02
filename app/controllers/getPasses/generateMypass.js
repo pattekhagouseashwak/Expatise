@@ -1,8 +1,13 @@
 const Bid = require('../../models/bid')
 
+const AuctionListing = require('../../models/auctionListing')
+
 const emailConstants = require("../../constant/email-template/email-content")
 
 const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
+
+const emailConfig = require('../../../config/email')
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -45,18 +50,27 @@ const generateMypass = async (req, res) => {
         if (resultSet == "NA" || resultSet.length != 0) {
             return res.status(400).send({ status: 400, message: "Pass has generated already, Please check in Profile DashBoard!!" })
         }
+
+        const Auctioneer_data = await AuctionListing.findById({_id:auctionId})
+                                                 .select("Auctioneer")
+                                                 .populate("Auctioneer","FirstName LastName Email")
+
+        const Bidder_ID = req.user.BidderID;
+
+        let obj = [Bidder_ID,BidderName,Auctioneer_data.Auctioneer.FirstName,Auctioneer_data.Auctioneer.LastName];
+
         await Bid.create({ userId, auctionId, auctionType: "Passes", category, auctioneerCompanyName, productName, address, date, time, BidderName, BidderEmail, BidderContact })
             .then(async (data) => {
                 let host = req.get('host');
                 console.log("host:", host);
-                await sendEmailToCustomer(host, data.BidderEmail, "NA", 3, emailConstants.BiddingRequestSubmittedSuccessfully, emailConstants.htmlcontent_onceBidderRequestBid, data.BidderName);
+                await sendEmailToCustomer(host, data.BidderEmail, "NA", 3, emailConstants.BiddingRequestSubmittedSuccessfully, emailConstants.htmlcontent_onceBidderRequestBid, data.BidderName,emailConfig.username_listing);
+                await sendEmailToCustomer(host, Auctioneer_data.Auctioneer.Email, "NA",9, emailConstants.IncomingBidderAlert, emailConstants.htmlContent_Incoming_Bidder_Alert, obj,emailConfig.username_listing);
                 res.status(200).send({ status: 200, message: "Successfully bid passes has generated!!" })
             }
             ).catch(Err => {
                 res.status(500).send({
-                    status: 500,
-                    message:
-                        Err.message || "Some error occurred while generating bid passes."
+                    status:500,
+                    message:Err.message || "Some error occurred while generating bid passes."
                 });
             });
 

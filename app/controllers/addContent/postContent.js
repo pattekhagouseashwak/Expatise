@@ -12,6 +12,9 @@ const emailConstants = require("../../constant/email-template/email-content")
 
 const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
 
+const emailConfig = require('../../../config/email')
+
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -118,7 +121,7 @@ const postContent = async (req, res) => {
                         .then(async () => {
                                     let host = req.get('host');
                                     console.log("host:", host);
-                                    await sendEmailToCustomer(host, resultSet.Email, "NA",3,emailConstants.BlogSuccessfullyAdded, emailConstants.htmlContent_BlogSuccessfullyAdded, resultSet.FirstName + resultSet.LastName);
+                                    await sendEmailToCustomer(host, resultSet.Email, "NA",3,emailConstants.BlogSuccessfullyAdded, emailConstants.htmlContent_BlogSuccessfullyAdded, resultSet.FirstName + resultSet.LastName,emailConfig.username_support);
                                     res.status(200).send({ status: 200, message: "your content has been successfully submitted. we will notify you once it is reviewed and published."})
                         }).catch(Err => {
                                                 res.status(500).send({
@@ -138,7 +141,7 @@ const postContent = async (req, res) => {
                 }).then(async () => {
                   let host = req.get('host');
                   console.log("host:", host,resultSet);
-                  await sendEmailToCustomer(host, resultSet.Email, "NA",3,emailConstants.BlogSuccessfullyAdded, emailConstants.htmlContent_BlogSuccessfullyAdded, resultSet.FirstName + resultSet.LastName);        
+                  await sendEmailToCustomer(host, resultSet.Email, "NA",3,emailConstants.BlogSuccessfullyAdded, emailConstants.htmlContent_BlogSuccessfullyAdded, resultSet.FirstName + resultSet.LastName,emailConfig.username_support);        
                   res.status(200).send({ status: 200, message: "your content has been successfully submitted. we will notify you once it is reviewed and published."})
                             }).catch(Err => {
                                                     res.status(500).send({

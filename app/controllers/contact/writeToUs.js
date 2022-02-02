@@ -6,6 +6,8 @@ const emailConstants = require("../../constant/email-template/email-content")
 
 const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
 
+const emailConfig = require('../../../config/email')
+
 var AWS = require("aws-sdk");
 /**
  * Register function called by route
@@ -41,7 +43,7 @@ const writeToUs = async (req, res) => {
       .then(async(data) => {
         let host=req.get('host');
         console.log("host:",host);
-        await sendEmailToCustomer(host, data.email, "NA",8, emailConstants.Support, emailConstants.htmlcontent_TicketGeneratedViaEmail, data);
+        await sendEmailToCustomer(host, data.email, "NA",8, emailConstants.Support, emailConstants.htmlcontent_TicketGeneratedViaEmail, data,emailConfig.username_support);
         res.status(200).send({ status: 200, message: "message succesfully added" })
       }).catch(Err => {
         res.status(500).send({

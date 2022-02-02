@@ -4,6 +4,9 @@ const emailConstants = require("../../constant/email-template/email-content")
 
 const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
 
+const emailConfig = require('../../../config/email')
+
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -22,7 +25,7 @@ const hostingServices = async (req, res) => {
                           .then(async (data) => {
                                                   let host = req.get('host');
                                                   console.log("host:", host);
-                                                  await sendEmailToCustomer(host, data.Email, "NA", 3, emailConstants.RequestForHostingServices, emailConstants.htmlcontent_HOSTINGSERVICES, data.First_Name); 
+                                                  await sendEmailToCustomer(host, data.Email, "NA", 3, emailConstants.RequestForHostingServices, emailConstants.htmlcontent_HOSTINGSERVICES, data.First_Name,emailConfig.username_bussiness); 
                                                   res.status(200).send({ status: 200, message: "succesfully added details in DB"})
                                                       }).catch(Err => {
                                                           res.status(500).send({

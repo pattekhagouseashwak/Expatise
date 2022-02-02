@@ -1,4 +1,4 @@
-const WebDevServices = require('../../models/webDevServices')
+const GotQuestionRelatedToAuctionLaw = require('../../models/gotQuestionRelatedToAuctionLaw')
 
 const emailConstants = require("../../constant/email-template/email-content")
 
@@ -13,21 +13,19 @@ const emailConfig = require('../../../config/email')
  * @param {Object} res - response object
  */
 
-const webDevServices = async (req, res) => {
+const gotQuestionRelatedToAuctionLaw = async (req, res) => {
    
         try {      
-          const First_Name = req.body.name;
-          const Last_Name = req.body.Last_Name;
-          const Phone_Number = req.body.Phone_Number;
+          const Your_Question = req.body.Your_Question;
           const Email = req.body.Email;
           
-          await WebDevServices.create({First_Name,Last_Name,Phone_Number,Email})
+          await GotQuestionRelatedToAuctionLaw.create({Email,Your_Question})
                           .then(async (data) => {
-                                                 let host = req.get('host');
-                                                 console.log("host:", host);
-                                                 await sendEmailToCustomer(host, data.Email, "NA",3, emailConstants.RequestForWebsiteDevelopment, emailConstants.htmlcontent_WEBSITEDEVELOPMENTSERVICES, data.First_Name,emailConfig.username_bussiness);
-                                                 res.status(200).send({ status: 200, message: "succesfully added details in DB"})
-                                                      }).catch(Err => {
+                                                  let host = req.get('host');
+                                                  console.log("host:", host);
+                                                  await sendEmailToCustomer(host, Email, "NA",6, emailConstants.YouAreAtTheRightPlace, emailConstants.htmlContent_YouAreAtTheRightPlace, "NA",emailConfig.username_auctionLaws); 
+                                                  res.status(200).send({ status: 200, message: "succesfully added details in DB"})
+                                                }).catch(Err => {
                                                           res.status(500).send({
                                                           status: 500,
                                                           message:
@@ -40,4 +38,4 @@ const webDevServices = async (req, res) => {
         }
 }
 
-module.exports = { webDevServices }
+module.exports = { gotQuestionRelatedToAuctionLaw }

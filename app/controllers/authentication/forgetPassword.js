@@ -16,6 +16,7 @@ const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
 
 const emailConstants = require("../../constant/email-template/email-content")
 
+const emailConfig = require('../../../config/email')
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -73,7 +74,7 @@ const forgotPasswordAuctioneer = async (req, res) => {
                        {
                          let host=req.get('host');
 	                     console.log("host:",host);
-                         await sendEmailToCustomer(host,Email,Email_otp,4,emailConstants.ResetPassword,emailConstants.htmlContent_ResetPassword,data.FirstName);
+                         await sendEmailToCustomer(host,Email,Email_otp,4,emailConstants.ResetPassword,emailConstants.htmlContent_ResetPassword,data.FirstName,emailConfig.username_notify);
                          res.status(200).send({ status: 200, message: "Kindly check your mail to verify your Email ID!!"})
                        }
                                         }).catch(Err => {
@@ -117,7 +118,7 @@ const forgotPasswordBidder = async (req, res) => {
                        { 
                          let host=req.get('host');
 	                     console.log("host:",host);
-                         await sendEmailToCustomer(host,Email,Email_otp,5,emailConstants.ResetPassword,emailConstants.htmlContent_ResetPassword,data.FirstName);
+                         await sendEmailToCustomer(host,Email,Email_otp,5,emailConstants.ResetPassword,emailConstants.htmlContent_ResetPassword,data.FirstName,emailConfig.username_notify);
                          res.status(200).send({ status: 200, message: "Kindly check your mail to verify your Email ID!!"})
                        }
                                         }).catch(Err => {

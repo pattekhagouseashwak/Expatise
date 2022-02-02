@@ -10,6 +10,8 @@ const Bidder = require('../../models/Bidder')
 
 const emailConstants = require("../../constant/email-template/email-content")
 
+const emailConfig = require('../../../config/email')
+
 const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
     try {   
             var email = await decrypt(req.query.address);
@@ -23,7 +25,7 @@ const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
                                         if(data.Email_otp == emailOtp && data.Email_Expiry_time>= Date.now()){
                                            await Auctioneer.findByIdAndUpdate({_id:data._id},{is_EmailVerified:true},{new:true})
                                                             .then(async()=>{
-                                                                      await sendEmailToCustomer(host,email,"NA",3,emailConstants.VerificationSuccessful,emailConstants.htmlContent_VerificationSuccessful,data.FirstName);
+                                                                      await sendEmailToCustomer(host,email,"NA",3,emailConstants.VerificationSuccessful,emailConstants.htmlContent_VerificationSuccessful,data.FirstName,emailConfig.username_notify);
                                                                       res
                                                                       .status(200)
                                                                       .redirect('https://peaceful-shannon-16165f.netlify.app/signin')

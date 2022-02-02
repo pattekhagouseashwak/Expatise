@@ -375,6 +375,46 @@ var htmlString_YourAuctionListingIsLIVE = multiline(function () {/*
     */
 });
 
+var htmlString_YouAreAtTheRightPlace = multiline(function () {/*
+    <!DOCTYPE html>
+    <html>
+    <body>
+    Bad laws and court decisions are the worst sort of tyranny. Why face tyranny when you can actually be rightly informed to know how to stay protected!<br><br>
+    Dear User,<br>
+    Thank you for submitting your review/ query.<br>
+    Auction Journal doesn’t just provide a platform for online auctions but aids in spreading the right information, information and instruction about the laws to assist in protecting you from getting misguided by people who just don’t know.<br>
+    We have contact with attorneys who specialize in the auction industry.<br>
+    We will have someone reach out to you in the next 24-48 hours.<br>
+    Stay informed and keep your interests protected!<br><br>
+    Regards,<br>
+    Auction Journal<br>
+    Support Team<br>
+    * This is an auto generated mail. Please do not reply to this mail. *<br>
+    </body>
+    </html>
+    */
+});
+
+var htmlString_Incoming_Bidder_Alert = multiline(function () {/*
+    <!DOCTYPE html>
+    <html>
+    <body>
+    Respected $s1,<br>
+    Congratulations! We are pleased to notify you that you have a new request from one of our registered customers who would like to register and bid at your auction.<br>
+    Please find below the details of the bidder:<br>
+    Name-$s2<br>
+    Bidder Id-$s3<br>
+    Stay tuned for updates from the Auction Journal.<br>
+    We are always at your service!<br>
+    Regards,<br>
+    Auction Journal<br>
+    Support Team<br>
+    * This is an auto generated mail. Please do not reply to this mail. *<br>
+    </body>
+    </html>
+    */
+});
+
 exports.SignUpBidder = "Thank you for Signing up";
 exports.VerificationEmailBidder = "Mail Verification";
 exports.ResetPassword = "Reset Password";
@@ -418,3 +458,5 @@ exports.htmlContent_BlogSuccessfullyAdded = htmlString_BlogSuccessfullyAdded;
 exports.htmlContent_VideoSuccessfullyAdded = htmlString_VideoSuccessfullyAdded;
 exports.htmlCotent_WeHaveMadeSomeChanges =  htmlString_WeHaveMadeSomeChanges;
 exports.htmlContent_YourAuctionListingIsLIVE =  htmlString_YourAuctionListingIsLIVE;
+exports.htmlContent_YouAreAtTheRightPlace = htmlString_YouAreAtTheRightPlace;
+exports.htmlContent_Incoming_Bidder_Alert = htmlString_Incoming_Bidder_Alert;

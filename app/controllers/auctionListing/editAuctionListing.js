@@ -9,6 +9,9 @@ const appConstants = require('../../../config/aws.config');
 const emailConstants = require("../../constant/email-template/email-content")
 
 const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
+
+const emailConfig = require('../../../config/email')
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -101,7 +104,7 @@ const editAuctionListing = async (req, res) => {//console.log(req.files )
               .then(async()=>{
                               let host = req.get('host');
                               console.log("host:", host);
-                              await sendEmailToCustomer(host, data.Email, "NA",3,emailConstants.WehavemadesomeChanges, emailConstants.htmlCotent_WeHaveMadeSomeChanges, data.FirstName + data.LastName);
+                              await sendEmailToCustomer(host, data.Email, "NA",3,emailConstants.WehavemadesomeChanges, emailConstants.htmlCotent_WeHaveMadeSomeChanges, data.FirstName + data.LastName,emailConfig.username_listing);
                          res.status(200).send({ status: 200, message: "your iteam has been successfully updated"})
                                         }).catch(Err => {
                                             res.status(500).send({

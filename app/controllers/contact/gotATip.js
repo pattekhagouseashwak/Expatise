@@ -6,6 +6,9 @@ const emailConstants = require("../../constant/email-template/email-content")
 
 const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
 
+const emailConfig = require('../../../config/email')
+
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -23,7 +26,7 @@ const gotATip = async (req, res) => {
                   .then(async (data) => {
                                          let host = req.get('host');
                                          console.log("host:", host);
-                                         await sendEmailToCustomer(host, data.email, "NA",6, emailConstants.ThankYouForYourValuableFeedback, emailConstants.htmlcontent_GOTATIPFORUS, data.name);        
+                                         await sendEmailToCustomer(host, data.email, "NA",6, emailConstants.ThankYouForYourValuableFeedback, emailConstants.htmlcontent_GOTATIPFORUS, data.name,emailConfig.username_suggestions);        
                                          res.status(200).send({ status: 200, message: "message succesfully added"})
                                         })
                   .catch(Err => {

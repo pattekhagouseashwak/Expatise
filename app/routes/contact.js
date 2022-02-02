@@ -19,95 +19,91 @@ const {
     dashboardAdvert,
     getWriteToUsDetails,
     hostingServices,
-    webDevServices
+    webDevServices,
+    gotQuestionRelatedToAuctionLaw
 } = require('../controllers/contact')
 
 const {
   validateCreateRecommandVideo,
+  validateData_gotQuestion,
   validateData
 } = require('../controllers/contact/validator')
 
-router.post(
-  '/contactUs',
+router.post('/contactUs',
   trimRequest.all,
   requireAuth,
   contactUs
 )
 
-router.post(
-    '/gotATip',
+router.post('/gotATip',
     trimRequest.all,
     requireAuth,
     gotATip
 )
 
-router.post(
-    '/advertiseWithUs',
+router.post('/advertiseWithUs',
     trimRequest.all,
     requireAuth,
     advertiseWithUs
 )
 
-router.post(
-  '/createRecommandVideo',
+router.post('/createRecommandVideo',
   trimRequest.all,
   requireAuth,
   validateCreateRecommandVideo,
 createRecommandVideo)
 
-
-router.get(
-  '/recommendedVideo',
+router.get('/recommendedVideo',
   trimRequest.all,
   //requireAuth,
 recommendedVideo)
 
-router.post(
-  '/requestACallback',
+router.post('/requestACallback',
   trimRequest.all,
   requireAuth,
   requestACallback
 )
 
-router.get(
-  '/getRequestACallbackDetails',
+router.get('/getRequestACallbackDetails',
   trimRequest.all,
   requireAuth,
   getRequestACallbackDetails
 )
 
 
-router.post(
-  '/writeToUs',
+router.post('/writeToUs',
   trimRequest.all,
   requireAuth,
   writeToUs
 )
 
-router.get(
-  '/dashboardAdverts',
+router.get('/dashboardAdverts',
   trimRequest.all,
   dashboardAdvert
 )
 
-router.get(
-  '/getWriteToUsDetails',
+router.get('/getWriteToUsDetails',
   trimRequest.all,
   requireAuth,
   getWriteToUsDetails
 )
 
-router.post(
-  '/hostingServices',
+router.post('/hostingServices',
   trimRequest.all,
   validateData,
   hostingServices
 )
 
-router.post(
-  '/webDevServices',
+router.post('/webDevServices',
   trimRequest.all,
   validateData,
   webDevServices
 )
+
+router.post('/gotQuestionRelatedToAuctionLaw',
+  trimRequest.all,
+  validateData_gotQuestion,
+  gotQuestionRelatedToAuctionLaw
+)
+
 module.exports = router

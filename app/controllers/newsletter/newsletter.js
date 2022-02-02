@@ -8,6 +8,8 @@ const emailConstants = require("../../constant/email-template/email-content")
 
 const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCustomer')
 
+const emailConfig = require('../../../config/email')
+
 mailchimp.setConfig(mailchimpConfig);
 /**
  * Register function called by route
@@ -29,7 +31,7 @@ const subscribeNewsletter = async (req, res) => {
             
             let host = req.get('host');
             console.log("host:", host);
-            await sendEmailToCustomer(host, email,"NA",6, emailConstants.SubscribedSuccessfully, emailConstants.htmlContent_NEWSLETTER, "NA");
+            await sendEmailToCustomer(host, email,"NA",6, emailConstants.SubscribedSuccessfully, emailConstants.htmlContent_NEWSLETTER, "NA",emailConfig.username_newsLetter);
             res.status(200).send({ status: 200, message: "Successfully subscribed" })      
 
             // await Newsletter.create({

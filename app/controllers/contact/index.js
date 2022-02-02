@@ -9,7 +9,9 @@ const { writeToUs, getWriteToUsDetails } = require('./writeToUs')
 const {dashboardAdvert} = require('./dashboardAdvert')
 const {hostingServices} = require('./hostingServices')
 const {webDevServices} = require('./webDevServices')
+const {gotQuestionRelatedToAuctionLaw} = require('./gotQuestionRelatedToAuctionLaw')
 
 module.exports = {contactUs, gotATip, advertiseWithUs,createRecommandVideo,
                  recommendedVideo,requestACallback,getRequestACallbackDetails,
-                 writeToUs, getWriteToUsDetails,dashboardAdvert,hostingServices,webDevServices}
+                 writeToUs, getWriteToUsDetails,dashboardAdvert,hostingServices,
+                 gotQuestionRelatedToAuctionLaw,webDevServices}

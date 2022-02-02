@@ -14,6 +14,8 @@ const {sendEmailToCustomer} = require('./helpers/sendEmailToCustomer')
 
 const emailConstants = require("../../constant/email-template/email-content")
 
+const emailConfig = require('../../../config/email')
+
 
 /**
  * Reset password function called by route
@@ -78,7 +80,7 @@ const setNewPassword = async (req, res) => { console.log(req.body)
           .then(async(resultSet) => {
             let host=req.get('host');
 	          console.log("host:",host);
-            await sendEmailToCustomer(host,req.body.Email,"NA",6,emailConstants.PasswordSuccessfullyUpdated,emailConstants.htmlContent_PasswordSuccessfullyUpdated,"NA");
+            await sendEmailToCustomer(host,req.body.Email,"NA",6,emailConstants.PasswordSuccessfullyUpdated,emailConstants.htmlContent_PasswordSuccessfullyUpdated,"NA",emailConfig.username_notify);
           let accessToken = await generateToken(resultSet._id);
           res.status(200).send(
             {

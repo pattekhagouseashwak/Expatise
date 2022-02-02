@@ -8,6 +8,9 @@ const emailConstants = require("../../constant/email-template/email-content")
 
 const {sendEmailToCustomer} = require('../authentication/helpers/sendEmailToCustomer')
 
+const emailConfig = require('../../../config/email')
+
+
 //var AWS = require("aws-sdk");
 
 //const appConstants = require('../../../config/aws.config');
@@ -130,10 +133,6 @@ const createListing = async (req, res) => {//console.log(req.files )
     //     }
 
     // }
-
-
-
-
      await AuctionListing.create({
        Auctioneer,
 
@@ -180,7 +179,7 @@ const createListing = async (req, res) => {//console.log(req.files )
       .then(async() => {
         let host = req.get('host');
                               console.log("host:", host);
-                              await sendEmailToCustomer(host, data.Email, "NA",3,emailConstants.YourAuctionListingIsLIVE, emailConstants.htmlContent_YourAuctionListingIsLIVE, data.FirstName + data.LastName);
+                              await sendEmailToCustomer(host, data.Email, "NA",3,emailConstants.YourAuctionListingIsLIVE, emailConstants.htmlContent_YourAuctionListingIsLIVE, data.FirstName + data.LastName,emailConfig.username_listing);
         res.status(200).send({ status: 200, message: "your iteam has been successfully listed" })
       }).catch(Err => {
         res.status(500).send({

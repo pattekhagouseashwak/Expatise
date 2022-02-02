@@ -13,11 +13,13 @@ const sgMail = require('@sendgrid/mail')
  */
 
 // Sending Emails
-const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,Name) => { console.log(toEmailId,rand,type,mailSubject,content)
+const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,Name,fromEmailId) => { //console.log(toEmailId,rand,type,mailSubject,content,Name,fromEmailId)
 
   sgMail.setApiKey(appInfo.SENDGRID_API_KEY)
 
   var email = await encrypt(toEmailId);
+
+  console.log(toEmailId,Name,fromEmailId)
 
     if(type == 1)
     {
@@ -26,10 +28,11 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
       var emailTemplate = content;
       var mailOptions =  {
         to: toEmailId, 
-        from: emailConfig.username,
+        from: fromEmailId,
         subject: mailSubject,
         html: emailTemplate
      }
+     console.log(mailOptions)
     }//verification content for Auctioner and Bidder
     else if(type == 2){
 
@@ -38,7 +41,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
        
       var mailOptions =  {
                             to: toEmailId, 
-                            from: emailConfig.username,
+                            from: fromEmailId,
                             subject: mailSubject,
                             html: emailTemplate
                          }
@@ -53,7 +56,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
       console.log("2.1",emailTemplate)
       var mailOptions =  {
         to: toEmailId, 
-        from: emailConfig.username,
+        from: fromEmailId,
         subject: mailSubject,
         html: emailTemplate
      }
@@ -64,7 +67,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
        
       var mailOptions =  {
                             to: toEmailId, 
-                            from: emailConfig.username,
+                            from: fromEmailId,
                             subject: mailSubject,
                             html: emailTemplate
                          }
@@ -79,7 +82,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
      console.log("4",emailTemplate)
      var mailOptions =  {
                           to: toEmailId, 
-                          from: emailConfig.username,
+                          from: fromEmailId,
                           subject: mailSubject,
                           html: emailTemplate
                         }
@@ -93,7 +96,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
     console.log("4",emailTemplate)
     var mailOptions =  {
                          to: toEmailId, 
-                         from: emailConfig.username,
+                         from: fromEmailId,
                          subject: mailSubject,
                          html: emailTemplate
                        }
@@ -103,7 +106,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
     var emailTemplate = content;
     var mailOptions =  {
                          to: toEmailId, 
-                         from: emailConfig.username,
+                         from: fromEmailId,
                          subject: mailSubject,
                          html: emailTemplate
                        }
@@ -118,7 +121,7 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
      console.log("7",emailTemplate)
      var mailOptions =  {
                           to: toEmailId, 
-                          from: emailConfig.username,
+                          from: fromEmailId,
                           subject: mailSubject,
                           html: emailTemplate
                         }
@@ -133,37 +136,26 @@ const sendEmailToCustomer = async(host,toEmailId,rand,type,mailSubject,content,N
      console.log("8",emailTemplate)
      var mailOptions =  {
                           to: toEmailId, 
-                          from: emailConfig.username,
+                          from: fromEmailId,
                           subject: mailSubject,
                           html: emailTemplate
                         }
     }
-   
-    // //verification content for Auctioner and Bidder
-    // if(type == 2){
-
-    // content = content.replace("$s1", Name);
-    // var emailTemplate = content
-     
-    // var mailOptions =  {
-    //                       to: toEmailId, 
-    //                       from: emailConfig.username,
-    //                       subject: mailSubject,
-    //                       html: emailTemplate
-    //                    }
-
-    // // }// Thanks for completion the singup process for Auctioner
-    // else if(type == 3){  
-    //   content = content.replace("$s1", Name);
-    //   var emailTemplate = content
-       
-    //   var mailOptions =  {
-    //                         to: toEmailId, 
-    //                         from: emailConfig.username,
-    //                         subject: mailSubject,
-    //                         html: emailTemplate
-    //                      }
-    // }
+    else if(type == 9)
+    {
+     let data = Name
+     content = content.replace("$s1", data[2]+data[3]);
+     content = content.replace("$s2", data[0]);
+     content = content.replace("$s3",data[1]);
+     var emailTemplate = content
+     console.log("9",emailTemplate)
+     var mailOptions =  {
+                          to: toEmailId, 
+                          from: fromEmailId,
+                          subject: mailSubject,
+                          html: emailTemplate
+                        }
+    }
 
   //console.log(mailOptions);
   //sending mail to users
