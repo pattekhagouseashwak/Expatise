@@ -30,6 +30,7 @@ router.use(baseUr, require('./auctioneerDirectories'))
 
 router.use(baseUr, require('./newsletter'))
 
+router.use(baseUr, require('./helpAndSupport'))
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {
   // Take filename and remove last part (extension)

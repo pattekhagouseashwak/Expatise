@@ -13,7 +13,8 @@ const writeToUsSchema = new mongoose.Schema(
     message:{type:String},
     attachment:{type:String},
     priority:{type:String},
-    Status:{type:String,default:"Raised"}
+    Status:{type:String,default:"Raised"},
+    entityType:{type:String}
   },
   {
     versionKey: false,

@@ -2,6 +2,10 @@ const { handleError } = require('../../middleware/utils')
 
 const AuctionLisintg = require('../../models/auctionListing')
 
+var requestIp = require('request-ip');
+
+var geoip = require('geoip-lite');
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -18,7 +22,6 @@ const searchAuction = async (req, res) => { //console.log(req.body)
     if (req.body.length == 0) {
       return res.status(400).send({ status: 400, message: "request body is empty!!" })
     }
-
     if (req.body.State.length != 0) {
       searchValue.push({ State: req.body.State });
       //console.log(searchValue)
@@ -31,10 +34,38 @@ const searchAuction = async (req, res) => { //console.log(req.body)
       searchValue.push({ Zip: req.body.Zip });
       //console.log(searchValue)
     }
-    // if(req.body.Miles.length !=0){
-    //   searchValue.push({Miles : req.body.Miles});
-    //   //console.log(searchValue)
-    // }
+    if (req.body.Miles.length != 0) {
+      var ipAddress = requestIp.getClientIp(req);
+      var longitude;
+      var latitude;
+      var ip = ipAddress;
+      var geo = geoip.lookup(ip);
+      //console.log("geo",geo)
+
+      if (geo == null) {
+        res.status(400).send({ status: 400, message: "latitude longitude has not found...!!!" });
+        return;
+      }
+
+      longitude = geo.ll[0]
+
+      latitude = geo.ll[1]
+
+      let Distance = req.body.Miles * 1609.34
+
+      searchValue.push({
+        $and: [{
+          location: {
+            $near: {
+              $maxDistance: Distance,
+              $minDistance: 0,
+              $geometry: { type: "Point", coordinates: [longitude, latitude] }
+            }
+          }
+        }]
+      });
+      // console.log(searchValue)
+    }
     if (req.body.Category.length != 0) {
       searchValue.push({ AuctionCategory: req.body.Category });
       //console.log(searchValue)

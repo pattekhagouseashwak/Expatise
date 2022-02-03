@@ -72,6 +72,7 @@ const AuctioneerSchema = new mongoose.Schema(
     tickerSymbol: {type:String},
 
     subscribedNewsletter:{type:Boolean, default: false},
+    
   },
   {
     versionKey: false,
