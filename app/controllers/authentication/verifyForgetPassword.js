@@ -28,9 +28,9 @@ const verifyForgetPasswordAuctioneer = async (req, res) => { console.log(req.que
                                                             .then(async()=>{
                                                                     //   await sendEmailToCustomer(host,email,"NA",3,);
                                                                       res
-                                                                      //.redirect('https://peaceful-shannon-16165f.netlify.app/signin')
                                                                       .status(200)
-                                                                      .send({ status: 200, message: accessToken});
+                                                                      .redirect('https://auctionjournal.com/request/?role=resetpassword&token='+accessToken)
+                                                                      //.send({ status: 200, message: accessToken});
                                                             }).catch(Err => {
                                                                 res.status(500).send({
                                                                 status: 500,
@@ -73,12 +73,11 @@ const verifyForgetPasswordBidder = async (req, res) => { console.log(req.query)
                                             let reqType = 2; //console.log("accesstoken",user._id,reqType)
                                             let accessToken = await generateToken(data._id,reqType)
                                             await Bidder.findOneAndUpdate({Email:email},{is_EmailVerified:true},{new:true})
-                                                              .then((data)=>{// console.log(data)
-                                                                        res
-                                                                        .status(200)
-                                                                        .send({status:200, message:accessToken})       
-                                                                        //.redirect('https://peaceful-shannon-16165f.netlify.app/waitingpage?type=bidder')
-                                                                      //.send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
+                                                              .then((data)=>{
+                                                                res
+                                                                .status(200)
+                                                                .redirect('https://auctionjournal.com/request/?role=resetpassword&token='+accessToken)     
+                                                               //.send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
                                                               }).catch(Err => {
                                                                   res.status(500).send({
                                                                   status: 500,

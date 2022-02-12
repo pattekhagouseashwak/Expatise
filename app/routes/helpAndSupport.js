@@ -11,7 +11,16 @@ const requireAuth = passport.authenticate('jwt', {
 const {
   fetchAuctionTickets,
   fetchBidderTickets,
-  statusUpdate
+  statusUpdate,
+  fetchComments,
+  replyComment,
+  createAuctioneerAndBidderFAQ,
+  fetchAuctioneerAndBidderFAQ,
+  editAuctioneerAndBidderFAQ,
+  editListingPolicy,
+  createListingPolicy,
+  fetchListingPolicy,
+  inquery
 } = require('../controllers/helpAndSupport')
 
 // const {
@@ -28,22 +37,74 @@ router.post(
   requireAuth,
   //validatePostContent,
   trimRequest.all,
-  fetchAuctionTickets
-)
+  fetchAuctionTickets)
 
 router.post(
   '/fetchBidderTickets',
   requireAuth,
   //validatePostContent,
   trimRequest.all,
-  fetchBidderTickets
-)
+  fetchBidderTickets)
 
 router.post(
   '/statusUpdate',
   requireAuth,
   //validatePostContent,
   trimRequest.all,
- statusUpdate)
- 
+  statusUpdate)
+
+router.post(
+  '/fetchComments',
+  //requireAuth,
+  trimRequest.all,
+  fetchComments)
+
+router.post(
+  '/replyComment',
+  //requireAuth,
+  trimRequest.all,
+  replyComment)
+
+router.post(
+  '/createAuctioneerAndBidderFAQ',
+  //requireAuth,
+  trimRequest.all,
+  createAuctioneerAndBidderFAQ)
+
+router.post(
+  '/fetchAuctioneerAndBidderFAQ',
+  //requireAuth,
+  trimRequest.all,
+  fetchAuctioneerAndBidderFAQ)
+
+router.post(
+  '/editAuctioneerAndBidderFAQ',
+  //requireAuth,
+  trimRequest.all,
+  editAuctioneerAndBidderFAQ)
+
+router.post(
+  '/editListingPolicy',
+  //requireAuth,
+  trimRequest.all,
+  editListingPolicy)
+
+router.post(
+  '/createListingPolicy',
+  //requireAuth,
+  trimRequest.all,
+  createListingPolicy)
+
+router.post(
+  '/fetchListingPolicy',
+  //requireAuth,
+  trimRequest.all,
+  fetchListingPolicy)
+
+router.post(
+    '/inquery',
+    //requireAuth,
+    trimRequest.all,
+    inquery)
+
 module.exports = router

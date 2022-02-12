@@ -10,49 +10,55 @@ const WriteToUs = require('../../models/writeToUs')
  * @param {Object} res - response object
  */
 
-const fetchBidderTickets = async (req, res) => {
+const replyComment = async (req, res) => {
     try {
+
+        const comments = {
+            message:req.body.message,
+            reply_Name:req.body.reply_Name
+         }
         
         if(req.body.reqType == 1){
-        await RequestACallBack.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Bidder" }] })
-                              .sort({createdAt: -1})
+
+        await RequestACallBack.findByIdAndUpdate({_id:req.body.id},{$push:{ comments:comments}},{new:true})
+                              .select("comments")
                               .then((data) => {
                                                 if (data.length != 0){
-                                                    res.status(200).send({ status: 200, message: "successfully req callback ticket history Details has fetched!!", data })
+                                                    res.status(200).send({ status: 200, message: "successfully req callback ticket status has updated!!",data })
                                                 }
                                                 else {
-                                                    res.status(200).send({ status: 200, message: "No req callback ticket History Found!!" })
+                                                    res.status(200).send({ status: 200, message: "No Comments found for requested callback ticket History!!" })
                                                 }
                                             })
-                              .catch(Err => {
+                              .catch(Err => {  console.log(Err)
                                                 res.status(500).send({
                                                     status: 500,
-                                                    message:Err.message || "Some err or occurred while fetching req callback ticket history."
+                                                    message:Err.message || "Some error occurred while fetching Comments of callback ticket."
                                                 });
                                             });
                                  }
         else if(req.body.reqType == 2){
-                                        await WriteToUs.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Bidder" }] })
-                                                       .sort({createdAt: -1})
-                                                                  .then((data) => {
-                                                                                    if (data.length != 0){
-                                                                                        res.status(200).send({ status: 200, message: "successfully req Email ticket history Details has fetched!!", data })
+                                        await WriteToUs.findByIdAndUpdate({_id:req.body.id},{$push:{ comments:comments}},{new:true})
+                                                       .select("comments")
+                                                       .then((data) => {
+                                                                                    if (data.length != 0) {
+                                                                                        res.status(200).send({ status: 200, message: "successfully fetched comments for requested Email ticket history",data })
                                                                                     }
                                                                                     else {
-                                                                                        res.status(200).send({ status: 200, message: "No req Email ticket History Found!!" })
+                                                                                        res.status(200).send({ status: 200, message: "No comments for req Email ticket History!!" })
                                                                                     }
                                                                                 })
                                                                   .catch(Err => {
                                                                                     res.status(500).send({
                                                                                         status: 500,
-                                                                                        message:Err.message || "Some err or occurred while fetching req Email ticket history."
+                                                                                        message:Err.message || "Some err or occurred while fetching status Email ticket history."
                                                                                     });
                                                                                 });
                                       }
-    } catch (error) {
+        } catch (error) { 
         console.log(error)
         handleError(res, error)
     }
 }
 
-module.exports = {fetchBidderTickets}
+module.exports = {replyComment}

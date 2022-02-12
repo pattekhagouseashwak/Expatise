@@ -28,7 +28,7 @@ const verifyEmailAuctioneer = async (req, res) => { console.log(req.query)
                                                                       await sendEmailToCustomer(host,email,"NA",3,emailConstants.VerificationSuccessful,emailConstants.htmlContent_VerificationSuccessful,data.FirstName,emailConfig.username_notify);
                                                                       res
                                                                       .status(200)
-                                                                      .redirect('https://peaceful-shannon-16165f.netlify.app/signin')
+                                                                      .redirect('https://auctionjournal.com/request/?role=loginAuctioneer')
                                                                       //.send({ status: 200, message: "Your E-mail has been succesfully verified. Please wait for 24-48 hours to get an update about account activiation"});
                                                             }).catch(Err => {
                                                                 res.status(500).send({
@@ -74,7 +74,7 @@ const verifyEmailBidder = async (req, res) => { console.log(req.query)
                                                               .then((data)=>{// console.log(data)
                                                                         res
                                                                         .status(200)        
-                                                                        .redirect('https://peaceful-shannon-16165f.netlify.app/waitingpage?type=bidder')
+                                                                        .redirect('https://auctionjournal.com/request/?role=loginBidder')
                                                                       //.send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
                                                               }).catch(Err => {
                                                                   res.status(500).send({

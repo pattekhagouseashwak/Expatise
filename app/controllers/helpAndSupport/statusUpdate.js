@@ -14,13 +14,13 @@ const statusUpdate = async (req, res) => {
     try {
         
         if(req.body.reqType == 1){
-        await RequestACallBack.findById({_id:req.body.id},
+        await RequestACallBack.findByIdAndUpdate({_id:req.body.id},
                                         { Status: req.body.Status })
                               .then((data) => {
-                                                if (data != null) {
+                                                if (data.length != 0) {
                                                     res.status(200).send({ status: 200, message: "successfully req callback ticket status has updated!!" })
                                                 }
-                                                else if (data == null) {
+                                                else {
                                                     res.status(200).send({ status: 200, message: "No req callback ticket History Found!!" })
                                                 }
                                             })
@@ -32,12 +32,12 @@ const statusUpdate = async (req, res) => {
                                             });
                                  }
         else if(req.body.reqType == 2){
-                                        await WriteToUs.find({_id:req.body.id},{ Status: req.body.Status })
+                                        await WriteToUs.findByIdAndUpdate({_id:req.body.id},{ Status: req.body.Status })
                                                         .then((data) => {
-                                                                                    if (data != null) {
+                                                                                    if (data.length != 0){
                                                                                         res.status(200).send({ status: 200, message: "successfully updated status of req Email ticket history" })
                                                                                     }
-                                                                                    else if (data == null) {
+                                                                                    else{
                                                                                         res.status(200).send({ status: 200, message: "No req Email ticket History Found!!" })
                                                                                     }
                                                                                 })
@@ -48,7 +48,7 @@ const statusUpdate = async (req, res) => {
                                                                                     });
                                                                                 });
                                       }
-    } catch (error) {
+        } catch (error) { 
         console.log(error)
         handleError(res, error)
     }

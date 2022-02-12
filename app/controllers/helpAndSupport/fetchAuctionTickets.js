@@ -17,10 +17,10 @@ const fetchAuctionTickets = async (req, res) => {
         await RequestACallBack.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Auctioneer" }] })
                               .sort({createdAt: -1})
                               .then((data) => {
-                                                if (data != null) {
+                                                if (data.length != 0) {
                                                     res.status(200).send({ status: 200, message: "successfully req callback ticket history Details has fetched!!", data })
                                                 }
-                                                else if (data == null) {
+                                                else{
                                                     res.status(200).send({ status: 200, message: "No req callback ticket History Found!!" })
                                                 }
                                             })
@@ -35,10 +35,10 @@ const fetchAuctionTickets = async (req, res) => {
                                         await WriteToUs.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Auctioneer" }] })
                                                        .sort({createdAt: -1})
                                                                   .then((data) => {
-                                                                                    if (data != null) {
+                                                                                    if (data.length != 0){
                                                                                         res.status(200).send({ status: 200, message: "successfully req Email ticket history Details has fetched!!", data })
                                                                                     }
-                                                                                    else if (data == null) {
+                                                                                    else {
                                                                                         res.status(200).send({ status: 200, message: "No req Email ticket History Found!!" })
                                                                                     }
                                                                                 })

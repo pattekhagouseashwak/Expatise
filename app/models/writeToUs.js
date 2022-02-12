@@ -3,6 +3,17 @@ const validator = require('validator')
 const {ObjectId} = mongoose.Schema.Types
 const mongoosePaginate = require('mongoose-paginate-v2')
 
+const commentSchema = new mongoose.Schema({
+
+  reply_Name: {type:String},
+
+  message:{type:String},
+
+},{
+  versionKey: false,
+  timestamps: true
+});
+
 const writeToUsSchema = new mongoose.Schema(
   {
     TicketID:{type:String},
@@ -14,7 +25,8 @@ const writeToUsSchema = new mongoose.Schema(
     attachment:{type:String},
     priority:{type:String},
     Status:{type:String,default:"Raised"},
-    entityType:{type:String}
+    entityType:{type:String},
+    comments:[commentSchema]
   },
   {
     versionKey: false,

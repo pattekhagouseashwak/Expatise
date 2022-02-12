@@ -45,6 +45,7 @@ const fetchAuctioneerBio = async (req, res) => {
                     "Phone": 1,
                     "Email": 1,
                     "Website":1,
+                    "Auction_List._id":1,
                     "Auction_List.Auctioneer": 1,
                     "Auction_List.AuctionCategory": 1,
                     "Auction_List.NameOfProduct": 1,
