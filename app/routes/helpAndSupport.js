@@ -34,21 +34,21 @@ const {
 
 router.post(
   '/fetchAuctionTickets',
-  requireAuth,
+  //requireAuth,
   //validatePostContent,
   trimRequest.all,
   fetchAuctionTickets)
 
 router.post(
   '/fetchBidderTickets',
-  requireAuth,
+  //requireAuth,
   //validatePostContent,
   trimRequest.all,
   fetchBidderTickets)
 
 router.post(
   '/statusUpdate',
-  requireAuth,
+  //requireAuth,
   //validatePostContent,
   trimRequest.all,
   statusUpdate)
