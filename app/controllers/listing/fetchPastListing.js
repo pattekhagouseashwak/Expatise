@@ -30,9 +30,10 @@ const fetchPastListing = async (req, res) => { //console.log(req.body)
     }
     if (req.body.AuctionType.length != 0) {
         searchValue.push({ AuctionType: req.body.AuctionType });
-        //console.log(searchValue)
-    }
 
+    }
+    console.log(searchValue)
+    
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
