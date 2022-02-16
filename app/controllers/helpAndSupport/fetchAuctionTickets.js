@@ -12,9 +12,22 @@ const WriteToUs = require('../../models/writeToUs')
 
 const fetchAuctionTickets = async (req, res) => {
     try {
+
+        let searchValue = [];
+
+        if(req.body.length == 0 ){
+        return res.status(400).send({ status: 400, message: "request body is empty!!"})
+        }
+
+        if(req.body.status_Ticket != "all" ){
+            searchValue.push({Status : req.body.status_Ticket});
+          }
+        
+        searchValue.push({entityType : "Auctioneer"});
         
         if(req.body.reqType == 1){
-        await RequestACallBack.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Auctioneer" }] })
+        await RequestACallBack.find({ $and: searchValue })
+                              //.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Auctioneer" }] })
                               .sort({createdAt: -1})
                               .then((data) => {
                                                 if (data.length != 0) {
@@ -32,7 +45,8 @@ const fetchAuctionTickets = async (req, res) => {
                                             });
                                  }
         else if(req.body.reqType == 2){
-                                        await WriteToUs.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Auctioneer" }] })
+                                        await WriteToUs.find({ $and: searchValue })
+                                                       //.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Auctioneer" }] })
                                                        .sort({createdAt: -1})
                                                                   .then((data) => {
                                                                                     if (data.length != 0){

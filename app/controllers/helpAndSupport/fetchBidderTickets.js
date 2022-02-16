@@ -12,9 +12,21 @@ const WriteToUs = require('../../models/writeToUs')
 
 const fetchBidderTickets = async (req, res) => {
     try {
+        let searchValue = [];
+
+        if(req.body.length == 0 ){
+        return res.status(400).send({ status: 400, message: "request body is empty!!"})
+        }
+
+        if(req.body.status_Ticket != "all" ){
+            searchValue.push({Status : req.body.status_Ticket});
+          }
         
+        searchValue.push({entityType : "Bidder"});
+
         if(req.body.reqType == 1){
-        await RequestACallBack.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Bidder" }] })
+        await RequestACallBack.find({ $and: searchValue })
+                             //.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Bidder" }] })
                               .sort({createdAt: -1})
                               .then((data) => {
                                                 if (data.length != 0){
@@ -23,7 +35,7 @@ const fetchBidderTickets = async (req, res) => {
                                                 else {
                                                     res.status(200).send({ status: 200, message: "No req callback ticket History Found!!" })
                                                 }
-                                            })
+                                              })
                               .catch(Err => {
                                                 res.status(500).send({
                                                     status: 500,
@@ -32,7 +44,8 @@ const fetchBidderTickets = async (req, res) => {
                                             });
                                  }
         else if(req.body.reqType == 2){
-                                        await WriteToUs.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Bidder" }] })
+                                        await WriteToUs.find({ $and: searchValue })
+                                                       //.find({ $and: [{ Status: req.body.status_Ticket }, { entityType: "Bidder" }] })
                                                        .sort({createdAt: -1})
                                                                   .then((data) => {
                                                                                     if (data.length != 0){

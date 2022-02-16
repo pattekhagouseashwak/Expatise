@@ -20,16 +20,16 @@ const {
   editListingPolicy,
   createListingPolicy,
   fetchListingPolicy,
-  inquery
+  inquery,
+  deleteAuctioneerAndBidderFAQ,
+  deleteListingPolicy
 } = require('../controllers/helpAndSupport')
 
 // const {
 //     validatePostContent
 // } = require('../controllers/addContent/validator')
 
-/*
- * Admin routes
- */
+/** help and support routes **/
 
 
 router.post(
@@ -102,9 +102,21 @@ router.post(
   fetchListingPolicy)
 
 router.post(
-    '/inquery',
+  '/inquery',
+  //requireAuth,
+  trimRequest.all,
+  inquery)
+
+router.delete(
+  '/deleteAuctioneerAndBidderFAQ',
+  //requireAuth,
+  trimRequest.all,
+  deleteAuctioneerAndBidderFAQ)
+
+  router.delete(
+    '/deleteListingPolicy',
     //requireAuth,
     trimRequest.all,
-    inquery)
+    deleteListingPolicy)
 
 module.exports = router
