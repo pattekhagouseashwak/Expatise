@@ -29,7 +29,7 @@ const verifyForgetPasswordAuctioneer = async (req, res) => { console.log(req.que
                                                                     //   await sendEmailToCustomer(host,email,"NA",3,);
                                                                       res
                                                                       .status(200)
-                                                                      .redirect('https://auctionjournal.com/request/?role=resetpassword&token='+accessToken)
+                                                                      .redirect('https://auctionjournal.com/request/?role=resetpassword&token='+accessToken+'&email='+email+"&reqType=1")
                                                                       //.send({ status: 200, message: accessToken});
                                                             }).catch(Err => {
                                                                 res.status(500).send({
@@ -76,7 +76,7 @@ const verifyForgetPasswordBidder = async (req, res) => { console.log(req.query)
                                                               .then((data)=>{
                                                                 res
                                                                 .status(200)
-                                                                .redirect('https://auctionjournal.com/request/?role=resetpassword&token='+accessToken)     
+                                                                .redirect('https://auctionjournal.com/request/?role=resetpassword&token='+accessToken+'&email='+email+"&reqType=2")   
                                                                //.send({ status: 200, message: "your E-mail has been successfully verified.Click here to got to your profile"});
                                                               }).catch(Err => {
                                                                   res.status(500).send({

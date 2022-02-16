@@ -30,7 +30,6 @@ const {
 
 /** advertise routes **/
 
-
 router.post(
     '/postPrintAd',
     //requireAuth,
