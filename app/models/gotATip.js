@@ -5,6 +5,7 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const gotATipSchema = new mongoose.Schema(
   {
+    InqueryNo :{type:String},
     name:{type:String},
     phoneNumber:{type:String},
     email:{type:String},

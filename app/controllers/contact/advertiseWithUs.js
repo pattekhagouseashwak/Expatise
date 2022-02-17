@@ -8,6 +8,7 @@ const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCu
 
 const emailConfig = require('../../../config/email')
 
+const {generateId} = require('./validator/generateId')
 
 /**
  * Register function called by route
@@ -18,16 +19,16 @@ const emailConfig = require('../../../config/email')
 const advertiseWithUs = async (req, res) => {
     try {
     
-      
         const name = req.body.name;
         const phoneNumber = req.body.phoneNumber;
-        const email = req.body.email;
+        const email   = req.body.email;
         const message = req.body.message;
         const company = req.body.company;
         const country = req.body.country;
-        const state = req.body.state;
+        const state   = req.body.state;
+        const InqueryNo = await generateId();
 
-        await advertise_With_Us.create({name,phoneNumber,email,message,company,country,state})
+        await advertise_With_Us.create({InqueryNo,name,phoneNumber,email,message,company,country,state})
                                .then(async(data)=>{
                                         let host = req.get('host');
                                         console.log("host:", host);

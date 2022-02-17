@@ -8,6 +8,7 @@ const { sendEmailToCustomer } = require('../authentication/helpers/sendEmailToCu
 
 const emailConfig = require('../../../config/email')
 
+const { generateId } = require('./validator/generateId')
 
 /**
  * Register function called by route
@@ -21,8 +22,9 @@ const gotATip = async (req, res) => {
         const phoneNumber = req.body.phoneNumber;
         const email = req.body.email;
         const message = req.body.message;
+        const InqueryNo = await generateId();
   
-        await got_A_Tip.create({name,phoneNumber,email,message})
+        await got_A_Tip.create({InqueryNo,name,phoneNumber,email,message})
                   .then(async (data) => {
                                          let host = req.get('host');
                                          console.log("host:", host);

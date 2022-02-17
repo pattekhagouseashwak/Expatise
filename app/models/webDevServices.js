@@ -5,6 +5,7 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const webDevServiceSchema = new mongoose.Schema(
   {
+    InqueryNo :{type:String},
     First_Name:{type:String},
     Last_Name:{type:String},
     Phone_Number:{type:String},
