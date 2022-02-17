@@ -28,6 +28,9 @@ const inquery = async (req, res) => {
     else if(req.body.reqType == 4){modelName = WebDevServices;}
     else if(req.body.reqType == 5){modelName = advertise_With_Us;}
     else if(req.body.reqType == 6){modelName = GotQuestionRelatedToAuctionLaw;}
+    else {
+      return res.status(400).send({ status: 400, message: "No Data found" })
+      }
 
     await modelName.find({})
                        .sort("createdAt")

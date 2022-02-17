@@ -29,6 +29,7 @@ const writeToUs = async (req, res) => {
 
     const userID = req.user.id;
     const entityType = req.body.entityType;
+    const reqName = req.body.reqName;
     const name = req.body.name;
     const email = req.body.email;
     const description = req.body.description;
@@ -39,7 +40,7 @@ const writeToUs = async (req, res) => {
     const random = uuidv4();
     const TicketID = "WTUS_" + random;
 
-    await WriteToUs.create({ TicketID, userID, entityType, name, email, description, priority, message, attachment })
+    await WriteToUs.create({ TicketID, userID,reqName,entityType, name, email, description, priority, message, attachment })
       .then(async(data) => {
         let host=req.get('host');
         console.log("host:",host);

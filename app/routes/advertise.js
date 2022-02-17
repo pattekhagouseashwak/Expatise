@@ -21,7 +21,11 @@ const {
     deleteAd,
     editPrintAd,
     editVideoAd,
-    editBlogAd
+    editBlogAd,
+    editFeaturedAd,
+    postFeaturedAd,
+    pastFeaturedAd,
+    currentFeaturedAd
 } = require('../controllers/advertise')
 
 // const {
@@ -120,5 +124,35 @@ router.post(
     //validatePostContent,
     trimRequest.all,
     editVideoAd)
+
+//====================
+
+router.post(
+    '/editFeaturedAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    editFeaturedAd)
+
+router.post(
+    '/postFeaturedAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    postFeaturedAd)
+
+router.post(
+    '/pastFeaturedAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    pastFeaturedAd)
+
+router.post(
+    '/currentFeaturedAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    currentFeaturedAd)
 
 module.exports = router

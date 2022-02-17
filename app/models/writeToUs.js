@@ -17,6 +17,7 @@ const commentSchema = new mongoose.Schema({
 const writeToUsSchema = new mongoose.Schema(
   {
     TicketID:{type:String},
+    reqName:{type:String},
     userID:{type:String},
     name:{type:String},
     description:{type:String},
