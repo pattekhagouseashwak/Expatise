@@ -22,7 +22,8 @@ const {
   forgotPasswordBidder,
   verifyForgetPasswordAuctioneer,
   verifyForgetPasswordBidder,
-  setNewPassword
+  setNewPassword,
+  changePassword
 } = require('../controllers/authentication')
 
 const {
@@ -111,28 +112,35 @@ router.post(
   '/forgotPasswordBidder',
   trimRequest.all,
   forgotPasswordBidder)
-  
+
 router.post(
   '/forgotPasswordAuctioneer',
   trimRequest.all,
   forgotPasswordAuctioneer)
 
 router.get(
-    '/verifyForgetPasswordAuctioneer',
-    trimRequest.all,
-    verifyForgetPasswordAuctioneer)
-    
-router.get(
-    '/verifyForgetPasswordBidder',
-    trimRequest.all,
-    verifyForgetPasswordBidder)
+  '/verifyForgetPasswordAuctioneer',
+  trimRequest.all,
+  verifyForgetPasswordAuctioneer)
 
-    router.post(
-      '/setNewPassword',
-      requireAuth,
-      trimRequest.all,
-      validateSetPassword,
-      setNewPassword
-    )
+router.get(
+  '/verifyForgetPasswordBidder',
+  trimRequest.all,
+  verifyForgetPasswordBidder)
+
+router.post(
+  '/setNewPassword',
+  requireAuth,
+  trimRequest.all,
+  validateSetPassword,
+  setNewPassword
+)
+
+router.put(
+  '/changePassword',
+  requireAuth,
+  trimRequest.all,
+  //validateSetPassword,
+  changePassword)
 
 module.exports = router

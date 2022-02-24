@@ -18,8 +18,8 @@ const pastVideoAd = async (req, res) => {
   var currentDate = (yyyy + "-" + mm + "-" + dd);
 
     await AdsVideo_Db.find({ EndOn: { $lt: currentDate } })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched pastVideoAd" })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully fetched pastVideoAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({

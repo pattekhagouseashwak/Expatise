@@ -11,7 +11,9 @@ const {fetchSingleAuction} = require('./fetchSingleAuction')
 const {unPublished} = require('./unpublished')
 const {deleteUnPublishedItem} = require('./deleteUnPublishedItem')
 const {removeUnPublishedAndAddListing} = require('./removeUnPublishedAndAddListing')
+const {fetchunPublishedListing} = require('./fetchunPublishedListing')
 
-module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,uploadAuctionImage,
-                  editAuctionListing,searchAuction,fetchAuctionByTypeAndState,
-                  displayListingOverMap,fetchSingleAuction,unPublished,deleteUnPublishedItem,removeUnPublishedAndAddListing}
+module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,
+                  uploadAuctionImage,editAuctionListing,searchAuction,
+                  fetchAuctionByTypeAndState,displayListingOverMap,fetchSingleAuction,unPublished
+                  ,fetchunPublishedListing,deleteUnPublishedItem,removeUnPublishedAndAddListing}

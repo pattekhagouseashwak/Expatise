@@ -18,8 +18,8 @@ const upcomingBlogAd = async (req, res) => {
   var currentDate = (yyyy + "-" + mm + "-" + dd);
 
   await AdsBlog_Db.find({StartsFrom: { $gt: currentDate } })
-                  .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched upcomingBlogAd" })
+                  .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully fetched upcomingBlogAd",data })
                                    })
                   .catch(Err => {
                                         res.status(500).send({

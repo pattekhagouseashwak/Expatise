@@ -26,8 +26,8 @@ const editBlogAd = async (req, res) => {
                              BlogLink,featuredImage,Date,
                              Time,StartsFrom,EndOn,
                             })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully edited BlogAd" })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully edited BlogAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({

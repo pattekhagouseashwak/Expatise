@@ -19,8 +19,8 @@ const currentPrintAd = async (req, res) => {
 
     await AdsPrint_Db.find({ StartsFrom: {$eq: currentDate} })
                    // .find({$and: [{ StartsFrom: {$lte: currentDate} },{EndOn :{$gte:currentDate} } ] })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched currentPrintAd" })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully fetched currentPrintAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({

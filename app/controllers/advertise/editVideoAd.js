@@ -26,8 +26,8 @@ const editVideoAd = async (req, res) => {
                                         VideoLink,CoverImage,Date,
                                         Time,StartsFrom,EndOn,
                                       })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully edited VideoAd" })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully edited VideoAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({

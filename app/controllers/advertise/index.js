@@ -13,6 +13,11 @@ const { currentPrintAd } = require('./currentPrintAd')
 const { currentVideoAd } = require('./currentVideoAd')
 const { currentFeaturedAd } = require('./currentFeaturedAd')
 
+const { upcomingBlogAd } = require('./upcomingBlogAd')
+const { upcomingPrintAd } = require('./upcomingPrintAd')
+const { upcomingVideoAd } = require('./upcomingVideoAd')
+const { upcomingFeaturedAd } = require('./upcomingFeaturedAd')
+
 const {deleteAd} = require('./deleteAd')
 
 const { editBlogAd } = require('./editBlogAd')
@@ -37,5 +42,9 @@ module.exports = {
                   editFeaturedAd,
                   postFeaturedAd,
                   pastFeaturedAd,
-                  currentFeaturedAd
+                  currentFeaturedAd,
+                  upcomingBlogAd,
+                  upcomingFeaturedAd,
+                  upcomingPrintAd,
+                  upcomingVideoAd
                 }

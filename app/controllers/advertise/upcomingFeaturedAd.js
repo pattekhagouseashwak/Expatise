@@ -1,6 +1,6 @@
 const { handleError } = require('../../middleware/utils')
 
-const AdsBlog_Db = require('../../models/adsBlog_Db')
+const AdsFeature_db = require('../../models/adFeature_Db')
 
 /**
  * Register function called by route
@@ -8,7 +8,7 @@ const AdsBlog_Db = require('../../models/adsBlog_Db')
  * @param {Object} res - response object
  */
 
-const upcomingBlogAd = async (req, res) => {
+const upcomingFeaturedAd = async (req, res) => {
   try {console.log(" s s")
 
   var today = new Date();
@@ -17,19 +17,20 @@ const upcomingBlogAd = async (req, res) => {
   var yyyy = today.getFullYear();
   var currentDate = (yyyy + "-" + mm + "-" + dd);
 
-  await AdsBlog_Db.find({StartsFrom: { $gt: currentDate } })
-                  .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched upcomingBlogAd" })
+  console.log(currentDate)
+  await AdsFeature_db.find({StartsFrom: { $gt: currentDate } })
+                  .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully fetched upcomingBlogAd",data})
                                    })
                   .catch(Err => {
                                         res.status(500).send({
                                         status: 500,
                                         message:Err.message || "Some error occurred while upcomingBlogAd item."
                                         });
-                                    }); 
+                                });
   } catch (error) {
     console.log(error)
     handleError(res, error)
   }
 }
-module.exports = { upcomingBlogAd }
+module.exports = { upcomingFeaturedAd }

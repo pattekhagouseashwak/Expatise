@@ -25,7 +25,11 @@ const {
     editFeaturedAd,
     postFeaturedAd,
     pastFeaturedAd,
-    currentFeaturedAd
+    currentFeaturedAd,
+    upcomingVideoAd,
+    upcomingPrintAd,
+    upcomingFeaturedAd,
+    upcomingBlogAd
 } = require('../controllers/advertise')
 
 // const {
@@ -55,42 +59,42 @@ router.post(
     trimRequest.all,
     postVideoAd)
 
-router.post(
+router.get(
     '/pastBlogAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     pastBlogAd)
 
-router.post(
+router.get(
     '/pastPrintAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     pastPrintAd)
 
-router.post(
+router.get(
     '/pastVideoAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     pastVideoAd)
 
-router.post(
+router.get(
     '/currentBlogAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     currentBlogAd)
 
-router.post(
+router.get(
     '/currentPrintAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     currentPrintAd)
 
-router.post(
+router.get(
     '/currentVideoAd',
     //requireAuth,
     //validatePostContent,
@@ -141,18 +145,46 @@ router.post(
     trimRequest.all,
     postFeaturedAd)
 
-router.post(
+router.get(
     '/pastFeaturedAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     pastFeaturedAd)
 
-router.post(
+router.get(
     '/currentFeaturedAd',
     //requireAuth,
     //validatePostContent,
     trimRequest.all,
     currentFeaturedAd)
+
+router.get(
+    '/upcomingFeaturedAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    upcomingFeaturedAd)
+
+router.get(
+    '/upcomingPrintAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    upcomingPrintAd)
+
+router.get(
+    '/upcomingVideoAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    upcomingVideoAd)
+
+router.get(
+    '/upcomingBlogAd',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    upcomingBlogAd)
 
 module.exports = router

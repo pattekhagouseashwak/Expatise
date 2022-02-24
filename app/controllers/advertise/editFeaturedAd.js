@@ -26,8 +26,8 @@ const editFeaturedAd = async (req, res) => {
                                           typeofAuction,State,featuredImage,Date,
                                           Time,StartsFrom,EndOn,
                                           })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully edited FeaturedAd" })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully edited FeaturedAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({

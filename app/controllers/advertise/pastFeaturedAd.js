@@ -18,8 +18,8 @@ const pastFeaturedAd = async (req, res) => {
   var currentDate = (yyyy + "-" + mm + "-" + dd);
 
     await AdsFeature_db.find({EndOn: { $lt: currentDate } })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched pastFeaturedAd" })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully fetched pastFeaturedAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({

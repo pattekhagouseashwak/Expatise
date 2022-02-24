@@ -7,9 +7,9 @@ const requireAuth = passport.authenticate('jwt', {
   session: false
 })
 
- const multer = require("multer");
- var storage = multer.memoryStorage();
- var upload = multer({ storage: storage });
+const multer = require("multer");
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 const {
   createListing,
@@ -24,11 +24,12 @@ const {
   fetchSingleAuction,
   unPublished,
   deleteUnPublishedItem,
-  removeUnPublishedAndAddListing
+  removeUnPublishedAndAddListing,
+  fetchunPublishedListing
 } = require('../controllers/auctionListing')
 
 const {
-    validateCreateListing
+  validateCreateListing
 } = require('../controllers/auctionListing/validators')
 
 /*
@@ -79,41 +80,47 @@ router.post(
   trimRequest.all,
   searchAuction)
 
-  router.post(
-    '/fetchAuctionByTypeAndState',
-    //requireAuth,
-    trimRequest.all,
-   fetchAuctionByTypeAndState)
+router.post(
+  '/fetchAuctionByTypeAndState',
+  //requireAuth,
+  trimRequest.all,
+  fetchAuctionByTypeAndState)
 
-   router.post(
-    '/displayListingOverMap',
-    //requireAuth,
-    trimRequest.all,
-   displayListingOverMap)
+router.post(
+  '/displayListingOverMap',
+  //requireAuth,
+  trimRequest.all,
+  displayListingOverMap)
 
-   router.post(
-    '/fetchSingleAuction',
-    //requireAuth,
-    trimRequest.all,
-   fetchSingleAuction)
-   
-   router.post(
-    '/unPublished',
-    requireAuth,
-    trimRequest.all,
-    unPublished)
+router.post(
+  '/fetchSingleAuction',
+  //requireAuth,
+  trimRequest.all,
+  fetchSingleAuction)
 
-    router.delete(
-      '/deleteUnPublishedItem',
-      requireAuth,
-      trimRequest.all,
-    deleteUnPublishedItem)  
+router.post(
+  '/unPublished',
+  requireAuth,
+  trimRequest.all,
+  unPublished)
+
+router.delete(
+  '/deleteUnPublishedItem',
+  requireAuth,
+  trimRequest.all,
+  deleteUnPublishedItem)
+
+router.post(
+  '/removeUnPublishedAndAddListing',
+  requireAuth,
+  trimRequest.all,
+  removeUnPublishedAndAddListing)
 
 
-  router.post(
-      '/removeUnPublishedAndAddListing',
-      requireAuth,
-      trimRequest.all,
-     removeUnPublishedAndAddListing)
+router.get(
+  '/fetchunPublishedListing',
+  requireAuth,
+  trimRequest.all,
+  fetchunPublishedListing)
 
 module.exports = router

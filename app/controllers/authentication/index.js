@@ -10,10 +10,11 @@ const {forgotPasswordAuctioneer} =require('./forgetPassword')
 const {verifyForgetPasswordBidder} =require('./verifyForgetPassword')
 const {verifyForgetPasswordAuctioneer} =require('./verifyForgetPassword')
 const {setNewPassword} = require("./setNewPassword")
+const {changePassword}  = require('./changePassword')
 
 module.exports = {mobileOTP,verifyOtp,registerBidder,registerAuctioneer,
                     verifyEmailAuctioneer, verifyEmailBidder,loginBidder,
                     loginAuctioneer,logout,
                     forgotPasswordAuctioneer,forgotPasswordBidder,
                     verifyForgetPasswordAuctioneer,verifyForgetPasswordBidder,
-                    setNewPassword}
+                    setNewPassword,changePassword}

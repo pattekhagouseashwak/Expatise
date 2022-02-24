@@ -17,9 +17,9 @@ const currentFeaturedAd = async (req, res) => {
   var yyyy = today.getFullYear();
   var currentDate = (yyyy + "-" + mm + "-" + dd);
 
-    await AdsFeature_db.find({StartsFrom: { $eq: currentDate } })
-                       .then(() => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched currentFeaturedAd" })
+  await AdsFeature_db.find({StartsFrom: { $eq: currentDate } })
+                       .then((data) => {
+                                       res.status(200).send({ status: 200, message: "succesfully fetched currentFeaturedAd",data })
                                    })
                        .catch(Err => {
                                         res.status(500).send({
