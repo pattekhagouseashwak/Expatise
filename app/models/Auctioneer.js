@@ -57,15 +57,15 @@ const AuctioneerSchema = new mongoose.Schema(
 
     AuctioneerBio:{type:Object},
 
-    Website:{type:String},
+    Website:{type:String, default:null},
 
-    facebook:{type:String},
+    facebook:{type:String, default:null},
 
-    youtube:{type:String},
+    youtube:{type:String, default:null},
 
-    instagram:{type:String},
+    instagram:{type:String, default:null},
 
-    linkedin:{type:String},
+    linkedin:{type:String, default:null},
 
     password:{type:String},
 
