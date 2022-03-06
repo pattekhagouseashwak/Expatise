@@ -20,7 +20,8 @@ const {
     getWriteToUsDetails,
     hostingServices,
     webDevServices,
-    gotQuestionRelatedToAuctionLaw
+    gotQuestionRelatedToAuctionLaw,
+    replyComment
 } = require('../controllers/contact')
 
 const {
@@ -105,5 +106,10 @@ router.post('/gotQuestionRelatedToAuctionLaw',
   validateData_gotQuestion,
   gotQuestionRelatedToAuctionLaw
 )
+
+router.post('/reply',
+  trimRequest.all,
+  requireAuth,
+  replyComment)
 
 module.exports = router

@@ -10,8 +10,9 @@ const {dashboardAdvert} = require('./dashboardAdvert')
 const {hostingServices} = require('./hostingServices')
 const {webDevServices} = require('./webDevServices')
 const {gotQuestionRelatedToAuctionLaw} = require('./gotQuestionRelatedToAuctionLaw')
+const {replyComment} = require('./replyComment')
 
 module.exports = {contactUs, gotATip, advertiseWithUs,createRecommandVideo,
                  recommendedVideo,requestACallback,getRequestACallbackDetails,
                  writeToUs, getWriteToUsDetails,dashboardAdvert,hostingServices,
-                 gotQuestionRelatedToAuctionLaw,webDevServices}
+                 gotQuestionRelatedToAuctionLaw,webDevServices,replyComment}
