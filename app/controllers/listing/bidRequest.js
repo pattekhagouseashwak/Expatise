@@ -6,7 +6,7 @@ const Bid = require('../../models/bid')
  */
 const bidRequest = async (req, res) => {
     try {
-        console.log(req.body)
+        console.log(req.body.auctionId)
         if(req.body.auctionId.length==0){
             return res.status(400).send({ status: 400, message: "auctionId can't be empty!!"})
         }
@@ -14,7 +14,6 @@ const bidRequest = async (req, res) => {
         await Bid.find({auctionId:auctionId})
                   .populate("userId","FirstName LastName Phone")
                   .then((data)=>{
-                                
                                 res.status(200).send({ status: 200, message: "Successfully fetch Bid Request for respective auction List!!",data})
                                 })
                   .catch(Err => {
