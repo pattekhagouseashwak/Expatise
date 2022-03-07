@@ -7,8 +7,8 @@ const Bid = require('../../models/bid')
 const bidRequest = async (req, res) => {
     try {
         console.log(req.body)
-        if(req.body.auctionId.length==0){
-            return res.status(400).send({ status: 400, message: "auctionId can't be empty!!"})
+        if(req.body.auctionId.length==0 || req.body.auctionId == 'undefined'){
+            return res.status(400).send({ status: 400, message: "auctionId can't be empty or undefined!!"})
         }
         const  auctionId = req.body.auctionId;
         await Bid.find({auctionId:auctionId})
