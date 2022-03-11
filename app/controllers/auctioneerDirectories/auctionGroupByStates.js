@@ -11,42 +11,27 @@ const Auctioneer = require('../../models/Auctioneer')
 const auctionGroupByStates = async (req, res) => {
   try {
 
-    if (req.body.State.length == 0) {
-      return res.status(200).send({ status: 400, message: "State can't be empty!!" });
-  }
+    if (req.body.State.length == 0 && req.body.ZipCode.length == 0) {
+      return res.status(200).send({ status: 400, message: "Either of State or Zipcode can't be empty!!" });
+    }
+
+    let searchValue =[];
+
+    if (req.body.State.length != 0) {
+      searchValue.push({ State: req.body.State });
+      //console.log(searchValue)
+    }
+    if (req.body.ZipCode.length > 0) {
+      searchValue.push({ ZipCode: req.body.ZipCode });
+      //console.log(searchValue)
+    }
+
+    console.log(searchValue)
+
     await Auctioneer.aggregate(
       [
 
-        // { "$group": {
-
-        //          "_id": "$State",
-
-        //          Auctioneer_Data:{
-
-        //                 $push:"$$ROOT"
-
-        //               }
-
-        //            }
-        // },
-        // { "$project" : {"Auctioneer_Data._id":1,
-        //                 "Auctioneer_Data.State" :1, 
-        //                 "Auctioneer_Data.AuctioneerID" : 1 , 
-        //                 "Auctioneer_Data.CompanyName" : 1,
-        //                 "Auctioneer_Data.Photo":1,
-        //                 "Auctioneer_Data.City":1,
-        //                 "Auctioneer_Data.Country":1,
-        //                 "Auctioneer_Data.Email":1,
-        //                 "Auctioneer_Data.Phone":1,
-        //                 "Auctioneer_Data.LastName":1,
-        //                 "Auctioneer_Data.Website":1,
-        //                 "Auctioneer_Data.ZipCode":1,
-        //                 "Auctioneer_Data.State":1,
-        //                 "Auctioneer_Data.StreetAddress":1
-        //               } }
-
-        //---------------------------------------------------------------
-        { "$match": { State: req.body.State } },
+        { "$match": { $and: searchValue } },
 
         {
           "$lookup":

@@ -23,12 +23,20 @@ const fetchAuctionByTypeAndState = async (req, res) => { console.log(req.body)
       searchValue.push({State:req.body.State});
       //console.log(searchValue)
     }
-    if(req.body.AuctionType.length !=0 ){
+    if(req.body.AuctionType.length !=0 && req.body.AuctionType != 'All'){
       searchValue.push({AuctionType : req.body.AuctionType});
       //console.log(searchValue)
     }
     
-    console.log("searchValue",searchValue)
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    var currentDate = (yyyy+"-"+mm+"-"+dd);
+
+    searchValue.push({ AuctionDate: { $gte: currentDate } });
+    
+    //console.log("searchValue",searchValue)
     
     await AuctionLisintg.find({ $and: searchValue } )
               .then((data)=>{

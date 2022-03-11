@@ -26,7 +26,7 @@ function uuidv4() {
 
 const writeToUs = async (req, res) => {
   try {
-
+    
     const userID = req.user.id;
     const entityType = req.body.entityType;
     const reqName = req.body.reqName;
@@ -45,7 +45,7 @@ const writeToUs = async (req, res) => {
         let host=req.get('host');
         console.log("host:",host);
         await sendEmailToCustomer(host, data.email, "NA",8, emailConstants.Support, emailConstants.htmlcontent_TicketGeneratedViaEmail, data,emailConfig.username_support);
-        res.status(200).send({ status: 200, message: "message succesfully added" })
+        res.status(200).send({ status: 200, message: "message succesfully added",data })
       }).catch(Err => {
         res.status(500).send({
           status: 500,

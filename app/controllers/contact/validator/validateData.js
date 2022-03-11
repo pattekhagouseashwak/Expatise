@@ -16,15 +16,15 @@ const validateData = [
         .isEmpty()
         .withMessage('Last_Name IS_EMPTY'),
 
-    check('Phone_Number')
+    check('phoneNumber')
     .not()
     .isEmpty()
-    .withMessage('Phone_Number IS_EMPTY'),
+    .withMessage('phoneNumber IS_EMPTY'),
 
-    check('Email')
+    check('email')
     .not()
     .isEmpty()
-    .withMessage('Email IS_EMPTY'),
+    .withMessage('email IS_EMPTY'),
 
   (req, res, next) => {
     validateResult(req, res, next)

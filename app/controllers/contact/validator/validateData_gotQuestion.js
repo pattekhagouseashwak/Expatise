@@ -6,15 +6,15 @@ const { check } = require('express-validator')
  */
 const validateData_gotQuestion = [
 
-    check('Your_Question')
+    check('comment')
     .not()
     .isEmpty()
-    .withMessage('Your_Question IS_EMPTY'),
+    .withMessage('comment IS_EMPTY'),
 
-    check('Email')
+    check('email')
     .not()
     .isEmpty()
-    .withMessage('Email IS_EMPTY'),
+    .withMessage('email IS_EMPTY'),
 
   (req, res, next) => {
     validateResult(req, res, next)

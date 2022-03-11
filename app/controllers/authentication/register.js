@@ -71,7 +71,8 @@ const registerAuctioneer = async (req, res) => {
     const country = req.body.country;
     const Email = req.body.Email;
     const photo = req.body.photo;
-    const auctioneerID = "AUC"+req.body.auctioneerLicensceNo;
+    //const auctioneerID = "AUC"+req.body.auctioneerLicensceNo;
+    const auctioneerID = req.body.auctioneerLicensceNo;
     const auctioneerLicensceNo = req.body.auctioneerLicensceNo;
     const auctioneerLicenscePhoto = req.body.auctioneerLicenscePhoto;
     const website = req.body.website;

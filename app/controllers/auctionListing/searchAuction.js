@@ -66,7 +66,7 @@ const searchAuction = async (req, res) => { //console.log(req.body)
       });
       // console.log(searchValue)
     }
-    if (req.body.Category.length != 0) {
+    if (req.body.Category.length != 0 && req.body.Category != 'ALL') {
       searchValue.push({ AuctionCategory: req.body.Category });
       //console.log(searchValue)
     }
@@ -78,6 +78,10 @@ const searchAuction = async (req, res) => { //console.log(req.body)
         { BiddingNotice: { $regex: Keywords, '$options': 'i' } }, { AuctionNotice: { $regex: Keywords, '$options': 'i' } },
         { TermsAndCondition: { $regex: Keywords, '$options': 'i' } }]
       });
+      //console.log(searchValue)
+    }
+    if (req.body.AuctionType.length != 0) {
+      searchValue.push({ AuctionType: req.body.AuctionType });
       //console.log(searchValue)
     }
 

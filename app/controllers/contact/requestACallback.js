@@ -24,8 +24,6 @@ function uuidv4() {
 
 const requestACallback = async (req, res) => {
   try {
-
-
     const userID = req.user.id;
     const entityType = req.body.entityType;
     const reqName = req.body.reqName;

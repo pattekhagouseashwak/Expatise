@@ -1,6 +1,6 @@
 {
     "PORT": 4000,
-    "MONGO_URI":"mongodb+srv://gouseashwak007:Brokkerspot123@cluster0.vdsoe.mongodb.net/AJ_DB?retryWrites=true&w=majority",
+    "MONGO_URI":"mongodb+srv://AJ_DB:aj123@cluster0.4qnsh.mongodb.net/AJ_DB?retryWrites=true&w=majority",
     "otpLength":"6",
     "emailOtpLength":"3",
     "rounds": 8,

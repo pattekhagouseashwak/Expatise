@@ -6,10 +6,13 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 const contactUsSchema = new mongoose.Schema(
   {
     InqueryNo :{type:String},
-    name:{type:String},
+    InqurierName:{type:String},
+    InqurierType:{type:String},
     phoneNumber:{type:String},
     email:{type:String},
-    message:{type:String}
+    comment:{type:String},
+    customer:{type:String},
+    newLetter_status:{type:Boolean, default:false}
   },
   {
     versionKey: false,

@@ -6,10 +6,12 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 const webDevServiceSchema = new mongoose.Schema(
   {
     InqueryNo :{type:String},
-    First_Name:{type:String},
-    Last_Name:{type:String},
-    Phone_Number:{type:String},
-    Email:{type:String},
+    InqurierName:{type:String},
+    InqurierType:{type:String},
+    phoneNumber:{type:String},
+    email:{type:String},
+    comment:{type:String},
+    newLetter_status:{type:String}
   },
   {
     versionKey: false,

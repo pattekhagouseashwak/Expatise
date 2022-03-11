@@ -5,8 +5,11 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 const gotQuestionRelatedToAuctionLawSchema = new mongoose.Schema(
   {
     InqueryNo :{type:String},
-    Email:{type:String},
-    Your_Question:{type:String}
+    InqurierType:{type:String},
+    email:{type:String},
+    comment:{type:String},
+    customer:{type:String},
+    newLetter_status:{type:Boolean, default:false},
   },
   {
     versionKey: false,
