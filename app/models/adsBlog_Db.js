@@ -5,16 +5,22 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const adsBlog_dbSchema = new mongoose.Schema(
   {
-
-    AdvertisementID:{type:String},
+    BlogID:{type:String},
     BlogTitle:{type:String},
     BlogLink:{type:String},
+    AuctioneerID:{type:String},
+    AuthorName:{type:String},
+    Type:{type:String},
+    Category:{type:String},
+    BlogContent: {type:Object},
     featuredImage:{type:String},
+    uploadBlogImage:{type:String},
     State:{type:String},
     Date:{type:String},
     Time:{type:String},
     StartsFrom:{type:String},
     EndOn:{type:String},
+    is_published:{type:Boolean, default:false}
   },
   {
     versionKey: false,

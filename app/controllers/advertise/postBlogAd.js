@@ -11,7 +11,7 @@ const AdsBlog_Db = require('../../models/adsBlog_Db')
 const postBlogAd = async (req, res) => {
   try {console.log(" s s",req.body)
 
-    const AdvertisementID = req.body.AdvertisementID;
+    const BlogID = req.body.BlogID;
     const BlogTitle = req.body.BlogTitle;
     const BlogLink = req.body.BlogLink;
     const State = req.body.State;
@@ -21,7 +21,7 @@ const postBlogAd = async (req, res) => {
     const StartsFrom = req.body.StartsFrom;
     const EndOn = req.body.EndOn;
 
-    await AdsBlog_Db.create({AdvertisementID,BlogTitle,State,
+    await AdsBlog_Db.create({BlogID,BlogTitle,State,
       BlogLink,featuredImage,Date,Time,StartsFrom,EndOn
                             })
                        .then(() => {

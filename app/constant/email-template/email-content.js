@@ -295,7 +295,6 @@ var htmlString_ADVERTISEWITHUS = multiline(function () {/*
     */
 });
 
-
 var htmlString_BlogSuccessfullyAdded = multiline(function () {/*
     <!DOCTYPE html>
     <html>

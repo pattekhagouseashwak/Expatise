@@ -25,7 +25,9 @@ const {
   unPublished,
   deleteUnPublishedItem,
   removeUnPublishedAndAddListing,
-  fetchunPublishedListing
+  fetchunPublishedListing,
+  fetchType,
+  fetchCategory
 } = require('../controllers/auctionListing')
 
 const {
@@ -122,5 +124,19 @@ router.get(
   requireAuth,
   trimRequest.all,
   fetchunPublishedListing)
+
+router.get(
+    '/Types',
+     //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    fetchType)
+
+router.get(
+      '/Categorys',
+      //requireAuth,
+      //validatePostContent,
+      trimRequest.all,
+      fetchCategory)
 
 module.exports = router
