@@ -18,7 +18,14 @@ const {editBlog} = require('./editBlog')
 const {deleteBlog} = require('./deleteBlog')
 const{fetchBlogRequest} = require('./fetchBlogRequest')
 
+const {addFeaturedBlog} = require('./addFeaturedBlog')
+const {fetchFeaturedBlog} = require('./fetchFeaturedBlog')
+const {editFeaturedBlog} = require('./editFeaturedBlog')
+const {deleteFeaturedBlog} = require('./deleteFeaturedBlog')
+
+
 module.exports={createBanner,fetchBanner,deleteBanner,
                createType,editType,deleteType,fetchType,
                createCategory,fetchCategory,editCategory,deleteCategory,
-               createBlog,fetchBlog,editBlog,deleteBlog,fetchBlogRequest};
+               createBlog,fetchBlog,editBlog,deleteBlog,fetchBlogRequest,
+               addFeaturedBlog,editFeaturedBlog,fetchFeaturedBlog,deleteFeaturedBlog};

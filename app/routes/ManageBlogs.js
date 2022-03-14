@@ -11,7 +11,8 @@ const requireAuth = passport.authenticate('jwt', {
 const { createBanner, fetchBanner, deleteBanner,
     createType, editType, deleteType, fetchType,
     createCategory, fetchCategory, editCategory, deleteCategory,
-    createBlog, fetchBlog, editBlog, deleteBlog ,fetchBlogRequest} = require('../controllers/ManageBlogs')
+    createBlog, fetchBlog, editBlog, deleteBlog ,fetchBlogRequest,
+    addFeaturedBlog,editFeaturedBlog,fetchFeaturedBlog,deleteFeaturedBlog} = require('../controllers/ManageBlogs')
 
 // const {
 //     validatePostContent
@@ -136,5 +137,37 @@ router.delete(
     //validatePostContent,
     trimRequest.all,
     deleteBlog)
+
+
+/** Featured Blog */
+
+router.post(
+    '/addFeaturedBlog',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    addFeaturedBlog)
+
+router.put(
+    '/editFeaturedBlog',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    editFeaturedBlog)
+
+router.put(
+    '/fetchFeaturedBlog',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    fetchFeaturedBlog)
+
+router.delete(
+    '/deleteFeaturedBlog',
+    //requireAuth,
+    //validatePostContent,
+    trimRequest.all,
+    deleteFeaturedBlog)
+
 
 module.exports = router

@@ -5,7 +5,6 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const adsFeature_dbSchema = new mongoose.Schema(
   {
-
     AdvertisementID:{type:String},
     AuctionTitle:{type:String},
     typeofAuction:{type:String},

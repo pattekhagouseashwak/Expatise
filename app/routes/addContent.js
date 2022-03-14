@@ -15,7 +15,8 @@ const {
   postContent,
   fetchBanner,
   fetchBlog,
-  fetchCategoryBasedBlog
+  fetchCategoryBasedBlog,
+  fetchFeaturedBlog
 } = require('../controllers/addContent')
 
 const {
@@ -47,5 +48,11 @@ router.post(
   '/fetchCategoryBasedBlog',
   trimRequest.all,
   fetchCategoryBasedBlog)
+
+
+router.get(
+  '/FeaturedBlog',
+  trimRequest.all,
+  fetchFeaturedBlog)
 
 module.exports = router

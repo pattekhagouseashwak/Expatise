@@ -5,16 +5,17 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const adsVideo_dbSchema = new mongoose.Schema(
   {
-
-    AdvertisementID:{type:String},
+    videoID:{type:String},
     VideoTitle:{type:String},
     VideoLink:{type:String},
+    PostedBy: {type:String},
     CoverImage:{type:String},
     State:{type:String},
     Date:{type:String},
     Time:{type:String},
     StartsFrom:{type:String},
     EndOn:{type:String},
+    is_published:{type:String}
   },
   {
     versionKey: false,
