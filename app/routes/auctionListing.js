@@ -90,6 +90,7 @@ router.post(
 
 router.post(
   '/displayListingOverMap',
+  //not required
   //requireAuth,
   trimRequest.all,
   displayListingOverMap)
