@@ -13,7 +13,7 @@ const AuctioneerFAQ = require('../../models/auctioneerFAQ')
 
 const fetchAuctioneerAndBidderFAQ = async (req, res) => {
   try {
-    console.log(req.body)
+    //console.log(req.body)
     if(req.body.reqType == 1){
     await AuctioneerFAQ.find({})
                        .then((FAQ) => {
