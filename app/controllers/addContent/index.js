@@ -3,5 +3,12 @@ const {fetchBanner} = require('./fetchBanners')
 const {fetchBlog} = require('./fetchBlog')
 const{fetchCategoryBasedBlog} = require('./fetchCategoryBasedBlog')
 const{fetchFeaturedBlog} = require('./fetchFeaturedBlog')
+const {fetchVideos} = require('./fetchVideos')
+const {fetchTickers} = require('./fetchTickers')
 
-module.exports = {postContent,fetchBlog,fetchBanner,fetchCategoryBasedBlog,fetchFeaturedBlog}
+const{fetchListingPolicy} = require('./fetchListingPolicy')
+const{fetchAuctioneerAndBidderFAQ} = require('./fetchAuctioneerAndBidderFAQ')
+
+module.exports = {postContent,fetchBlog,fetchBanner,fetchCategoryBasedBlog,
+                 fetchFeaturedBlog,fetchVideos,fetchTickers,fetchListingPolicy,
+                 fetchAuctioneerAndBidderFAQ}

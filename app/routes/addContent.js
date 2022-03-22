@@ -16,7 +16,11 @@ const {
   fetchBanner,
   fetchBlog,
   fetchCategoryBasedBlog,
-  fetchFeaturedBlog
+  fetchFeaturedBlog,
+  fetchVideos,
+  fetchTickers,
+  fetchListingPolicy,
+  fetchAuctioneerAndBidderFAQ
 } = require('../controllers/addContent')
 
 const {
@@ -25,7 +29,6 @@ const {
 /*
  * Users routes
  */
-
 
 router.post(
   '/addContent',
@@ -49,10 +52,30 @@ router.post(
   trimRequest.all,
   fetchCategoryBasedBlog)
 
-
 router.get(
   '/FeaturedBlog',
   trimRequest.all,
   fetchFeaturedBlog)
+
+router.get(
+  '/Videos',
+  trimRequest.all,
+  fetchVideos)
+
+router.get(
+  '/Tickers',
+  trimRequest.all,
+  fetchTickers)
+
+router.get(
+  '/ListingPolicy',
+  trimRequest.all,
+  fetchListingPolicy)
+
+router.get(
+  '/AuctioneerAndBidderFAQ',
+  trimRequest.all,
+  fetchAuctioneerAndBidderFAQ)
+
 
 module.exports = router
