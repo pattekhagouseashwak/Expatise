@@ -118,7 +118,6 @@ router.post(
   trimRequest.all,
   removeUnPublishedAndAddListing)
 
-
 router.get(
   '/fetchunPublishedListing',
   requireAuth,
