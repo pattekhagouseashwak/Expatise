@@ -13,7 +13,7 @@ var geoip = require('geoip-lite');
  */
 
 const displayListingOverMap = async (req, res) => {
-    console.log(req.body)
+     //console.log(req.body)
     try {
         var ipAddress = requestIp.getClientIp(req);
         //console.log(ipAddress);
