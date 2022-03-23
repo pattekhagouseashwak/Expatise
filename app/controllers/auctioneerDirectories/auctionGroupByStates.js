@@ -11,18 +11,10 @@ const Auctioneer = require('../../models/Auctioneer')
 const auctionGroupByStates = async (req, res) => {
   try {
 
-    if (req.body.State.length == 0 && req.body.ZipCode.length == 0) {
-      return res.status(200).send({ status: 400, message: "Either of State or Zipcode can't be empty!!" });
-    }
-
     let searchValue =[];
 
     if (req.body.State.length != 0) {
       searchValue.push({ State: req.body.State });
-      //console.log(searchValue)
-    }
-    if (req.body.ZipCode.length > 0) {
-      searchValue.push({ ZipCode: req.body.ZipCode });
       //console.log(searchValue)
     }
 
@@ -49,6 +41,7 @@ const auctionGroupByStates = async (req, res) => {
             "State": 1,
             "CompanyName": 1,
             "City": 1,
+            "ZipCode":1,
             "FirstName": 1,
             "LastName": 1,
             "tickerSymbol": 1,

@@ -6,13 +6,12 @@ const { check } = require('express-validator')
  */
 const validateGroupByState = [
 
-    check('ZipCode')
-    .exists()
-    .withMessage('ZipCode MISSING'),
-
     check('State')
     .exists()
-    .withMessage('State MISSING'),
+    .withMessage('State MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('State Is EMPTY'),
     
   (req, res, next) => {
     validateResult(req, res, next)
