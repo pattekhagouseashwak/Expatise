@@ -9,26 +9,21 @@ const trimRequest = require('trim-request')
 
 const {
     auctionGroupByStates,
-    calender
+    calender,
+    validateGroupByState,
+    validateCalenderRequest
 } = require('../controllers/auctioneerDirectories')
-
-// const {
-//   validateCreateRecommandVideo
-// } = require('../controllers/contact/validator')
 
 router.post(
   '/auctionGroupByStates',
   trimRequest.all,
-  //requireAuth,
-  auctionGroupByStates
-)
+  validateGroupByState,
+  auctionGroupByStates)
 
 router.post(
   '/calender',
   trimRequest.all,
-  //requireAuth,
-  calender
-)
-
+  validateCalenderRequest,
+  calender)
 
 module.exports = router

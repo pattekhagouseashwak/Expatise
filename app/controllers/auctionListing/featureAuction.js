@@ -16,12 +16,8 @@ const featureAuction = async (req, res) => {
     var yyyy = today.getFullYear();
     var currentDate = (yyyy+"-"+mm+"-"+dd);
 
-    //console.log(currentDate)
-
-    if(req.body.AuctionType.length == 0){
-      return res.status(400).send({ status: 400, message: "auction Type can't be empty!!",data})
-    }
-    else if(req.body.AuctionType == "ALL"){
+    
+    if(req.body.AuctionType == "ALL"){
               await AuctionLisintg.find({AuctionDate :{$gte:currentDate} })
                       .then((data)=>{
                                     res.status(200).send({ status: 200, message: "successfully fetch AuctionLisintg Details!!",data})

@@ -31,7 +31,10 @@ const {
 } = require('../controllers/auctionListing')
 
 const {
-  validateCreateListing
+  validateCreateListing,
+  validateSearchAuction,
+  validateAuctionTypeAndState,
+  validateFeaturedAuction,
 } = require('../controllers/auctionListing/validators')
 
 /*
@@ -53,7 +56,7 @@ router.get(
 
 router.post(
   '/featureAuction',
-  //requireAuth,
+  validateFeaturedAuction,
   trimRequest.all,
   featureAuction)
 
@@ -79,19 +82,18 @@ router.post(
 router.post(
   '/searchAuction',
   //requireAuth,
+  validateSearchAuction,
   trimRequest.all,
   searchAuction)
 
 router.post(
   '/fetchAuctionByTypeAndState',
-  //requireAuth,
+  validateAuctionTypeAndState,
   trimRequest.all,
   fetchAuctionByTypeAndState)
 
 router.post(
   '/displayListingOverMap',
-  //not required
-  //requireAuth,
   trimRequest.all,
   displayListingOverMap)
 
