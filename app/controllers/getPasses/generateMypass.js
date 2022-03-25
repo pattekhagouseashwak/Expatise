@@ -29,7 +29,7 @@ exports.checkUserhasPass = async (userId, auctionId) => {
 
 
 const generateMypass = async (req, res) => {
-    console.log(req.body)
+    ///console.log(req.body)
     try {
 
         const userId = req.user._id;
@@ -54,6 +54,10 @@ const generateMypass = async (req, res) => {
         const Auctioneer_data = await AuctionListing.findById({_id:auctionId})
                                                  .select("Auctioneer")
                                                  .populate("Auctioneer","FirstName LastName Email")
+
+        if (Auctioneer_data == null || Auctioneer_data.length == 0) {
+           return res.status(400).send({ status: 400, message: "AuctionID Doesn't exist!!" })
+          }
 
         const Bidder_ID = req.user.BidderID;
 

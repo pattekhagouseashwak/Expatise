@@ -10,7 +10,8 @@ const trimRequest = require('trim-request')
 
 const {
   getPasses,
-  generateMypass
+  generateMypass,
+  validateGenerateMypass
 } = require('../controllers/getPasses')
 
 
@@ -25,6 +26,7 @@ router.post(
   '/generateMypass',
   trimRequest.all,
   requireAuth,
+  validateGenerateMypass,
   generateMypass
 )
 
