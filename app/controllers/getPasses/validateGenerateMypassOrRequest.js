@@ -4,7 +4,7 @@ const { check } = require('express-validator')
 /**
  * Validates verify request
  */
-const validateGenerateMypass = [
+const validateGenerateMypassOrRequest = [
 
     check('auctionId')
     .exists()
@@ -81,4 +81,4 @@ const validateGenerateMypass = [
   }
 ]
 
-module.exports = { validateGenerateMypass }
+module.exports = { validateGenerateMypassOrRequest }

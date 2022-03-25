@@ -21,10 +21,6 @@ exports.checkUserhasPass = async (userId,auctionId) => {
 
 const createGetRequest = async (req, res) => {
     try {
-        if(req.body.auctionId.length==0){
-            return res.status(400).send({ status: 400, message: "auctionId can't be empty!!"})
-        }
-
         const userId = req.user._id;
 
         const auctionId = req.body.auctionId;
@@ -42,9 +38,10 @@ const createGetRequest = async (req, res) => {
 
         const resultSet = await this.checkUserhasPass(userId,auctionId)
 
-            if(resultSet == "NA" || resultSet.length !=0){
-            return res.status(400).send({ status: 400, message: "Request has created already, Please check in Profile DashBoard!!"})
+        if (resultSet == "NA" || resultSet.length != 0) {
+            return res.status(400).send({ status: 400, message: "Request has created already, Please check in Profile DashBoard!!" })
         }
+
         await Bid.create({userId,auctionId,auctionType:"getRequest",category,auctioneerCompanyName,productName,address,date,time,BidderName,BidderEmail,BidderContact})
                  .then(()=>{
                             res.status(200).send({ status: 200, message: "Successfully bid request has created!!"})

@@ -1,6 +1,5 @@
 const {getPasses} = require('./getPasses')
 const {generateMypass} = require('./generateMypass')
-const {validateGenerateMypass} = require('./validateGenerateMypass')
+const {validateGenerateMypassOrRequest} = require('./validateGenerateMypassOrRequest')
 
-
-module.exports = {getPasses,generateMypass,validateGenerateMypass}
+module.exports = {getPasses,generateMypass,validateGenerateMypassOrRequest}

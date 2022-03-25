@@ -12,6 +12,10 @@ const {
     createGetRequest
 } = require('../controllers/getRequests')
 
+const{
+  validateGenerateMypassOrRequest
+} = require('../controllers/getPasses');
+
 
 router.get(
   '/getRequests',
@@ -24,6 +28,7 @@ router.post(
   '/createGetRequest',
   trimRequest.all,
   requireAuth,
+  validateGenerateMypassOrRequest,
   createGetRequest
 )
 
