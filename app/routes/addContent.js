@@ -20,7 +20,13 @@ const {
   fetchVideos,
   fetchTickers,
   fetchListingPolicy,
-  fetchAuctioneerAndBidderFAQ
+  fetchAuctioneerAndBidderFAQ,
+  getAboutUs,
+  getDataSecurity,
+  getPrivacyPolicy,
+  getTermsAndConditions,
+  getFaq,
+  fetchPrintAd
 } = require('../controllers/addContent')
 
 const {
@@ -76,6 +82,39 @@ router.get(
   '/AuctioneerAndBidderFAQ',
   trimRequest.all,
   fetchAuctioneerAndBidderFAQ)
+
+//===============================
+
+router.get(
+  '/AboutUs',
+  trimRequest.all,
+  getAboutUs)
+
+router.get(
+  '/DataSecurity',
+  trimRequest.all,
+  getDataSecurity)
+
+router.get(
+  '/PrivacyPolicy',
+  trimRequest.all,
+  getPrivacyPolicy)
+
+router.get(
+  '/Faq',
+  trimRequest.all,
+  getFaq)
+
+router.get(
+  '/TermsAndConditions',
+  trimRequest.all,
+  getTermsAndConditions)
+
+
+router.get(
+  '/PrintAd',
+  trimRequest.all,
+  fetchPrintAd)
 
 
 module.exports = router

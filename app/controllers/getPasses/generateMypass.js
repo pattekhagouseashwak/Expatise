@@ -50,7 +50,7 @@ const generateMypass = async (req, res) => {
         //console.log(req.body)
 
         if (resultSet == "NA" || resultSet.length != 0) {
-            return res.status(400).send({ status: 400, message: "Pass has generated already, Please check in Profile DashBoard!!" })
+            return res.status(400).send({ status: 200, message: "Pass has generated already, Please check in Profile DashBoard!!" })
         }
 
         const Auctioneer_data = await AuctionListing.findById({_id:auctionId})

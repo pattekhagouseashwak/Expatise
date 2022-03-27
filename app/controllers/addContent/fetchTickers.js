@@ -1,6 +1,6 @@
 const { handleError } = require('../../middleware/utils')
 
-const AdsVideo_Db = require('../../models/adsVideo_Db')
+const CustomTicker = require('../../models/customTicker')
 
 /**
  * Register function called by route
@@ -10,10 +10,9 @@ const AdsVideo_Db = require('../../models/adsVideo_Db')
 
 const fetchTickers = async (req, res) => {
   try {
-    
-             await AdsVideo_Db.find({ })
+                 await CustomTicker.find({ })
                        .then((Tickers) => {
-                                       res.status(200).send({ status: 200, message: "succesfully fetched Video",Tickers })
+                                       res.status(200).send({ status: 200, message: "succesfully fetched Tickers",Tickers })
                                    })
                        .catch(Err => {
                                         res.status(500).send({
