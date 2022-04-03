@@ -1,6 +1,6 @@
 const { handleError } = require('../../middleware/utils')
 
-const CustomTicker = require('../../models/customTicker')
+const Ticker = require('../../models/Ticker')
 
 /**
  * Register function called by route
@@ -10,7 +10,7 @@ const CustomTicker = require('../../models/customTicker')
 
 const fetchTickers = async (req, res) => {
   try {
-                 await CustomTicker.find({ })
+           await Ticker.find({startDate: {"$lte": Date.now()}})
                        .then((Tickers) => {
                                        res.status(200).send({ status: 200, message: "succesfully fetched Tickers",Tickers })
                                    })

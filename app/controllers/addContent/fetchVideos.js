@@ -11,7 +11,7 @@ const AdsVideo_Db = require('../../models/adsVideo_Db')
 const fetchVideos = async (req, res) => {
   try {
     
-             await AdsVideo_Db.find({ })
+             await AdsVideo_Db.find({is_published:true})
                        .then((Videos) => {
                                        res.status(200).send({ status: 200, message: "succesfully fetched Video",Videos })
                                    })

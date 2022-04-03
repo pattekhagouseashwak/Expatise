@@ -44,6 +44,8 @@ const generateMypass = async (req, res) => {
         const BidderName = req.body.BidderName;
         const BidderEmail = req.body.BidderEmail;
         const BidderContact = req.body.BidderContact;
+        const BidderID= req.body.BidderID;
+        const RequestNo= req.body.RequestNo;
 
         const resultSet = await this.checkUserhasPass(userId, auctionId)
 
@@ -65,7 +67,7 @@ const generateMypass = async (req, res) => {
 
         let obj = [Bidder_ID,BidderName,Auctioneer_data.Auctioneer.FirstName,Auctioneer_data.Auctioneer.LastName];
 
-        await Bid.create({ userId, auctionId, auctionType: "Passes", category, auctioneerCompanyName, productName, address, date, time, BidderName, BidderEmail, BidderContact })
+        await Bid.create({ userId, auctionId, auctionType: "Passes", category, auctioneerCompanyName, productName, address, date, time, BidderName, BidderEmail, BidderContact,RequestNo,BidderID })
             .then(async (data) => {
                 let host = req.get('host');
                 console.log("host:", host);

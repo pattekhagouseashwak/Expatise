@@ -5,12 +5,8 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const recommendedVideoSchema = new mongoose.Schema(
   {
-    name :{type:String},
-    title :{type:String},
-    youtubeVideoURL :{type:String},
-    activationDate:{type:String},
-    expireDate:{type:String},
-    display:{type:Boolean,default:false}
+    VideoID:{ type: ObjectId, ref: "AdsVideo_db" },
+    position:{type:String, default: "", unique: true},
    },
   {
     versionKey: false,

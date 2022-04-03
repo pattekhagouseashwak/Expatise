@@ -11,8 +11,7 @@ const {
     contactUs,
     gotATip,
     advertiseWithUs,
-    createRecommandVideo,
-    recommendedVideo,
+    getRecommendedVideo,
     requestACallback,
     getRequestACallbackDetails,
     writeToUs,
@@ -25,7 +24,6 @@ const {
 } = require('../controllers/contact')
 
 const {
-  validateCreateRecommandVideo,
   validateData_gotQuestion,
   validateData
 } = require('../controllers/contact/validator')
@@ -48,16 +46,10 @@ router.post('/advertiseWithUs',
     advertiseWithUs
 )
 
-router.post('/createRecommandVideo',
-  trimRequest.all,
-  requireAuth,
-  validateCreateRecommandVideo,
-  createRecommandVideo)
-
 router.get('/recommendedVideo',
   trimRequest.all,
   //requireAuth,
-recommendedVideo)
+  getRecommendedVideo)
 
 router.post('/requestACallback',
   trimRequest.all,
@@ -70,7 +62,6 @@ router.get('/getRequestACallbackDetails',
   requireAuth,
   getRequestACallbackDetails
 )
-
 
 router.post('/writeToUs',
   trimRequest.all,

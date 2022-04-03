@@ -10,27 +10,26 @@ const RecommendedVideo = require('../../models/recommendedVideo')
  */
 
 
-const recommendedVideo = async (req, res) => {
+const getRecommendedVideo = async (req, res) => {
     try {
-
-        // perform operation on auctioneer DB collection
-
-        await RecommendedVideo.find({ display: true })
-            .select("-activationDate -expireDate -display -createdAt -updatedAt")
-            .then((data) => {
-                res.status(200).send({ status: 200, message: "successfully created Recommend Video!!", data })
-            }).catch(Err => {
-                res.status(500).send({
-                    status: 500,
-                    message:
-                        Err.message || "Some error occurred while fetching Recommend Video."
-                });
-            });
-
+      await RecommendedVideo.find()
+                            .sort("position")
+                            .then((data) => {
+                                            if (data.length != 0) {        
+                                                                   return res.status(200).send({ status: 200, message: "successfully fetched!!", data });
+                                                                   }
+                                            else if (data.length == 0) {
+                                                                   return res.status(200).send({ status: 200, message: "No data Found!!" })
+                                                                   }
+                             }).catch(Err => {
+                                              res.status(500).send({status: 500,message:Err.message || "Some err occurred while fetching."});
+                                              });
+  
     } catch (error) {
-        console.log(error)
-        handleError(res, error)
+      console.log(error)
+      handleError(res, error)
     }
-}
+  }
 
-module.exports = { recommendedVideo }
+
+module.exports = { getRecommendedVideo }
