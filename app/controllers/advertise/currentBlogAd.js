@@ -9,7 +9,8 @@ const AdsBlog_Db = require('../../models/adsBlog_Db')
  */
 
 const currentBlogAd = async (req, res) => {
-  try {console.log(" s s")
+  try {
+  //console.log(" s s")
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
