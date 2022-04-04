@@ -1,7 +1,7 @@
 const { contactUs } = require('./contactUs')
 const { gotATip } = require('./gotATip')
 const { advertiseWithUs } = require('./advertiseWithUs')
-const {getRecommendedVideo} = require('./RecommendedVideo')
+const {getRecommendedVideo} = require('./recommendedVideo')
 const { requestACallback } = require('./requestACallback')
 const { getRequestACallbackDetails } = require('./requestACallback')
 const { writeToUs, getWriteToUsDetails } = require('./writeToUs')

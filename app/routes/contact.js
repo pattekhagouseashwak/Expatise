@@ -11,7 +11,6 @@ const {
     contactUs,
     gotATip,
     advertiseWithUs,
-    getRecommendedVideo,
     requestACallback,
     getRequestACallbackDetails,
     writeToUs,
@@ -20,7 +19,8 @@ const {
     hostingServices,
     webDevServices,
     gotQuestionRelatedToAuctionLaw,
-    replyComment
+    replyComment,
+    getRecommendedVideo
 } = require('../controllers/contact')
 
 const {
