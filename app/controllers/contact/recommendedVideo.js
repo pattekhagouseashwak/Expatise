@@ -13,6 +13,7 @@ const RecommendedVideo = require('../../models/recommendedVideo')
 const getRecommendedVideo = async (req, res) => {
     try {
       await RecommendedVideo.find()
+                            .populate("VideoOBjectID","VideoTitle VideoLink PostedBy")
                             .sort("position")
                             .then((data) => {
                                             if (data.length != 0) {        

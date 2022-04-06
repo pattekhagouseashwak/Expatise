@@ -5,7 +5,8 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const recommendedVideoSchema = new mongoose.Schema(
   {
-    VideoID:{ type: ObjectId, ref: "AdsVideo_db" },
+    VideoID:{ type: String },
+    VideoOBjectID:{type:ObjectId,ref: "AdsVideo_db"},
     position:{type:String, default: "", unique: true},
    },
   {
