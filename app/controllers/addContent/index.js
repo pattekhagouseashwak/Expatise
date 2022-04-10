@@ -16,8 +16,9 @@ const { getPrivacyPolicy} = require('./privacyPolicy')
 const { getTermsAndConditions} = require('./termsAndConditions')
 const { getFaq } = require('./faq')
 const { fetchPrintAd } = require('./fetchPrintAd')
+const{fetchAuctionCategory} = require('./fetchAuctionCategory')
 
 module.exports = {postContent,fetchBlog,fetchBanner,fetchCategoryBasedBlog,
                  fetchFeaturedBlog,fetchVideos,fetchTickers,fetchListingPolicy,
                  fetchAuctioneerAndBidderFAQ,getAboutUs,getDataSecurity,getPrivacyPolicy,
-                 getTermsAndConditions,getFaq,fetchPrintAd}
+                 getTermsAndConditions,getFaq,fetchPrintAd,fetchAuctionCategory}

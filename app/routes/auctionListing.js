@@ -27,7 +27,8 @@ const {
   removeUnPublishedAndAddListing,
   fetchunPublishedListing,
   fetchType,
-  fetchCategory
+  fetchCategory,
+  fetchListingByrequestedDate
 } = require('../controllers/auctionListing')
 
 const {
@@ -140,5 +141,10 @@ router.get(
       //validatePostContent,
       trimRequest.all,
       fetchCategory)
+
+router.post(
+  '/getListingByDate',
+  trimRequest.all,
+  fetchListingByrequestedDate)
 
 module.exports = router

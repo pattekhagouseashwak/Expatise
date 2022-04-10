@@ -73,10 +73,13 @@ const searchAuction = async (req, res) => { //console.log(req.body)
     if (req.body.Keywords.length != 0) {
       const Keywords = req.body.Keywords;
       searchValue.push({
-        $or: [{ AuctionType: { $regex: Keywords, '$options': 'i' } }, { AuctionTitle: { $regex: Keywords, '$options': 'i' } },
-        { NameOfProduct: { $regex: Keywords, '$options': 'i' } }, { ProductDescription: { $regex: Keywords, '$options': 'i' } },
-        { BiddingNotice: { $regex: Keywords, '$options': 'i' } }, { AuctionNotice: { $regex: Keywords, '$options': 'i' } },
-        { TermsAndCondition: { $regex: Keywords, '$options': 'i' } }]
+        $or: [{ AuctionType: { $regex: Keywords, '$options': 'i' } },
+              { AuctionTitle: { $regex: Keywords, '$options': 'i' } },
+              { NameOfProduct: { $regex: Keywords, '$options': 'i' } },
+              { ProductDescription: { $regex: Keywords, '$options': 'i' } },
+              { BiddingNotice: { $regex: Keywords, '$options': 'i' } }, 
+              { AuctionNotice: { $regex: Keywords, '$options': 'i' } },
+              { TermsAndCondition: { $regex: Keywords, '$options': 'i' } }]
       });
       //console.log(searchValue)
     }
@@ -92,7 +95,7 @@ const searchAuction = async (req, res) => { //console.log(req.body)
     var currentDate = (yyyy + "-" + mm + "-" + dd);
     searchValue.push({ AuctionDate: { $gte: currentDate } });
 
-    console.log("searchValue", searchValue)
+    //console.log("searchValue", searchValue)
 
     await AuctionLisintg.find({ $and: searchValue })
       .then((data) => {

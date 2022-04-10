@@ -26,7 +26,8 @@ const {
   getPrivacyPolicy,
   getTermsAndConditions,
   getFaq,
-  fetchPrintAd
+  fetchPrintAd,
+  fetchAuctionCategory
 } = require('../controllers/addContent')
 
 const {
@@ -116,5 +117,9 @@ router.get(
   trimRequest.all,
   fetchPrintAd)
 
+router.get(
+  '/fetchAuctionCategory',
+  trimRequest.all,
+  fetchAuctionCategory)
 
 module.exports = router

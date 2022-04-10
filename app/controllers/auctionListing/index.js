@@ -14,9 +14,10 @@ const {removeUnPublishedAndAddListing} = require('./removeUnPublishedAndAddListi
 const {fetchunPublishedListing} = require('./fetchunPublishedListing')
 const {fetchType} = require('./fetchType')
 const {fetchCategory} = require('./fetchCategory')
+const {fetchListingByrequestedDate} = require('./fetchListingByrequestedDate')
 
 module.exports = {createListing,fetchListing,featureAuction,downladBidRequest,
                   uploadAuctionImage,editAuctionListing,searchAuction,
                   fetchAuctionByTypeAndState,displayListingOverMap,fetchSingleAuction,unPublished
                   ,fetchunPublishedListing,deleteUnPublishedItem,removeUnPublishedAndAddListing,
-                  fetchCategory,fetchType}
+                  fetchCategory,fetchType,fetchListingByrequestedDate}
