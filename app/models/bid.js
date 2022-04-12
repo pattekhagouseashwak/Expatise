@@ -18,7 +18,7 @@ const BidSchema = new mongoose.Schema(
     BidderEmail:{type:String,required:true},
     BidderContact:{type:String,required:true},
     RequestNo:{type:String,required:true},
-    // qrCodeString: {type:String,required:false, default: undefined}
+    qrCodeString: {type:String,required:false, default: undefined}
   },
  
   {

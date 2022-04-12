@@ -33,7 +33,6 @@ const generateMypass = async (req, res) => {
     try {
 
         const userId = req.user._id;
-
         const auctionId = req.body.auctionId;
         const category = req.body.category;
         const auctioneerCompanyName = req.body.auctioneerCompanyName;
@@ -44,8 +43,8 @@ const generateMypass = async (req, res) => {
         const BidderName = req.body.BidderName;
         const BidderEmail = req.body.BidderEmail;
         const BidderContact = req.body.BidderContact;
-        const BidderID= req.body.BidderID;
-        const RequestNo= req.body.RequestNo;
+        const BidderID = req.body.BidderID;
+        const RequestNo = (new Date()).getTime();
 
         const resultSet = await this.checkUserhasPass(userId, auctionId)
 
@@ -55,30 +54,42 @@ const generateMypass = async (req, res) => {
             return res.status(400).send({ status: 200, message: "Pass has generated already, Please check in Profile DashBoard!!" })
         }
 
-        const Auctioneer_data = await AuctionListing.findById({_id:auctionId})
-                                                 .select("Auctioneer")
-                                                 .populate("Auctioneer","FirstName LastName Email")
+        const Auctioneer_data = await AuctionListing.findById({ _id: auctionId })
+            .select("Auctioneer AuctionDate  AuctionTime AuctionType")
+            .populate("Auctioneer", "FirstName LastName Email")
 
         if (Auctioneer_data == null || Auctioneer_data.length == 0) {
-           return res.status(400).send({ status: 400, message: "AuctionID Doesn't exist!!" })
-          }
+            return res.status(400).send({ status: 400, message: "AuctionID Doesn't exist!!" })
+        }
 
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var currentDate = (yyyy + "-" + mm + "-" + dd);
+        console.log(Auctioneer_data.AuctionDate,Auctioneer_data.AuctionTime,currentDate);
+        if (Auctioneer_data.AuctionDate < currentDate && Auctioneer_data.AuctionTime < currentDate) {
+            return res.status(400).send({ status: 400, message: "Auctions has closed to generate Bid passes!!" })
+        }
+        
         const Bidder_ID = req.user.BidderID;
 
-        let obj = [Bidder_ID,BidderName,Auctioneer_data.Auctioneer.FirstName,Auctioneer_data.Auctioneer.LastName];
+        let obj = [Bidder_ID, BidderName, Auctioneer_data.Auctioneer.FirstName, Auctioneer_data.Auctioneer.LastName];
 
-        await Bid.create({ userId, auctionId, auctionType: "Passes", category, auctioneerCompanyName, productName, address, date, time, BidderName, BidderEmail, BidderContact,RequestNo,BidderID })
+        let qrCodeString = userId + productName + BidderContact + Auctioneer_data.AuctionDate + Auctioneer_data.AuctionTime + Auctioneer_data.AuctionType;
+
+        await Bid.create({ userId, auctionId, auctionType: "Passes", category, auctioneerCompanyName, productName, address, date, time, BidderName, BidderEmail, BidderContact, RequestNo, BidderID, qrCodeString })
             .then(async (data) => {
                 let host = req.get('host');
-                console.log("host:", host);
-                await sendEmailToCustomer(host, data.BidderEmail, "NA", 3, emailConstants.BiddingRequestSubmittedSuccessfully, emailConstants.htmlcontent_onceBidderRequestBid, data.BidderName,emailConfig.username_listing);
-                await sendEmailToCustomer(host, Auctioneer_data.Auctioneer.Email, "NA",9, emailConstants.IncomingBidderAlert, emailConstants.htmlContent_Incoming_Bidder_Alert, obj,emailConfig.username_listing);
+                //console.log("host:", host);
+                await sendEmailToCustomer(host, data.BidderEmail, "NA", 3, emailConstants.BiddingRequestSubmittedSuccessfully, emailConstants.htmlcontent_onceBidderRequestBid, data.BidderName, emailConfig.username_listing);
+                await sendEmailToCustomer(host, Auctioneer_data.Auctioneer.Email, "NA", 9, emailConstants.IncomingBidderAlert, emailConstants.htmlContent_Incoming_Bidder_Alert, obj, emailConfig.username_listing);
                 res.status(200).send({ status: 200, message: "Successfully bid passes has generated!!" })
             }
             ).catch(Err => {
                 res.status(500).send({
-                    status:500,
-                    message:Err.message || "Some error occurred while generating bid passes."
+                    status: 500,
+                    message: Err.message || "Some error occurred while generating bid passes."
                 });
             });
 

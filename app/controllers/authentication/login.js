@@ -25,7 +25,7 @@ exports.checkEmail = async (emailId,reqType) => {
   }
   else if(reqType == 2)
     {await Bidder.findOne({Email:emailId})
-    .select("_id Email password AuctioneerLicensceNo FirstName LastName Photo")
+    .select("_id Email password AuctioneerLicensceNo FirstName LastName Photo BidderID Phone")
     .then((result) => {
           cursorData = result;
       }).catch(err => {
@@ -102,7 +102,7 @@ const loginBidder = async (req, res) => {
 
       const validPassword = await bcrypt.compare(password,user.password);
 
-      console.log(validPassword)
+      //console.log(validPassword)
     
 
     //compare password
@@ -115,16 +115,18 @@ const loginBidder = async (req, res) => {
       let accessToken = await generateToken(user._id,reqType)
       let _id = user._id;
       let Email = user.Email;
-      let FristName = user.FristName;
+      let FirstName = user.FirstName;
       let LastName = user.LastName;
       let Photo = user.Photo;
+      let BidderID = user.BidderID;
+      let BidderContact = user.Phone ;
       res 
     .cookie("access_token", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
-    .send({status:200,message:"Successfully Login!!",_id,Email,FristName,LastName,Photo,accessToken});
+    .send({status:200,message:"Successfully Login!!",_id,BidderID,Email,FirstName,LastName,BidderContact,Photo,accessToken});
     }
   }
   else{

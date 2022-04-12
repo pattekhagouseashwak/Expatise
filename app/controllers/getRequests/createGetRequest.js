@@ -1,4 +1,6 @@
 const Bid = require('../../models/bid')
+
+const AuctionListing = require('../../models/auctionListing')
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -37,12 +39,30 @@ const createGetRequest = async (req, res) => {
         const BidderID= req.body.BidderID;
         const RequestNo= (new Date()).getTime();
 
+        const Auctioneer_data = await AuctionListing.findById({ _id: auctionId })
+            .select("Auctioneer AuctionDate  AuctionTime AuctionType")
+            .populate("Auctioneer", "FirstName LastName Email")
 
+        if (Auctioneer_data == null || Auctioneer_data.length == 0) {
+            return res.status(400).send({ status: 400, message: "AuctionID Doesn't exist!!" })
+        }
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var currentDate = (yyyy + "-" + mm + "-" + dd);
+
+        if (Auctioneer_data.AuctionDate < currentDate && Auctioneer_data.AuctionTime < currentDate) {
+            return res.status(400).send({ status: 400, message: "Auctions has closed!!" })
+        }
+       
         const resultSet = await this.checkUserhasPass(userId,auctionId)
 
         if (resultSet == "NA" || resultSet.length != 0) {
             return res.status(400).send({ status: 400, message: "Request has created already, Please check in Profile DashBoard!!" })
         }
+
 
         await Bid.create({userId,auctionId,auctionType:"getRequest",category,auctioneerCompanyName,productName,address,date,time,BidderName,BidderEmail,BidderContact,RequestNo,BidderID})
                  .then(()=>{
