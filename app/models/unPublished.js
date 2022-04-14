@@ -7,6 +7,8 @@ const unpublishedSchema = new mongoose.Schema(
   {
     Auctioneer: { type: ObjectId, ref: "Auctioneer" },
 
+    ListingID:{type:String},
+
     AuctionType: { type: String },
 
     AuctionTitle: { type: String },

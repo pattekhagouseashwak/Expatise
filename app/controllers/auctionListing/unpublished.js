@@ -13,15 +13,10 @@ const { fetchLatitudeLongitude } = require('../../middleware/utils')
 const unPublished = async (req, res) => {//console.log(req.files )
   try {
 
-    const files = req.files
-
-    //const resultSet = await this.fetchUser_ID(req.user.id)
-
-    //console.log(resultSet)
-
     let data =req.user;
     console.log(data)
-
+    
+    const ListingID = 'ListID_' + (new Date()).getTime();
     const Auctioneer = req.user.id;
     const AuctionType = req.body.AuctionType;
     const AuctionTitle = req.body.AuctionTitle;
@@ -54,6 +49,8 @@ const unPublished = async (req, res) => {//console.log(req.files )
     const AuctionMonthYear = req.body.AuctionDate.slice(0, 7);
 
      await UnPublished.create({
+       ListingID,
+
        Auctioneer,
 
        AuctionType,

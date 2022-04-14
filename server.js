@@ -11,6 +11,8 @@ const appInfo = require('./settings.json')
 const path = require('path')
 const cookieParser = require("cookie-parser");
 
+const axios = require("axios")
+
 global.appInfo = appInfo
 // Setup express server port from ENV, default: 4000
 //app.set('port', appInfo.PORT || 4000)

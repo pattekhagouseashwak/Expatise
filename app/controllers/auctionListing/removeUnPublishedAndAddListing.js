@@ -21,7 +21,7 @@ const removeUnPublishedAndAddListing = async (req, res) => {//console.log(req.fi
 
     let data =req.user;
     console.log(data)
-
+    const ListingID = 'ListID_' + (new Date()).getTime();
     const Auctioneer = req.user.id;
     const AuctionType = req.body.AuctionType;
     const AuctionTitle = req.body.AuctionTitle;
@@ -59,6 +59,8 @@ const removeUnPublishedAndAddListing = async (req, res) => {//console.log(req.fi
      await AuctionListing.create({
       
        _id : req.body.id,
+
+       ListingID,
 
        Auctioneer,
 
