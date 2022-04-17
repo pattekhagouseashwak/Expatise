@@ -12,32 +12,9 @@ const fetchunPublishedListing = async (req, res) => {
   try {
     
     const id = req.user._id
-
-    console.log(id)
-
-    // let upcomingAuctionListings =[];
-
-    // let pastAuctionListings =[];
-    
-    // var today = new Date();
-    //             var dd = String(today.getDate()).padStart(2, '0');
-    //             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    //             var yyyy = today.getFullYear();
-    //             var currentDate = (yyyy+"-"+mm+"-"+dd);
-    
+   
     await UnPublished.find({Auctioneer:id})
               .then((listing)=>{
-                // upcomingAuctionListings = allObjects.filter( (object)  =>{
-                //                                            if(object.AuctionDate >= currentDate){
-                //                                                return object;
-                //                                            }
-                //                                         });
-
-                // pastAuctionListings = allObjects.filter( (object)  =>{
-                //                                             if(object.AuctionDate < currentDate){
-                //                                                 return object;
-                //                                             }
-                //                                          });
                             res.status(200).send({ status: 200, message: "successfully fetch UnpublishedLisintg Details!!",listing})
                             }
                                         ).catch(Err => {
