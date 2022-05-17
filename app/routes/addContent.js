@@ -137,7 +137,7 @@ router.get(
 
 router.get(
   '/fetchBoostPackages',
-  trimRequest.all,
+  trimRequest.all ,
   fetchBoostPackages)
 
 module.exports = router
