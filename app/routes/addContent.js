@@ -28,7 +28,9 @@ const {
   getFaq,
   fetchPrintAd,
   fetchAuctionCategory,
-  fetchListingPackages, fetchAdvertisePackages, fetchBoostPackages
+  fetchListingPackages, fetchAdvertisePackages, fetchBoostPackages,
+  singleFeaturedBlog,
+  singleBlog
 } = require('../controllers/addContent')
 
 const {
@@ -56,9 +58,19 @@ router.post(
   fetchBlog)
 
 router.post(
+  '/singleBlog',
+  trimRequest.all,
+  singleBlog)
+
+router.post(
   '/fetchCategoryBasedBlog',
   trimRequest.all,
   fetchCategoryBasedBlog)
+
+router.post(
+  '/singleFeaturedBlog',
+  trimRequest.all,
+  singleFeaturedBlog)
 
 router.get(
   '/FeaturedBlog',

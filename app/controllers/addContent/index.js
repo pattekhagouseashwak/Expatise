@@ -20,8 +20,12 @@ const{fetchAuctionCategory} = require('./fetchAuctionCategory')
 const{fetchListingPackages} = require('./fetchListingPackages')
 const{fetchAdvertisePackages} = require('./fetchAdvertisePackages')
 const{fetchBoostPackages} = require('./fetchBoostPackages')
+const {singleFeaturedBlog} = require('./singleFeaturedBlog')
+const {singleBlog} = require('./singleBlog')
 
 module.exports = {postContent,fetchBlog,fetchBanner,fetchCategoryBasedBlog,
                  fetchFeaturedBlog,fetchVideos,fetchTickers,fetchListingPolicy,
                  fetchAuctioneerAndBidderFAQ,getAboutUs,getDataSecurity,getPrivacyPolicy,
-                 getTermsAndConditions,getFaq,fetchPrintAd,fetchAuctionCategory,fetchListingPackages,fetchAdvertisePackages,fetchBoostPackages}
+                 getTermsAndConditions,getFaq,fetchPrintAd,fetchAuctionCategory,
+                 fetchListingPackages,fetchAdvertisePackages,fetchBoostPackages,
+                 singleFeaturedBlog,singleBlog}
