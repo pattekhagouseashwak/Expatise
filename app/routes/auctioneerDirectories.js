@@ -8,10 +8,11 @@ const requireAuth = passport.authenticate('jwt', {
 const trimRequest = require('trim-request')
 
 const {
-    auctionGroupByStates,
-    calender,
-    validateGroupByState,
-    validateCalenderRequest
+  auctionGroupByStates,
+  calender,
+  validateGroupByState,
+  validateCalenderRequest,
+  stateCalender
 } = require('../controllers/auctioneerDirectories')
 
 router.post(
@@ -25,5 +26,11 @@ router.post(
   trimRequest.all,
   validateCalenderRequest,
   calender)
+
+router.post(
+  '/statecalender',
+  trimRequest.all,
+  stateCalender)
+
 
 module.exports = router
