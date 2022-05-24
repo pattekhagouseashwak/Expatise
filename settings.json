@@ -1,5 +1,5 @@
 {
-    "PORT": 4000,
+    "PORT": 6000,
     "MONGO_URI":"mongodb+srv://AJ_DB:aj123@cluster0.4qnsh.mongodb.net/AJ_DB?retryWrites=true&w=majority",
     "otpLength":"6",
     "emailOtpLength":"3",
