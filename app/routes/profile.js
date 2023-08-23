@@ -12,13 +12,10 @@ const {
   auctioneerProfile,
   editBidderProfile,
   editAuctioneerProfile,
-  bidHistory,
   uploadAuctioneerProfile,
   uploadBidderProfile,
   removeProfilePhoto,
-  bidRequest,
-  fetchAuctioneerBio
-} = require('../controllers/profile')
+  } = require('../controllers/profile')
 
 const {
   validateBidderEditProfile,
@@ -28,15 +25,6 @@ const {
 /*
  * Users routes
  */
-
-
-router.get(
-  '/bidHistory',
-  trimRequest.all,
-  requireAuth,
-  bidHistory
-)
-
 
 router.get(
   '/auctioneerProfile',
@@ -50,13 +38,6 @@ router.get(
   trimRequest.all,
   requireAuth,
   bidderProfile
-)
-
-router.post(
-  '/fetchAuctioneerBio',
-  trimRequest.all,
-  //requireAuth,
-  fetchAuctioneerBio
 )
 
 router.post(
@@ -98,10 +79,4 @@ router.post(
   removeProfilePhoto
 )
 
-router.post(
-  '/bidRequest',
-  trimRequest.all,
-  requireAuth,
-  bidRequest
-)
 module.exports = router

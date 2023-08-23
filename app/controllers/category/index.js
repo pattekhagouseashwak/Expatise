@@ -5,6 +5,5 @@ const {uploadBidderProfile} = require('./uploadPhoto')
 const {removeProfilePhoto} = require('./removeProfilePhoto')
 
 module.exports ={bidderProfile, auctioneerProfile,editAuctioneerProfile,
-                editBidderProfile,
-                uploadAuctioneerProfile,removeProfilePhoto,
+                editBidderProfile,uploadAuctioneerProfile,removeProfilePhoto,
                 uploadBidderProfile}
