@@ -31,8 +31,7 @@ module.exports = () => {
         }
       }
     )
-    // mongoose.set('useCreateIndex', false)
-    // mongoose.set('useFindAndModify', false)
+    mongoose.set("strictQuery", false);
   }
   connect()
 

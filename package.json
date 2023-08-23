@@ -140,11 +140,11 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GouseAshwak/auctioneer.git"
+    "url": "git+https://github.com/pattekhagouseashwak/Expatise.git"
   },
   "author": "",
   "bugs": {
-    "url": "https://github.com/GouseAshwak/auctioneer/issues"
+    "url": "https://github.com/pattekhagouseashwak/Expatise/issues"
   },
-  "homepage": "https://github.com/GouseAshwak/auctioneer#readme"
+  "homepage": "https://github.com/pattekhagouseashwak/Expatise#readme"
 }
