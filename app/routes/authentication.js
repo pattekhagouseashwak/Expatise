@@ -9,54 +9,20 @@ const requireAuth = passport.authenticate('jwt', {
 const trimRequest = require('trim-request')
 
 const {
-  mobileOTP,
-  verifyOtp,
   registerBidder,
   registerAuctioneer,
-  verifyEmailAuctioneer,
-  verifyEmailBidder,
   loginAuctioneer,
   loginBidder,
-  logout,
-  forgotPasswordAuctioneer,
-  forgotPasswordBidder,
-  verifyForgetPasswordAuctioneer,
-  verifyForgetPasswordBidder,
-  setNewPassword,
-  changePassword
+  logout
 } = require('../controllers/authentication')
 
 const {
-  validateMobileNumber,
-  validateVerifyOTP,
   validateRegister,
   validateBidderRegister,
-  validateLogin,
-  validateSetPassword
+  validateLogin
 } = require('../controllers/authentication/validators')
-/*
- * Users routes
- */
+/**routes*/
 
-/*
- * mobileOTP route
- */
-router.post(
-  '/mobileOTP',
-  trimRequest.all,
-  validateMobileNumber,
-  mobileOTP
-)
-
-/*
- * verifyOtp route
- */
-router.post(
-  '/verifyOtp',
-  trimRequest.all,
-  validateVerifyOTP,
-  verifyOtp
-)
 
 /*
  * register route
@@ -73,18 +39,6 @@ router.post(
   trimRequest.all,
   validateBidderRegister,
   registerBidder
-)
-
-router.get(
-  '/verifyAuctioneer',
-  trimRequest.all,
-  verifyEmailAuctioneer,
-)
-
-router.get(
-  '/verifyBidder',
-  trimRequest.all,
-  verifyEmailBidder
 )
 
 router.post(
@@ -107,40 +61,5 @@ router.post(
   trimRequest.all,
   logout
 )
-
-router.post(
-  '/forgotPasswordBidder',
-  trimRequest.all,
-  forgotPasswordBidder)
-
-router.post(
-  '/forgotPasswordAuctioneer',
-  trimRequest.all,
-  forgotPasswordAuctioneer)
-
-router.get(
-  '/verifyForgetPasswordAuctioneer',
-  trimRequest.all,
-  verifyForgetPasswordAuctioneer)
-
-router.get(
-  '/verifyForgetPasswordBidder',
-  trimRequest.all,
-  verifyForgetPasswordBidder)
-
-router.post(
-  '/setNewPassword',
-  requireAuth,
-  trimRequest.all,
-  validateSetPassword,
-  setNewPassword
-)
-
-router.put(
-  '/changePassword',
-  requireAuth,
-  trimRequest.all,
-  //validateSetPassword,
-  changePassword)
 
 module.exports = router

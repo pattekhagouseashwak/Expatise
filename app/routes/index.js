@@ -13,33 +13,7 @@ const baseUr = '/api/'
 
 router.use(baseUr, require('./authentication'))
 
-router.use(baseUr, require('./zipCode'))
-
 router.use(baseUr, require('./profile'))
-
-router.use(baseUr, require('./auctionListing'))
-
-router.use(baseUr, require('./addContent'))
-
-router.use(baseUr, require('./getPasses'))
-
-router.use(baseUr, require('./getRequests'))
-
-router.use(baseUr, require('./contact'))
-
-router.use(baseUr, require('./auctioneerDirectories'))
-
-router.use(baseUr, require('./newsletter'))
-
-router.use(baseUr, require('./helpAndSupport'))
-
-router.use(baseUr, require('./listing'))
-
-router.use(baseUr, require('./advertise'))
-
-router.use(baseUr, require('./ManageBlogs'))
-
-router.use(baseUr, require('./ManageVideos'))
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {
