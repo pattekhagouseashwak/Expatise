@@ -9,31 +9,31 @@ const requireAuth = passport.authenticate('jwt', {
 const trimRequest = require('trim-request')
 
 const {
-  addCategoryNames,
-  getCategoryNames,
-  removeCategoryNames
-} = require('../controllers/category')
+  postQuestions,
+  getDrivingMaterial,
+  removeQuestions
+} = require('../controllers/drivingmaterial')
 
 /**routes*/
 
-// add category names
+/**add driving Material details**/
 router.post(
-  '/categorydetails/addcategoryname',
+  '/drivingQuestion/add',
   trimRequest.all,
-  addCategoryNames
+  postQuestions
 )
 
-// get category details....
+/**get driving Material details**/
 router.get(
-  '/categorydetails/getdetails',
+  '/drivingQuestion',
   trimRequest.all,
-  getCategoryNames
+  getDrivingMaterial
 )
 
-// delete category names by id ....
+/**delete driving Material names by id**/
 router.delete(
-  '/categorydetails/remove/:id',
+  '/drivingQuestion/remove/:id',
   trimRequest.all,
-  removeCategoryNames
+  removeQuestions
 )
 module.exports = router

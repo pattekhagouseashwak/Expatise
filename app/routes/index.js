@@ -17,6 +17,8 @@ router.use(baseUr, require('./profile'))
 
 router.use(baseUr, require('./category'))
 
+router.use(baseUr, require('./drivingmaterial'))
+
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {
   // Take filename and remove last part (extension)

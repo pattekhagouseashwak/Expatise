@@ -58,7 +58,6 @@ const removeCategoryNames = async (req, res) => {
   try {
     const id = req.params.id;
     await category.findByIdAndDelete({_id:id})
-      .select('name')
       .then(() => {
         res.status(200).send({
           status:200,
