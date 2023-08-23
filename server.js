@@ -39,8 +39,8 @@ app.use(cors())
 app.use(compression())
 app.use(cookieParser());
 app.use(helmet())
-app.get('/', function(req, res) {
-	res.send('Welcome to Auction  journal backend application!!!');
+app.get('/', function (req, res) {
+  res.send('Welcome to Expatise Backend Application!!!');
 });
 app.use(require('./app/routes'))
 app.listen(app.get('port'))
@@ -48,4 +48,4 @@ app.listen(app.get('port'))
 // Init MongoDB
 initMongo()
 
-module.exports = app // for testing
+module.exports = app

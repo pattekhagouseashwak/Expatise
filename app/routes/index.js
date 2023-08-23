@@ -4,7 +4,7 @@ const fs = require('fs')
 const routesPath = `${__dirname}/`
 const { removeExtensionFromFile } = require('../middleware/utils')
 const { base } = require('../models/Auctioneer')
-const baseUr = '/api/'
+const baseUr = '/expatise/api/'
 
 /*
  * Load routes statically and/or dynamically
@@ -14,6 +14,8 @@ const baseUr = '/api/'
 router.use(baseUr, require('./authentication'))
 
 router.use(baseUr, require('./profile'))
+
+router.use(baseUr, require('./category'))
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {
