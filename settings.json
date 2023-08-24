@@ -14,5 +14,10 @@
     "SENDGRID_API_KEY":"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",
     "JWT_EXPIRATION_IN_MINUTES": "1440",
     "DrivingMaterial_DefaultPage":"1",
-    "DrivingMaterial_itemsPerPage":"25"
+    "DrivingMaterial_itemsPerPage":"25",
+    "AWS_ACCESS_KEY_ID":"AKIA4DVQT5JFEFKGGXMY",
+    "AWS_SECRET_ACCESS_KEY":"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",
+    "AWS_REGION":"ap-southeast-2",
+    "AWS_BUCKET_NAME":"trafficeimages",
+    "AWS_PROFILE_FOLDER_NAME":"profile"
 }

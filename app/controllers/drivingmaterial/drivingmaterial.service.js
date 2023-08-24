@@ -10,7 +10,7 @@ const appInfo = require('./../../../settings.json')
  */
 
 // To add question into drivingmaterial database.....
-const postQuestions = async (req, res) => {
+const postTestQuestions = async (req, res) => {
   try {
     const type = req.body.type;
     const category = req.body.category;
@@ -37,7 +37,7 @@ const postQuestions = async (req, res) => {
 }
 
 // To fetch drivingmaterial names.....
-const getDrivingMaterial = async (req, res) => {
+const getTestQuestions = async (req, res) => {
   try {
     let searchValue = [];
     let search = {};
@@ -58,7 +58,7 @@ const getDrivingMaterial = async (req, res) => {
       .then((data) => {
         res.status(200).send({
           status:200,
-          message:"Driving Material details.",
+          message:"Get TestQuestions details.",
           response:data,
           page,
           totalPages
@@ -76,14 +76,14 @@ const getDrivingMaterial = async (req, res) => {
 }
 
 // To remove drivingmaterial names.....
-const removeQuestions = async (req, res) => {
+const removeTestQuestion = async (req, res) => {
   try {
     const id = req.params.id;
     await drivingmaterial.findByIdAndDelete({_id:id})
       .then(() => {
         res.status(200).send({
           status:200,
-          message:"drivingmaterial name removed."
+          message:"Removed Questions From TestQuestion."
         })
       }).catch(Err => {
         res.status(500).send({
@@ -97,4 +97,38 @@ const removeQuestions = async (req, res) => {
   }
 }
 
-module.exports = { postQuestions, getDrivingMaterial, removeQuestions}
+// To search drivingmaterial names.....
+const searchTestQuestion = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || appInfo.DrivingMaterial_DefaultPage;
+    const itemsPerPage = appInfo.DrivingMaterial_itemsPerPage;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const totalItems = await drivingmaterial.countDocuments();
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
+    await drivingmaterial.find({ question: new RegExp(req.query.search, 'i') })
+      .skip(startIndex)
+      .limit(itemsPerPage)
+      .populate('category','name')
+      .then((data) => {
+        res.status(200).send({
+          status:200,
+          message:"Matching questions Details",
+          response:data,
+          page,
+          totalPages
+        })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message: Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { postTestQuestions, getTestQuestions, removeTestQuestion,searchTestQuestion}

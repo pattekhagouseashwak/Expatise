@@ -31,7 +31,7 @@ module.exports = () => {
         }
       }
     )
-    mongoose.set("strictQuery", false);
+    mongoose.set("strictQuery", true);
   }
   connect()
 

@@ -9,9 +9,10 @@ const requireAuth = passport.authenticate('jwt', {
 const trimRequest = require('trim-request')
 
 const {
-  postQuestions,
-  getDrivingMaterial,
-  removeQuestions
+  postTestQuestions,
+  getTestQuestions,
+  removeTestQuestion,
+  searchTestQuestion
 } = require('../controllers/drivingmaterial')
 
 /**routes*/
@@ -20,20 +21,27 @@ const {
 router.post(
   '/drivingQuestion/add',
   trimRequest.all,
-  postQuestions
+  postTestQuestions
 )
 
 /**get driving Material details**/
 router.get(
   '/drivingQuestion',
   trimRequest.all,
-  getDrivingMaterial
+  getTestQuestions
 )
 
 /**delete driving Material names by id**/
 router.delete(
   '/drivingQuestion/remove/:id',
   trimRequest.all,
-  removeQuestions
+  removeTestQuestion
+)
+
+/**search Test Questions**/
+router.get(
+  '/searchQuestion',
+  trimRequest.all,
+  searchTestQuestion
 )
 module.exports = router

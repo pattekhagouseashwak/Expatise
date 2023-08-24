@@ -16,5 +16,5 @@ const drivingmaterialSchema = new mongoose.Schema({
   }
 )
 
-drivingmaterialSchema.plugin(mongoosePaginate)
-module.exports = mongoose.model('drivingmaterial',drivingmaterialSchema)
+drivingmaterialSchema.plugin(mongoosePaginate);
+module.exports = mongoose.model('drivingmaterial',drivingmaterialSchema);
