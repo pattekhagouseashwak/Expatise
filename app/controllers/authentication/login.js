@@ -1,5 +1,5 @@
 const { matchedData } = require('express-validator')
-const Auctioneer = require('../../models/Auctioneer')
+const Auctioneer = require('../../models/profile')
 const Bidder = require('../../models/Bidder')
 const bcrypt = require('bcryptjs')
 const { generateToken } = require('./helpers/generateToken')

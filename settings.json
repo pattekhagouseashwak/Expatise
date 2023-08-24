@@ -19,5 +19,6 @@
     "AWS_SECRET_ACCESS_KEY":"tpuDPWsJwVzK+w7193XhepJUJWKRjNC1WzEy6bW9",
     "AWS_REGION":"ap-southeast-2",
     "AWS_BUCKET_NAME":"trafficeimages",
-    "AWS_PROFILE_FOLDER_NAME":"profile"
+    "AWS_PROFILE_FOLDER_NAME":"profile",
+    "AWS_TEST_DRIVING_IMAGE_FOLDER_NAME":"testdrivingimages"
 }

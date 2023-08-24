@@ -1,6 +1,6 @@
 const { handleError } = require('../../middleware/utils')
 
-const Auctioneer = require('../../models/Auctioneer')
+const Auctioneer = require('../../models/profile')
 
 const Bidder = require('../../models/Bidder')
 

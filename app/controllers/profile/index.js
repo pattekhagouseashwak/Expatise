@@ -1,10 +1,3 @@
-const {auctioneerProfile, bidderProfile} = require('./myProfile')
-const {editAuctioneerProfile, editBidderProfile} = require('./editProfile')
-const {uploadAuctioneerProfile} = require('./uploadPhoto')
-const {uploadBidderProfile} = require('./uploadPhoto')
-const {removeProfilePhoto} = require('./removeProfilePhoto')
+const {getProfile, editProfile, createProfile} = require('./profile.service')
 
-module.exports ={bidderProfile, auctioneerProfile,editAuctioneerProfile,
-                editBidderProfile,
-                uploadAuctioneerProfile,removeProfilePhoto,
-                uploadBidderProfile}
+module.exports = {getProfile, editProfile, createProfile}
