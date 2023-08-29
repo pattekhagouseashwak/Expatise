@@ -10,7 +10,7 @@ const getProfile = async (req, res) => {
   try {
     //const id = req.user._id;
     let id = req.query.id;
-    await profile.find({profile:id})
+    await profile.findById({_id:id})
       .then((data) => {
         res.status(200)
           .send({
