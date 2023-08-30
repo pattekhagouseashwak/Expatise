@@ -104,7 +104,8 @@ const searchTestQuestion = async (req, res) => {
     const itemsPerPage = appInfo.DrivingMaterial_itemsPerPage;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const totalItems = await drivingmaterial.countDocuments();
+    const totalItems = await drivingmaterial.find({ question: new RegExp(req.query.search, 'i') })
+                                            .countDocuments();
     const totalPages = Math.ceil(totalItems / itemsPerPage);
   
     await drivingmaterial.find({ question: new RegExp(req.query.search, 'i') })
