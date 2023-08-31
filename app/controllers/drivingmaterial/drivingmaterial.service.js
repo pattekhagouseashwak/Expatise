@@ -42,8 +42,8 @@ const getTestQuestions = async (req, res) => {
     let searchValue = [];
     let search = {}; 
 
-    if(req.query.category){
-      let categoryData = req.query.category;
+    if(req.query.categories){
+      let categoryData = req.query.categories;
       let categoriesToSearch = JSON.parse(categoryData);
       searchValue.push({ category : { $in: categoriesToSearch }});
       search = { $and: searchValue };
