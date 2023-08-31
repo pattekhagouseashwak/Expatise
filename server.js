@@ -11,8 +11,6 @@ const appInfo = require('./settings.json')
 const path = require('path')
 const cookieParser = require("cookie-parser");
 
-const axios = require("axios")
-
 global.appInfo = appInfo
 // Setup express server port from ENV, default: 4000
 //app.set('port', appInfo.PORT || 4000)
@@ -47,5 +45,9 @@ app.listen(app.get('port'))
 
 // Init MongoDB
 initMongo()
+
+// To Keep Server Live...
+function greet() { console.log('/***Server Live***/'); } 
+setInterval(greet, 300000);
 
 module.exports = app
