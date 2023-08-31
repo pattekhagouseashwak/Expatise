@@ -46,8 +46,4 @@ app.listen(app.get('port'))
 // Init MongoDB
 initMongo()
 
-// To Keep Server Live...
-function greet() { console.log('/***Server Live***/'); } 
-setInterval(greet, 300000);
-
 module.exports = app
