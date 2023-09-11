@@ -8,15 +8,29 @@ const requireAuth = passport.authenticate('jwt', {
 
 const trimRequest = require('trim-request')
 
-const {getTestQuestionsToPratices} = require('../controllers/praticesquestions')
+const {getTestQuestionsToPratices,getTestResponse,addTestResponse} = require('../controllers/testmode')
 
 /**routes*/
 
-/**get Test Questions To Pratices**/
+/**fetch Test Questions To Pratices**/
 router.get(
   '/practicesquestions',
   trimRequest.all,
   getTestQuestionsToPratices
+)
+
+/**Add Test Response**/
+router.post(
+  '/storeresponse',
+  trimRequest.all,
+  addTestResponse
+)
+
+/**Get Test Response by id**/
+router.get(
+  '/storeresponse/:id',
+  trimRequest.all,
+  getTestResponse
 )
 
 module.exports = router

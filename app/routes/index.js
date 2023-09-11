@@ -23,7 +23,7 @@ router.use(baseUr, require('./bookmark'))
 
 router.use(baseUr, require('./aws.operations'))
 
-router.use(baseUr, require('./praticesquestions'))
+router.use(baseUr, require('./testmode'))
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {
