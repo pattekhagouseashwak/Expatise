@@ -6,7 +6,7 @@ const loadModels = require('../app/models')
 module.exports = () => {
   const connect = () => {
     mongoose.Promise = global.Promise
-
+    mongoose.set('strictQuery', true)
     mongoose.connect(
       DB_URL,
       {
@@ -31,12 +31,10 @@ module.exports = () => {
         }
       }
     )
-    mongoose.set("strictQuery", true);
   }
   connect()
 
   mongoose.connection.on('error', console.log)
   mongoose.connection.on('disconnected', connect)
-
   loadModels()
 }

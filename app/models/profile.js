@@ -3,8 +3,6 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const profileSchema = new mongoose.Schema(
   {
-    profile: {type:String,default:null},
-
     profilePhoto: { type: String },
 
     name: { type: String },

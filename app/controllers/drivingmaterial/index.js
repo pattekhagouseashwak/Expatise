@@ -1,3 +1,10 @@
-const {postTestQuestions, getTestQuestions, removeTestQuestion, searchTestQuestion} = require('./drivingmaterial.service')
+const { postTestQuestions, getTestQuestions,
+    removeTestQuestion, searchTestQuestion } = require('./drivingmaterial.service')
 
-module.exports ={postTestQuestions, getTestQuestions,removeTestQuestion, searchTestQuestion}
+const { postbookmarkQuestions, getbookmarkQuestions,
+    removebookmarkQuestion } = require('./bookmark.service')
+
+module.exports = {
+    postTestQuestions, getTestQuestions, removeTestQuestion, searchTestQuestion,
+    postbookmarkQuestions, getbookmarkQuestions, removebookmarkQuestion
+}
