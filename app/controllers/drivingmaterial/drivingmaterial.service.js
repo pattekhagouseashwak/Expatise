@@ -49,7 +49,7 @@ const getTestQuestions = async (req, res) => {
       search = { $and: searchValue };
     }
 
-    const page = parseInt(req.query.page) || appInfo.DrivingMaterial_DefaultPage;
+    const page = parseInt(req.query.page) || appInfo.DefaultPage;
     const itemsPerPage = appInfo.DrivingMaterial_itemsPerPage;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -103,7 +103,7 @@ const removeTestQuestion = async (req, res) => {
 // To search drivingmaterial names.....
 const searchTestQuestion = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || appInfo.DrivingMaterial_DefaultPage;
+    const page = parseInt(req.query.page) || appInfo.DefaultPage;
     const itemsPerPage = appInfo.DrivingMaterial_itemsPerPage;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;

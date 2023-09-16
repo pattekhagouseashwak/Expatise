@@ -3,7 +3,6 @@ const router = express.Router()
 const fs = require('fs')
 const routesPath = `${__dirname}/`
 const { removeExtensionFromFile } = require('../middleware/utils')
-const { base } = require('../models/profile')
 const baseUr = '/expatise/api/'
 
 /*
@@ -24,6 +23,10 @@ router.use(baseUr, require('./bookmark'))
 router.use(baseUr, require('./aws.operations'))
 
 router.use(baseUr, require('./testmode'))
+
+router.use(baseUr, require('./coupons'))
+
+router.use(baseUr, require('./adsWatch'))
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {

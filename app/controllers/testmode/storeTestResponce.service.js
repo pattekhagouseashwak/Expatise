@@ -39,8 +39,10 @@ const addTestResponse = async (req, res) => {
   try {
     const user = req.body.user;
     const testResponse = req.body.testResponse;
-    await storeTestResponse.create({user, testResponse})
-      .then((data) => {
+    const examType = req.body.examType;
+    const closureTime = req.body.closureTime;
+    await storeTestResponse.create({user,examType,closureTime,testResponse})
+      .then(() => {
         res.status(200).send({
           status: 200,
           message: "Sucesfully Added Details."

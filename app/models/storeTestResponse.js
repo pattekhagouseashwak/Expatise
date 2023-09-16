@@ -3,12 +3,14 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const { ObjectId } = mongoose.Schema.Types;
 
 const storeTestResponseSchema = new mongoose.Schema({
-  user: { type: ObjectId, ref: 'profile' },
+  examType:{type:String,enum: ['pratice', 'rapidfire', 'mistakesquiz','commonmistakes','realtest'],require:true},
+  user: { type: ObjectId, ref: 'profile'},
   testResponse: [{
     questionId: { type: ObjectId, ref: 'drivingmaterial' },
     selectedOption: { type: String },
     correctAnswer: { type: String }
   }],
+  closureTime: {type : String, require:false,default:'00:00:00'}
 },
   {
     versionKey: false,

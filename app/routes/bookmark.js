@@ -16,19 +16,19 @@ const {
 
 /**bookmark routes*/
 
-/**add driving Material details**/
+/**add bookmark details**/
 router.post('/bookmark/add',
   trimRequest.all,
   postbookmarkQuestions
 )
 
-/**get driving Material details**/
+/**get bookmark details**/
 router.get('/bookmark',
   trimRequest.all,
   getbookmarkQuestions
 )
 
-/**delete driving Material names by id**/
+/**delete bookmark by id**/
 router.delete(
   '/bookmark/remove/:id',
   trimRequest.all,
