@@ -6,22 +6,21 @@ const { check } = require('express-validator')
  */
 const validateLogin = [
 
-    check('Email')
+    check('email')
     .isEmail()
-    .withMessage('Email is invalid')
+    .withMessage('email is invalid')
     .exists()
-    .withMessage('Email MISSING')
+    .withMessage('email missing')
     .not()
     .isEmpty()
-    .withMessage('Email IS_EMPTY'),
-
+    .withMessage('email is empty'),
     
     check('password')
     .exists()
     .withMessage('password missing')
     .not()
     .isEmpty()
-    .withMessage('password IS_EMPTY')
+    .withMessage('password is empty')
     .isLength({
       min: 8
     })

@@ -10,7 +10,8 @@ const requireAuth = passport.authenticate('jwt', {
 const {
   getProfile,
   editProfile,
-  createProfile
+  createProfile,
+  getProfileList
   } = require('../controllers/profile')
 
 /*
@@ -21,6 +22,12 @@ router.get(
   '/profile/get',
   trimRequest.all,
   getProfile
+)
+
+router.get(
+  '/profiles',
+  trimRequest.all,
+  getProfileList
 )
 
 router.put(

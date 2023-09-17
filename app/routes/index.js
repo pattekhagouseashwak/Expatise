@@ -4,29 +4,31 @@ const fs = require('fs')
 const routesPath = `${__dirname}/`
 const { removeExtensionFromFile } = require('../middleware/utils')
 const baseUr = '/expatise/api/'
-
+const adminBaseUr = '/admin'
 /*
  * Load routes statically and/or dynamically
  */
 // Load Auth route
 
-router.use(baseUr, require('./authentication'))
+router.use(baseUr, require('./profile'));
 
-router.use(baseUr, require('./profile'))
+router.use(baseUr, require('./category'));
 
-router.use(baseUr, require('./category'))
+router.use(baseUr, require('./drivingmaterial'));
 
-router.use(baseUr, require('./drivingmaterial'))
+router.use(baseUr, require('./bookmark'));
 
-router.use(baseUr, require('./bookmark'))
+router.use(baseUr, require('./aws.operations'));
 
-router.use(baseUr, require('./aws.operations'))
+router.use(baseUr, require('./testmode'));
 
-router.use(baseUr, require('./testmode'))
+router.use(baseUr, require('./coupons'));
 
-router.use(baseUr, require('./coupons'))
+router.use(baseUr, require('./adsWatch'));
 
-router.use(baseUr, require('./adsWatch'))
+router.use(adminBaseUr+baseUr, require('./authentication'));
+
+router.use(adminBaseUr+baseUr, require('./adminAPIs'));
 
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {

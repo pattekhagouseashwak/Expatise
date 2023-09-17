@@ -6,7 +6,7 @@ const appInfo = require('../../../../settings.json')
  * Generates a token
  * @param {Object} user - user object
  */
-const generateToken = (user = '',reqType ="") => { console.log("user",user,reqType)
+const generateToken = (user = '',reqType ="") => { console.log("user",user,reqType);
   try {
     // Gets expiration time
     const expiration =

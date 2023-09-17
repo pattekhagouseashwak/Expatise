@@ -32,7 +32,6 @@ const addCategoryNames = async (req, res) => {
 // To fetch category names.....
 const getCategoryNames = async (req, res) => {
   try {
-    const name = req.body.categoryname
     await category.find({})
       .select('name')
       .then((data) => {

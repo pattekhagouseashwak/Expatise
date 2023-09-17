@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
-const { ObjectId } = mongoose.Schema.Types;
 
 const couponSchema = new mongoose.Schema({
   couponName: { type: String },

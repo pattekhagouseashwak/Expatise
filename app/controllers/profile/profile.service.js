@@ -109,4 +109,27 @@ const createProfile = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, editProfile, createProfile }
+const getProfileList = async (req, res) => {
+  try {
+    await profile.find({})
+      .then((data) => {
+        res.status(200)
+          .send({
+            status: 200,
+            message: "successfully fetched profile details!!",
+            response: data
+          })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message:
+            Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { getProfile, editProfile, createProfile, getProfileList}

@@ -2,57 +2,26 @@ const express = require('express')
 const router = express.Router()
 require('../middleware/utils/passport')
 const passport = require('passport')
-const requireAuth = passport.authenticate('jwt', {
-  session: false
-})
+const requireAuth = passport.authenticate('jwt', {session: false})
+const trimRequest = require('trim-request');
 
-const trimRequest = require('trim-request')
+const {loginService,logout,storeLoginInfo} = require('../controllers/authentication');
+const {validateLogin} = require('../controllers/authentication/validators');
 
-const {
-  registerBidder,
-  registerAuctioneer,
-  loginAuctioneer,
-  loginBidder,
-  logout
-} = require('../controllers/authentication')
-
-const {
-  validateRegister,
-  validateBidderRegister,
-  validateLogin
-} = require('../controllers/authentication/validators')
-/**routes*/
-
-
-/*
- * register route
- */
-router.post(
-  '/registerAuctioneer',
-  trimRequest.all,
-  validateRegister,
-  registerAuctioneer
-)
+/** authenticate routes */
 
 router.post(
-  '/registerBidder',
-  trimRequest.all,
-  validateBidderRegister,
-  registerBidder
-)
-
-router.post(
-  '/loginAuctioneer',
+  '/generate',
   trimRequest.all,
   validateLogin,
-  loginAuctioneer
+  storeLoginInfo
 )
 
 router.post(
-  '/loginBidder',
+  '/login',
   trimRequest.all,
   validateLogin,
-  loginBidder
+  loginService
 )
 
 router.post(
