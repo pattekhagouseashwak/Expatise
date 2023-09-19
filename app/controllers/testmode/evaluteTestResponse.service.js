@@ -26,8 +26,14 @@ const evaluteTestResponse = async (req, res) => {
     const evaluteTestResponse = await evaluteTest(testResponse);
 
     testResponse = evaluteTestResponse.result;
+    let score = evaluteTestResponse.correct;
     if (id && id !== null) {
-      await storeTestResponse.findByIdAndUpdate({ _id: id }, { user, examType, testCompleted, testResponse })
+      modelSchema = storeTestResponse.findByIdAndUpdate({ _id: id }, 
+                                                        { user, examType, testResponse, testCompleted, score})
+    } else {
+      modelSchema = storeTestResponse.create({ user, examType, testResponse, testCompleted, score})
+    }
+   await modelSchema
         .then(() => {
           res.status(200).send({
             status: 200,
@@ -40,22 +46,6 @@ const evaluteTestResponse = async (req, res) => {
             message: Err.message || "Internal Error."
           });
         });
-    }
-    else {
-      await storeTestResponse.create({ user, examType, testCompleted, testResponse })
-        .then(() => {
-          res.status(200).send({
-            status: 200,
-            message: "Sucesfully Evaluated Test.",
-            response: evaluteTestResponse
-          })
-        }).catch(Err => {
-          res.status(500).send({
-            status: 500,
-            message: Err.message || "Internal Error."
-          });
-        });
-    }
   } catch (error) {
     console.log(error)
     handleError(res, error)

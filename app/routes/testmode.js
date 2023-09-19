@@ -15,7 +15,7 @@ const {getTestQuestionsToPratices,getTestResponse,
 
 /**fetch Test Questions To Pratices**/
 router.get(
-  '/practicesquestions',
+  '/testquestions',
   trimRequest.all,
   getTestQuestionsToPratices
 )
