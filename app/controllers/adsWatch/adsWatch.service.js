@@ -122,8 +122,8 @@ const getAdsWatch = async (req, res) => {
       })
     }
     //-------------------------------------------------------------
-    const page = parseInt(req.query.page) || appInfo.DefaultPage;
-    const itemsPerPage = appInfo.AdsWatch_itemsPerPage;
+    const page = parseInt(req.body.page) || appInfo.DEFAULTPAGE;
+    const itemsPerPage = appInfo.ADSWATCH_ITEMSPERPAGE;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const totalItems = await adsWatch.find({ $and: searchValue }).countDocuments();

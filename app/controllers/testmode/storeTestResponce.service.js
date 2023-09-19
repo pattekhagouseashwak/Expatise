@@ -40,12 +40,13 @@ const addTestResponse = async (req, res) => {
     const user = req.body.user;
     const testResponse = req.body.testResponse;
     const examType = req.body.examType;
-    const closureTime = req.body.closureTime;
-    await storeTestResponse.create({user,examType,closureTime,testResponse})
-      .then(() => {
+    const testCompleted = req.body.testCompleted;
+    await storeTestResponse.create({user,examType,testCompleted,testResponse})
+      .then((data) => {
         res.status(200).send({
           status: 200,
-          message: "Sucesfully Added Details."
+          message: "Sucesfully Added Details.",
+          testId:data?._id
         })
       }).catch(Err => {
         res.status(500).send({

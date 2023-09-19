@@ -18,7 +18,7 @@ const {
  * Profile routes
  */
 
-router.get(
+router.post(
   '/profile/get',
   trimRequest.all,
   getProfile

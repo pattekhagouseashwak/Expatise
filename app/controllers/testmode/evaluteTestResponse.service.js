@@ -15,7 +15,7 @@ const evaluteTestResponse = async (req, res) => {
     const user = req.body.user;
     let testResponse = req.body.testResponse;
     const examType = req.body.examType;
-    const closureTime = req.body.closureTime;
+    const testCompleted = req.body.testCompleted;
     let modelSchema;
     if (testResponse && testResponse.length < 0) {
       return res.status(200).send({
@@ -27,7 +27,7 @@ const evaluteTestResponse = async (req, res) => {
 
     testResponse = evaluteTestResponse.result;
     if (id && id !== null) {
-      await storeTestResponse.findByIdAndUpdate({ _id: id }, { user, examType, closureTime, testResponse })
+      await storeTestResponse.findByIdAndUpdate({ _id: id }, { user, examType, testCompleted, testResponse })
         .then(() => {
           res.status(200).send({
             status: 200,
@@ -42,7 +42,7 @@ const evaluteTestResponse = async (req, res) => {
         });
     }
     else {
-      await storeTestResponse.create({ user, examType, closureTime, testResponse })
+      await storeTestResponse.create({ user, examType, testCompleted, testResponse })
         .then(() => {
           res.status(200).send({
             status: 200,

@@ -49,8 +49,8 @@ const getTestQuestions = async (req, res) => {
       search = { $and: searchValue };
     }
 
-    const page = parseInt(req.query.page) || appInfo.DefaultPage;
-    const itemsPerPage = appInfo.DrivingMaterial_itemsPerPage;
+    const page = parseInt(req.query.page) || appInfo.DEFAULTPAGE;
+    const itemsPerPage = appInfo.DRIVINGMATERIAL_ITEMSPERPAGE;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const totalItems = await drivingmaterial.find(search).countDocuments();
@@ -103,8 +103,8 @@ const removeTestQuestion = async (req, res) => {
 // To search drivingmaterial names.....
 const searchTestQuestion = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || appInfo.DefaultPage;
-    const itemsPerPage = appInfo.DrivingMaterial_itemsPerPage;
+    const page = parseInt(req.query.page) || appInfo.DEFAULTPAGE;
+    const itemsPerPage = appInfo.DRIVINGMATERIAL_ITEMSPERPAGE;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const totalItems = await drivingmaterial.find({ question: new RegExp(req.query.search, 'i') })

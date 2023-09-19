@@ -1,5 +1,8 @@
 const { handleError } = require('../../middleware/utils')
 const profile = require('./../../models/profile')
+const appInfo = require('./../../../settings.json')
+const mongoose = require('mongoose');
+
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -9,8 +12,26 @@ const profile = require('./../../models/profile')
 const getProfile = async (req, res) => {
   try {
     //const id = req.user._id;
-    let id = req.query.id;
-    await profile.findById({_id:id})
+    if (!req.body.idoremail || req.body.idoremail.length < 0) {
+      res.status(400).send({ status: 400, message: "idoremail is missing" });
+    }
+    let idOrEmail = req.body.idoremail;
+    let Profile;
+    if (mongoose.Types.ObjectId.isValid(idOrEmail)) {
+      Profile = profile.findById(idOrEmail);
+    }
+    else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(idOrEmail)) {
+      Profile = profile.find({ email: idOrEmail });
+    }
+    else {
+      return res.status(400)
+          .send({
+            status: 400,
+            message: "Invalid input: Not a valid ObjectId or email address.",
+            })
+    }
+
+    await Profile
       .then((data) => {
         res.status(200)
           .send({
@@ -111,13 +132,23 @@ const createProfile = async (req, res) => {
 
 const getProfileList = async (req, res) => {
   try {
-    await profile.find({})
+
+    const page = parseInt(req.query.page) || appInfo.DEFAULTPAGE;
+    const itemsPerPage = appInfo.PROFILE_LISTING_ITEMSPERPAGE;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const totalItems = await profile.find().countDocuments();
+    const totalpages = Math.ceil(totalItems / itemsPerPage);
+
+    await profile.find({}).skip(startIndex).limit(itemsPerPage)
       .then((data) => {
         res.status(200)
           .send({
             status: 200,
             message: "successfully fetched profile details!!",
-            response: data
+            response: data,
+            page:page,
+            totalpages:totalpages
           })
       }).catch(Err => {
         res.status(500).send({
