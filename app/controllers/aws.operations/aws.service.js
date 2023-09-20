@@ -17,6 +17,12 @@ var s3bucket = new AWS.S3({
 
 const uploadFile = async (req, res) => {
   try {
+    if(!req.body.type || req.body.type.length <0){
+      return res.status(400)
+      .send({ status: 400, 
+              message: "format type is missing.",
+            });
+    }
     const fileRequest = req.files
     let file = fileRequest[0];
     var folder = req.body.type == 'Profile' ?
@@ -39,7 +45,7 @@ const uploadFile = async (req, res) => {
       } else {
         res.status(200)
            .send({ status: 200, 
-                   message: "Successfully deleted.",
+                   message: "Successfully added.",
                    file:data?.Location
                  });
         }

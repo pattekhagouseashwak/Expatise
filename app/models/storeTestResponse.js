@@ -14,7 +14,7 @@ const storeTestResponseSchema = new mongoose.Schema({
     correctAnswer: { type: String },
     status: { type: Number, default: 0 }
   }],
-  testCompleted: { type: String, require: true, default: '00:00:00' },
+  testCompleted: { type: Number, require: true, default: 0 },
   score: { type: Number, default: 0 }
 },
   {

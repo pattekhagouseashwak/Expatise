@@ -7,7 +7,7 @@ const requireAuth = passport.authenticate('jwt', {session: false})
 const trimRequest = require('trim-request')
 
 const {getTestQuestionsToPratices,getTestResponse,
-      addTestResponse,evaluteTestResponse,mistakeTest,
+      addTestResponse,evaluteTestResponse,mistakeTest,personalstatistics,
       fetchCommonTest,removemistakequestion,reviewMistakeTest} = require('../controllers/testmode');
 
 /**routes*/
@@ -65,5 +65,12 @@ router.delete(
   '/remove/mistakequestion',
   trimRequest.all,
   removemistakequestion
+)
+
+/**Get personalstatistics by id**/
+router.get(
+  '/personalstatistics',
+  trimRequest.all,
+  personalstatistics
 )
 module.exports = router
