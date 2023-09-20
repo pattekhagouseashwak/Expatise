@@ -1,6 +1,7 @@
 const {getTestQuestionsToPratices} = require('./praticequestions.service')
-const {getTestResponse} = require('./storeTestResponce.service')
-const {addTestResponse} = require('./storeTestResponce.service')
-const {evaluteTestResponse} = require('./evaluteTestResponse.service')
+const {addTestResponse,getTestResponse} = require('./storeTestResponce.service')
+const {evaluteTestResponse,mistakeTest,fetchCommonTest,removemistakequestion,
+      reviewMistakeTest} = require('./evaluteTestResponse.service')
 
-module.exports ={getTestQuestionsToPratices,getTestResponse,addTestResponse,evaluteTestResponse}
+module.exports ={getTestQuestionsToPratices,getTestResponse,removemistakequestion,
+                 addTestResponse,evaluteTestResponse,mistakeTest,fetchCommonTest,reviewMistakeTest}

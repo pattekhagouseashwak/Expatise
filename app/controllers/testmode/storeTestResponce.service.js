@@ -1,5 +1,5 @@
 const { handleError } = require('../../middleware/utils')
-const storeTestResponse = require('../../models/storeTestResponse')
+const storeTestResponse = require('../../models/storeTestResponse');
 
 /**
  * Register function called by route
@@ -60,4 +60,4 @@ const addTestResponse = async (req, res) => {
   }
 }
 
-module.exports = {getTestResponse,addTestResponse}
+module.exports = {getTestResponse,addTestResponse};

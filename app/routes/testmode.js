@@ -2,14 +2,13 @@ const express = require('express')
 const router = express.Router()
 require('../middleware/utils/passport')
 const passport = require('passport')
-const requireAuth = passport.authenticate('jwt', {
-  session: false
-})
+const requireAuth = passport.authenticate('jwt', {session: false})
 
 const trimRequest = require('trim-request')
 
 const {getTestQuestionsToPratices,getTestResponse,
-      addTestResponse,evaluteTestResponse} = require('../controllers/testmode')
+      addTestResponse,evaluteTestResponse,mistakeTest,
+      fetchCommonTest,removemistakequestion,reviewMistakeTest} = require('../controllers/testmode');
 
 /**routes*/
 
@@ -41,4 +40,30 @@ router.post(
   evaluteTestResponse
 )
 
+/**Get mistakeTest by id**/
+router.get(
+  '/mistakeTest',
+  trimRequest.all,
+  mistakeTest
+)
+
+/**Get mistakeTest by id**/
+router.get(
+  '/review/mistakequestions',
+  trimRequest.all,
+  reviewMistakeTest
+)
+
+/**Get mistakeTest by id**/
+router.get(
+  '/CommonTest',
+  trimRequest.all,
+  fetchCommonTest
+)
+
+router.delete(
+  '/remove/mistakequestion',
+  trimRequest.all,
+  removemistakequestion
+)
 module.exports = router
