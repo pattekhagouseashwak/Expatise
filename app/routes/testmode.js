@@ -68,7 +68,7 @@ router.delete(
 )
 
 /**Get personalstatistics by id**/
-router.get(
+router.post(
   '/personalstatistics',
   trimRequest.all,
   personalstatistics
