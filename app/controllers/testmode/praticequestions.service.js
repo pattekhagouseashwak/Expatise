@@ -1,6 +1,7 @@
 const { handleError } = require('../../middleware/utils')
 const drivingmaterial = require('../../models/drivingMaterial')
 const commonmistakes = require('../../models/commonmistakes')
+const mongoose = require('mongoose');
 
 /**
  * Register function called by route
@@ -11,6 +12,10 @@ const commonmistakes = require('../../models/commonmistakes')
 // To fetch pratices question.....
 const getTestQuestionsToPratices = async (req, res) => {
   try {
+    if (!req.query.userid || req.query.userid.length < 0) {
+      return res.status(400).send({ status: 400, message: "InValid Payload: userid missing" })
+    }
+    const objectId = mongoose.Types.ObjectId(req.query.userid);
     await drivingmaterial.aggregate([
       { $sample: { size: 100 } },
       {
@@ -24,7 +29,7 @@ const getTestQuestionsToPratices = async (req, res) => {
       }
     ])
       .then(async (data) => {
-        let obj = await commonMistakeFunction(data);
+        let obj = await commonMistakeFunction(data,objectId);
         // console.log('-----',obj);
         res.status(200).send({
           status: 200,
@@ -43,14 +48,15 @@ const getTestQuestionsToPratices = async (req, res) => {
   }
 }
 
-const commonMistakeFunction = async (payload) => {
-  const questionIdsToFind = payload.map((x) => x._id);
+const commonMistakeFunction = async (payload,userid) => {
+  const questionIdsToFind = payload.map((x) => x._id); console.log('--------',userid)
   let limitPerQuestion = 3;
   let response;
   await commonmistakes.aggregate([
     {
       $match: {
-        questionId: { $in: questionIdsToFind }, // Match documents with matching questionIds
+        questionId: { $in: questionIdsToFind },
+        userId: userid // Match documents with matching questionIds
       },
     },
     {
@@ -83,7 +89,6 @@ const commonMistakeFunction = async (payload) => {
       conditionToSkip = 1;
       }
     }
-
     if(conditionToSkip == 0){
     payload[i].colorcode = "###";
     }
