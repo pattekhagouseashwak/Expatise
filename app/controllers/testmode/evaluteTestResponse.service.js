@@ -146,11 +146,6 @@ const mistakeTest = async (req, res) => {
       Message = "fetched details.";
       Response = filterobject;
     }
-    else if (filterobject.length < 45) {
-      Status = 400;
-      Message = "mistake questions are less than 45";
-      Response = process.env.NODE_ENV == 'development'? filterobject:[];
-    }
     return res.status(200).send({
       status: Status,
       message: Message,
