@@ -7,42 +7,15 @@ const requireAuth = passport.authenticate('jwt', {
   session: false
 })
 
-const { getAnnouncement, editAnnouncement, deleteAnnouncement,
-        createAnnouncement, getAnnouncementList} = require('../controllers/announcement')
+const {getAnnouncementList} = require('../controllers/announcement')
 
 /*
  * Announcement routes
  */
 
 router.get(
-  '/announcement',
+  '/announcement/details',
   trimRequest.all,
-  getAnnouncement
-)
-
-router.get(
-  '/announcement/list',
-  trimRequest.all,
-  requireAuth,
   getAnnouncementList
 )
-
-router.put(
-  '/announcement/update',
-  trimRequest.all,
-  editAnnouncement
-)
-
-router.post(
-  '/announcement/create',
-  trimRequest.all,
-  createAnnouncement
-)
-
-router.delete(
-  '/announcement/remove',
-  trimRequest.all,
-  deleteAnnouncement
-)
-
 module.exports = router

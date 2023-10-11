@@ -9,6 +9,8 @@ const requireAuth = passport.authenticate('jwt', {
 
 const {getProfileList} = require('../controllers/profile');
 
+const { getAnnouncement, editAnnouncement, deleteAnnouncement,createAnnouncement, getAnnouncementList} = require('../controllers/announcement')
+
 const {
   postTestQuestions,
   removeTestQuestion
@@ -37,6 +39,41 @@ router.delete(
   trimRequest.all,
   requireAuth,
   removeTestQuestion
+)
+
+router.get(
+  '/announcement',
+  trimRequest.all,
+  requireAuth,
+  getAnnouncement
+)
+
+router.get(
+  '/announcement/list',
+  trimRequest.all,
+  requireAuth,
+  getAnnouncementList
+)
+
+router.put(
+  '/announcement/update',
+  trimRequest.all,
+  requireAuth,
+  editAnnouncement
+)
+
+router.post(
+  '/announcement/create',
+  trimRequest.all,
+  requireAuth,
+  createAnnouncement
+)
+
+router.delete(
+  '/announcement/remove',
+  trimRequest.all,
+  requireAuth,
+  deleteAnnouncement
 )
 
 module.exports = router
