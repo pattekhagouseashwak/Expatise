@@ -26,6 +26,8 @@ router.use(baseUr, require('./coupons'));
 
 router.use(baseUr, require('./adsWatch'));
 
+router.use(baseUr, require('./announcement'));
+
 router.use(adminBaseUr+baseUr, require('./authentication'));
 
 router.use(adminBaseUr+baseUr, require('./adminAPIs'));
