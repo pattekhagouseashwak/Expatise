@@ -9,12 +9,12 @@ const appInfo = require('../../../settings.json')
  */
 
 const getAnnouncement = async (req, res) => {
-  try { console.log('----------',req.query.id);
+  try {
     const id = req.query.id;
     if (!id || id.length < 0) {
       res.status(400).send({ status: 400, message: "id is missing" });
     }
-    await announcements.find({_id:id})
+    await announcements.find({_id:id}).sort({ createdAt: -1 })
       .then((data) => {
         res.status(200)
           .send({

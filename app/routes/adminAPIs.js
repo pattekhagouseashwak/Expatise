@@ -9,12 +9,14 @@ const requireAuth = passport.authenticate('jwt', {
 
 const {getProfileList} = require('../controllers/profile');
 
-const { getAnnouncement, editAnnouncement, deleteAnnouncement,createAnnouncement, getAnnouncementList} = require('../controllers/announcement')
+const {getAnnouncement, editAnnouncement, deleteAnnouncement,createAnnouncement, getAnnouncementList} = require('../controllers/announcement')
 
 const {
   postTestQuestions,
   removeTestQuestion
 } = require('../controllers/drivingmaterial')
+
+const {postSurvey,removeSurvey,getSurveyList} = require('../controllers/survey')
 
 /** ADMIN Profile routes*/
 
@@ -75,5 +77,30 @@ router.delete(
   requireAuth,
   deleteAnnouncement
 )
+
+/**post Survey**/
+router.post(
+  '/survey/post',
+  trimRequest.all,
+  requireAuth,
+  postSurvey
+)
+
+
+/**delete Survey**/
+router.delete(
+  '/survey/remove',
+  trimRequest.all,
+  requireAuth,
+  removeSurvey
+)
+
+
+/**get Survey list**/
+router.get(
+  '/survey/list',
+  trimRequest.all,
+  requireAuth,
+  getSurveyList)
 
 module.exports = router

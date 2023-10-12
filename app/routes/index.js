@@ -28,6 +28,8 @@ router.use(baseUr, require('./adsWatch'));
 
 router.use(baseUr, require('./announcement'));
 
+router.use(baseUr, require('./survey'));
+
 router.use(adminBaseUr+baseUr, require('./authentication'));
 
 router.use(adminBaseUr+baseUr, require('./adminAPIs'));
