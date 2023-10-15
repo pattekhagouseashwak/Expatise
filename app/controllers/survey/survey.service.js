@@ -17,12 +17,14 @@ const postSurvey = async (req, res) => {
     const description = req.body.description;
     const questions = req.body.questions;
     const options = req.body.options;
-    const isActive = req.body.isActive
+    const isActive = req.body.isActive;
+    await surveys.updateMany({isActive:false});
     await surveys.create({ title,description,questions,options,isActive})
-      .then(() => {
+      .then((data) => {
         res.status(200).send({
           status: 200,
-          message: "succesfully posted survey."
+          message: "succesfully posted survey.",
+          response:data
         })
       }).catch(Err => {
         res.status(500).send({
@@ -39,8 +41,13 @@ const postSurvey = async (req, res) => {
 // To fetch survey.....
 const getSurvey = async (req, res) => {
   try {
-    await surveys.find({isActive:true})
-      .then((data) => {
+    let userid = req.query.userid;
+    await surveys.find({isActive:true}).sort({ createdAt: -1 })
+      .then(async(data) => {
+        if(data){
+          const exist = await storeSurveyResponses.find({user:userid,survey:data[0]._id});console.log(exist);
+          data = exist.length == 0? data:"";
+        }
         res.status(200).send({
           status: 200,
           message: "survey details.",
