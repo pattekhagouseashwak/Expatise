@@ -1,3 +1,5 @@
-const { postSurvey, getSurvey, removeSurvey, getSurveyList} = require('./survey.service')
+const { postSurvey, getSurvey, removeSurvey, getSurveyList, 
+        addStoreSurveyResponse,getStoreSurveyResponse} = require('./survey.service')
 
-module.exports = { postSurvey, getSurvey, removeSurvey, getSurveyList}
+module.exports = { postSurvey, getSurvey, removeSurvey, 
+                   getSurveyList, addStoreSurveyResponse, getStoreSurveyResponse}

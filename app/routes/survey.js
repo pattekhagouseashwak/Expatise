@@ -8,15 +8,21 @@ const requireAuth = passport.authenticate('jwt', {
 
 const trimRequest = require('trim-request');
 
-const {getSurvey} = require('../controllers/survey');
+const {getSurvey,addStoreSurveyResponse} = require('../controllers/survey');
 
 /**routes*/
 
-/**get latest surveydetails**/
+/**get latest survey details**/
 router.get(
   '/survey/latest',
   trimRequest.all,
   getSurvey
+)
+
+router.post(
+  '/survey/storeresponse',
+  trimRequest.all,
+  addStoreSurveyResponse
 )
 
 module.exports = router

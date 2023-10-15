@@ -9,6 +9,7 @@ const surveySchema = new mongoose.Schema({
       type: {type: String,required: true}, // Example: 'multipleChoice', 'text', 'rating', radio etc.
       question: {type: String,required: true},
       options: [{type: String, default: null}], // An array of option texts (for multiple choice questions)
+      answer:  {type: String, default: null}
     },
   ],
   isActive: {type : String, default: false}

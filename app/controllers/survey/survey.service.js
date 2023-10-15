@@ -1,7 +1,8 @@
 const { handleError } = require('../../middleware/utils')
 const surveys = require('../../models/survey')
 const appInfo = require('../../../settings.json')
-
+const storeSurveyResponses = require('../../models/storeSurveyResponse')
+const { response } = require('express')
 
 /**
  * Register function called by route
@@ -9,7 +10,7 @@ const appInfo = require('../../../settings.json')
  * @param {Object} res - response object
  */
 
-// To add question into drivingmaterial database.....
+// To add question into survey database.....
 const postSurvey = async (req, res) => {
   try {
     const title = req.body.title;
@@ -89,7 +90,7 @@ const getSurveyList = async (req, res) => {
     const totalItems = await surveys.find().countDocuments();
     const totalpages = Math.ceil(totalItems / itemsPerPage);
 
-    await surveys.find({}).sort({creaatedAt:-1}).skip(startIndex).limit(itemsPerPage)
+    await surveys.find({}).sort({creaatedAt:-1}).skip(startIndex).limit(itemsPerPage).select('-questions.answer')
       .then((data) => {
         res.status(200).send({
           status: 200,
@@ -110,4 +111,62 @@ const getSurveyList = async (req, res) => {
   }
 }
 
-module.exports = { postSurvey, getSurvey, removeSurvey, getSurveyList}
+// To store response database.....
+const addStoreSurveyResponse = async (req, res) => {
+  try {
+    const survey = req.body.survey;
+    const user = req.body.user;
+    const responses = req.body.responses;
+    
+    await storeSurveyResponses.create({ survey,user,responses})
+      .then(() => {
+        res.status(200).send({
+          status: 200,
+          message: "succesfully posted survey."
+        })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message: Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+// fetch store response database.....
+const getStoreSurveyResponse = async (req, res) => {
+  try {
+    const surveyid = req.query.surveyid
+    const page = parseInt(req.query.page) || appInfo.DEFAULTPAGE;
+    const itemsPerPage = appInfo.DEFAULT_LISTING_ITEMSPERPAGE;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const totalItems = await storeSurveyResponses.find().countDocuments();
+    const totalpages = Math.ceil(totalItems / itemsPerPage);
+    
+    await storeSurveyResponses.find({ survey:surveyid}).skip(startIndex).limit(itemsPerPage)
+      .then((data) => {
+        res.status(200).send({
+          status: 200,
+          message: "succesfully fetched store survey response details.",
+          response: data,
+          page:page,
+          totalpages
+        })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message: Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { postSurvey, getSurvey, removeSurvey, getSurveyList,
+                   addStoreSurveyResponse,getStoreSurveyResponse}
