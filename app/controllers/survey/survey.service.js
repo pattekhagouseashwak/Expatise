@@ -177,6 +177,7 @@ const getStoreSurveyResponse = async (req, res) => {
   }
 }
 
+// fetch store response by survey response by id database.....
 const getStoreSurveyResponseByID = async (req, res) => {
   try {
     const surveyresponseid = req.query.surveyresponseid
