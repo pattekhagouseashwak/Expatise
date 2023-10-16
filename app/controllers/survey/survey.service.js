@@ -143,7 +143,7 @@ const addStoreSurveyResponse = async (req, res) => {
   }
 }
 
-// fetch store response database.....
+// fetch store response user details database.....
 const getStoreSurveyResponse = async (req, res) => {
   try {
     const surveyid = req.query.surveyid
@@ -155,6 +155,7 @@ const getStoreSurveyResponse = async (req, res) => {
     const totalpages = Math.ceil(totalItems / itemsPerPage);
 
     await storeSurveyResponses.find({ survey: surveyid }).skip(startIndex).limit(itemsPerPage)
+      .select('user')
       .populate('user', 'profilePhoto name email')
       .then((data) => {
         res.status(200).send({
@@ -176,7 +177,31 @@ const getStoreSurveyResponse = async (req, res) => {
   }
 }
 
+const getStoreSurveyResponseByID = async (req, res) => {
+  try {
+    const surveyresponseid = req.query.surveyresponseid
+
+    await storeSurveyResponses.findById({ _id: surveyresponseid})
+      .populate('user', 'profilePhoto name email')
+      .then((data) => {
+        res.status(200).send({
+          status: 200,
+          message: "succesfully fetched store survey response by id.",
+          response: data
+        })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message: Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
 module.exports = {
   postSurvey, getSurvey, removeSurvey, getSurveyList,
-  addStoreSurveyResponse, getStoreSurveyResponse
+  addStoreSurveyResponse, getStoreSurveyResponse,getStoreSurveyResponseByID
 }

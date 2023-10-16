@@ -17,7 +17,7 @@ const {
   removeTestQuestion
 } = require('../controllers/drivingmaterial')
 
-const {postSurvey,removeSurvey,getSurveyList,getStoreSurveyResponse} = require('../controllers/survey')
+const {postSurvey,removeSurvey,getSurveyList,getStoreSurveyResponse,getStoreSurveyResponseByID} = require('../controllers/survey')
 
 /** ADMIN Profile routes*/
 
@@ -109,7 +109,16 @@ router.get(
 router.get(
   '/survey/listStoreResponse',
   trimRequest.all,
-  //requireAuth,
+  requireAuth,
   getStoreSurveyResponse)
+
+
+/**get Survey By User ID**/
+router.get(
+  '/survey/userResponse',
+  trimRequest.all,
+  //requireAuth,
+  getStoreSurveyResponseByID)
+  
 
 module.exports = router
