@@ -141,7 +141,7 @@ const mistakeTest = async (req, res) => {
       Status = 400,
       Message = "mistake questions are empty."
     }
-    else if (filterobject.length > 45) {
+    else if (filterobject.length > 0) {
       Status = 200;
       Message = "fetched details.";
       Response = filterobject;
