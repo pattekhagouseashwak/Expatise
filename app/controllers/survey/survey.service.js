@@ -18,13 +18,13 @@ const postSurvey = async (req, res) => {
     const questions = req.body.questions;
     const options = req.body.options;
     const isActive = req.body.isActive;
-    await surveys.updateMany({isActive:false});
-    await surveys.create({ title,description,questions,options,isActive})
+    await surveys.updateMany({ isActive: false });
+    await surveys.create({ title, description, questions, options, isActive })
       .then((data) => {
         res.status(200).send({
           status: 200,
           message: "succesfully posted survey.",
-          response:data
+          response: data
         })
       }).catch(Err => {
         res.status(500).send({
@@ -42,11 +42,11 @@ const postSurvey = async (req, res) => {
 const getSurvey = async (req, res) => {
   try {
     let userid = req.query.userid;
-    await surveys.find({isActive:true}).sort({ createdAt: -1 })
-      .then(async(data) => {
-        if(data){
-          const exist = await storeSurveyResponses.find({user:userid,survey:data[0]._id});console.log(exist);
-          data = exist.length == 0? data:"";
+    await surveys.find({ isActive: true }).sort({ createdAt: -1 })
+      .then(async (data) => {
+        if (data) {
+          const exist = await storeSurveyResponses.find({ user: userid, survey: data[0]._id }); console.log(exist);
+          data = exist.length == 0 ? data : "";
         }
         res.status(200).send({
           status: 200,
@@ -69,11 +69,11 @@ const getSurvey = async (req, res) => {
 const removeSurvey = async (req, res) => {
   try {
     const id = req.query.id;
-    await surveys.findByIdAndDelete({_id:id})
+    await surveys.findByIdAndDelete({ _id: id })
       .then(() => {
         res.status(200).send({
-          status:200,
-          message:"survey detail removed"
+          status: 200,
+          message: "survey detail removed"
         })
       }).catch(Err => {
         res.status(500).send({
@@ -97,7 +97,7 @@ const getSurveyList = async (req, res) => {
     const totalItems = await surveys.find().countDocuments();
     const totalpages = Math.ceil(totalItems / itemsPerPage);
 
-    await surveys.find({}).sort({creaatedAt:-1}).skip(startIndex).limit(itemsPerPage).select('-questions.answer')
+    await surveys.find({}).sort({ creaatedAt: -1 }).skip(startIndex).limit(itemsPerPage).select('-questions.answer')
       .then((data) => {
         res.status(200).send({
           status: 200,
@@ -124,8 +124,8 @@ const addStoreSurveyResponse = async (req, res) => {
     const survey = req.body.survey;
     const user = req.body.user;
     const responses = req.body.responses;
-    
-    await storeSurveyResponses.create({ survey,user,responses})
+
+    await storeSurveyResponses.create({ survey, user, responses })
       .then(() => {
         res.status(200).send({
           status: 200,
@@ -153,14 +153,15 @@ const getStoreSurveyResponse = async (req, res) => {
     const endIndex = startIndex + itemsPerPage;
     const totalItems = await storeSurveyResponses.find().countDocuments();
     const totalpages = Math.ceil(totalItems / itemsPerPage);
-    
-    await storeSurveyResponses.find({ survey:surveyid}).skip(startIndex).limit(itemsPerPage)
+
+    await storeSurveyResponses.find({ survey: surveyid }).skip(startIndex).limit(itemsPerPage)
+      .populate('user', 'profilePhoto name email')
       .then((data) => {
         res.status(200).send({
           status: 200,
           message: "succesfully fetched store survey response details.",
           response: data,
-          page:page,
+          page: page,
           totalpages
         })
       }).catch(Err => {
@@ -175,5 +176,7 @@ const getStoreSurveyResponse = async (req, res) => {
   }
 }
 
-module.exports = { postSurvey, getSurvey, removeSurvey, getSurveyList,
-                   addStoreSurveyResponse,getStoreSurveyResponse}
+module.exports = {
+  postSurvey, getSurvey, removeSurvey, getSurveyList,
+  addStoreSurveyResponse, getStoreSurveyResponse
+}
