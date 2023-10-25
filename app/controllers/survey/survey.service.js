@@ -124,6 +124,24 @@ const addStoreSurveyResponse = async (req, res) => {
     const user = req.body.user;
     const responses = req.body.responses;
 
+    let response = await surveys.find({ _id: survey, isActive: true }).select('_id');
+    console.log('------ response', response);
+    if (response.length == 0) {
+      return res.status(400).send({
+        status: 400,
+        message: "survey is currently not availabile"
+      })
+    }
+
+    let responseSurvey = await storeSurveyResponses.find({ survey: survey, user: user }).select('_id');
+    console.log('------ responseSurvey', responseSurvey);
+    if (responseSurvey.length != 0) {
+      return res.status(400).send({
+        status: 400,
+        message: "survey already submitted"
+      })
+    }
+
     await storeSurveyResponses.create({ survey, user, responses })
       .then(() => {
         res.status(200).send({
