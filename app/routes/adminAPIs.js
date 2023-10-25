@@ -10,14 +10,19 @@ const requireAuth = passport.authenticate('jwt', {
 const {getProfileList} = require('../controllers/profile');
 
 const {getAnnouncement, editAnnouncement, deleteAnnouncement,
-       createAnnouncement, getAnnouncementList} = require('../controllers/announcement')
+       createAnnouncement, getAnnouncementList} = require('../controllers/announcement');
 
 const {
   postTestQuestions,
   removeTestQuestion
-} = require('../controllers/drivingmaterial')
+} = require('../controllers/drivingmaterial');
 
-const {postSurvey,removeSurvey,getSurveyList,getStoreSurveyResponse,getStoreSurveyResponseByID} = require('../controllers/survey')
+const {postSurvey,removeSurvey,getSurveyList,
+      getStoreSurveyResponse,getStoreSurveyResponseByID} = require('../controllers/survey');
+
+
+const { addPricePlans, updatePricePlansById,
+        removePricePlans, getPricePlans } = require('../controllers/priceplans')
 
 /** ADMIN Profile routes*/
 
@@ -121,4 +126,34 @@ router.get(
   getStoreSurveyResponseByID)
   
 
+/**priceplans routes*/
+
+/**add priceplans details**/
+router.post('/priceplans/add',
+trimRequest.all,
+requireAuth,
+addPricePlans
+)
+
+/**add priceplans details**/
+router.put('/priceplans/update',
+trimRequest.all,
+requireAuth,
+updatePricePlansById
+)
+
+/**get all priceplans details**/
+router.get('/priceplans/all',
+trimRequest.all,
+requireAuth,
+getPricePlans
+)
+
+/**delete priceplans names by id**/
+router.delete(
+  '/priceplans/remove/:id',
+  trimRequest.all,
+  requireAuth,
+  removePricePlans
+)
 module.exports = router

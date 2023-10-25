@@ -30,6 +30,8 @@ router.use(baseUr, require('./announcement'));
 
 router.use(baseUr, require('./survey'));
 
+router.use(baseUr, require('./priceplans'));
+
 router.use(adminBaseUr+baseUr, require('./authentication'));
 
 router.use(adminBaseUr+baseUr, require('./adminAPIs'));
