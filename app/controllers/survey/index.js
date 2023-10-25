@@ -1,5 +1,6 @@
 const { postSurvey, getSurvey, removeSurvey, getSurveyList, 
-        addStoreSurveyResponse,getStoreSurveyResponse,getStoreSurveyResponseByID} = require('./survey.service')
+        addStoreSurveyResponse,getStoreSurveyResponse,
+        getStoreSurveyResponseByID,getYesNoPercentageInSurvey} = require('./survey.service')
 
 module.exports = { postSurvey, getSurvey, removeSurvey, getStoreSurveyResponseByID,
-                   getSurveyList, addStoreSurveyResponse, getStoreSurveyResponse}
+                   getSurveyList, addStoreSurveyResponse, getStoreSurveyResponse,getYesNoPercentageInSurvey}

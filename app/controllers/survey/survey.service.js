@@ -2,7 +2,6 @@ const { handleError } = require('../../middleware/utils')
 const surveys = require('../../models/survey')
 const appInfo = require('../../../settings.json')
 const storeSurveyResponses = require('../../models/storeSurveyResponse')
-const { response } = require('express')
 
 /**
  * Register function called by route
@@ -182,7 +181,7 @@ const getStoreSurveyResponseByID = async (req, res) => {
   try {
     const surveyresponseid = req.query.surveyresponseid
 
-    await storeSurveyResponses.findById({ _id: surveyresponseid})
+    await storeSurveyResponses.findById({ _id: surveyresponseid })
       .populate('user', 'profilePhoto name email')
       .then((data) => {
         res.status(200).send({
@@ -202,7 +201,75 @@ const getStoreSurveyResponseByID = async (req, res) => {
   }
 }
 
+// fetch indiviaual survey yes-no response in percentage by id database.....
+const getYesNoPercentageInSurvey = async (req, res) => {
+  try {
+    const surveyId = req.query.surveyId
+    const typeValue = 'yes-no';
+    await storeSurveyResponses.find({
+      survey: surveyId,
+      responses: {
+        $elemMatch: {
+          type: typeValue,
+        },
+      },
+    })
+      .select('responses.$')
+      .then((data) => {
+
+        if (data.length > 0) {
+          let count = data.length;
+          //===================================================
+          // Initialize counters
+          let yesCount = 0;
+          let noCount = 0;
+
+          // Iterate through the dataset and count "YES" and "NO"
+          data.forEach(object => {
+            object.responses.forEach(response => {
+              if (response.answer.includes("YES") || response.answer.includes("NO")) {
+                response.answer.forEach(answer => {
+                  if (answer === "YES") {
+                    yesCount++;
+                  } else if (answer === "NO") {
+                    noCount++;
+                  }
+                });
+              }
+            });
+          });
+
+          console.log('Count of YES:', yesCount);
+          console.log('Count of NO:', noCount);
+          console.log('Total of Count:', count);
+
+          // Calculate the percentage of "NO"
+          const percentageOfYes = (yesCount / count) * 100;
+          const percentageOfNo = (noCount / count) * 100;
+          data = {survey:surveyId,YES:percentageOfYes, NO:percentageOfNo};
+          //===================================================
+        } else {
+          data = { survey:surveyId, YES: 0, NO: 0 };
+        }
+        res.status(200).send({
+          status: 200,
+          message: "succesfully fetched Yes-No Percentage Survey id.",
+          response: data
+        })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message: Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
 module.exports = {
   postSurvey, getSurvey, removeSurvey, getSurveyList,
-  addStoreSurveyResponse, getStoreSurveyResponse,getStoreSurveyResponseByID
+  addStoreSurveyResponse, getStoreSurveyResponse, getStoreSurveyResponseByID,
+  getYesNoPercentageInSurvey
 }
