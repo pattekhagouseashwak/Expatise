@@ -36,6 +36,8 @@ router.use(adminBaseUr+baseUr, require('./authentication'));
 
 router.use(adminBaseUr+baseUr, require('./adminAPIs'));
 
+router.use(baseUr, require('./transaction'));
+
 // Loop routes path and loads every file as a route except this file and Auth route
 fs.readdirSync(routesPath).filter((file) => {
   // Take filename and remove last part (extension)

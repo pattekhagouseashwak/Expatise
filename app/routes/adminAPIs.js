@@ -12,17 +12,20 @@ const {getProfileList} = require('../controllers/profile');
 const {getAnnouncement, editAnnouncement, deleteAnnouncement,
        createAnnouncement, getAnnouncementList} = require('../controllers/announcement');
 
-const {
-  postTestQuestions,
-  removeTestQuestion
-} = require('../controllers/drivingmaterial');
+const {postTestQuestions,removeTestQuestion} = require('../controllers/drivingmaterial');
 
 const {postSurvey,removeSurvey,getSurveyList,
       getStoreSurveyResponse,getStoreSurveyResponseByID} = require('../controllers/survey');
 
 
 const { addPricePlans, updatePricePlansById,
-        removePricePlans, getPricePlans } = require('../controllers/priceplans')
+        removePricePlans, getPricePlans } = require('../controllers/priceplans');
+
+const { addCoupons, updateCoupons, removeCoupons,
+       getCoupons, getCouponsById } = require('../controllers/coupons')
+
+const {getTransaction} = require('../controllers/transaction')
+
 
 /** ADMIN Profile routes*/
 
@@ -33,7 +36,7 @@ router.get(
   getProfileList
 )
 
-/**add driving Material details**/
+/**********************************add driving Material details**/
 router.post(
   '/drivingQuestion/add',
   trimRequest.all,
@@ -48,6 +51,8 @@ router.delete(
   requireAuth,
   removeTestQuestion
 )
+
+/**************************************************announcement routes*/
 
 router.get(
   '/announcement',
@@ -84,7 +89,7 @@ router.delete(
   deleteAnnouncement
 )
 
-/**post Survey**/
+/************************************************post Survey**/
 router.post(
   '/survey/post',
   trimRequest.all,
@@ -126,7 +131,7 @@ router.get(
   getStoreSurveyResponseByID)
   
 
-/**priceplans routes*/
+/**************************************************priceplans routes*/
 
 /**add priceplans details**/
 router.post('/priceplans/add',
@@ -156,4 +161,52 @@ router.delete(
   requireAuth,
   removePricePlans
 )
+
+/****************************************coupon routes*/
+
+/**add coupons details**/
+router.post('/coupons/add',
+trimRequest.all,
+//requireAuth,
+addCoupons
+)
+
+/**add coupons details**/
+router.put('/coupons/update',
+trimRequest.all,
+//requireAuth,
+updateCoupons
+)
+
+/**get coupons details by id**/
+router.get('/coupons/id/:id',
+trimRequest.all,
+//requireAuth,
+getCouponsById
+)
+
+/**get all coupons details**/
+router.get('/coupons/details',
+trimRequest.all,
+//requireAuth,
+getCoupons
+)
+
+/**delete coupons names by id**/
+router.delete(
+'/coupons/remove/:id',
+trimRequest.all,
+//requireAuth,
+removeCoupons
+)
+
+/******* transaction routes*/
+
+/**get all transaction details**/
+router.get('/transaction/details',
+  trimRequest.all,
+  requireAuth,
+  getTransaction
+)
+
 module.exports = router

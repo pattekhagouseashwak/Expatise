@@ -8,20 +8,20 @@ const requireAuth = passport.authenticate('jwt', {
 
 const trimRequest = require('trim-request')
 
-const {getCoupons, getCouponsById } = require('../controllers/coupons')
+const {postTransaction, getTransactionByUserId } = require('../controllers/transaction')
 
-/**coupon routes*/
+/******* transaction routes*/
 
-/**get coupons details by id**/
-router.get('/coupons/id/:id',
+/**post transaction details **/
+router.post('/transaction/add',
   trimRequest.all,
-  getCouponsById
+  postTransaction
 )
 
-/**get all coupons details**/
-router.get('/coupons/allcoupons',
+/**get transaction details by user id**/
+router.get('/transaction/userid/:id',
   trimRequest.all,
-  getCoupons
+  getTransactionByUserId
 )
 
 module.exports = router
