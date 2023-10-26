@@ -2,7 +2,6 @@ const { handleError } = require('../../middleware/utils')
 const drivingmaterial = require('../../models/drivingMaterial')
 const commonmistakes = require('../../models/commonmistakes')
 const mongoose = require('mongoose');
-const { yearsToMonths } = require('date-fns');
 
 /**
  * Register function called by route

@@ -1,3 +1,3 @@
-const {getProfile, editProfile, createProfile,getProfileList} = require('./profile.service')
+const {getProfile, editProfile, createProfile,getProfileList,getProfileCountByDate} = require('./profile.service')
 
-module.exports = {getProfile, editProfile, createProfile, getProfileList};
+module.exports = {getProfile, editProfile, createProfile, getProfileList, getProfileCountByDate};

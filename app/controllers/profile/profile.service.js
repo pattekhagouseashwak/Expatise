@@ -163,4 +163,76 @@ const getProfileList = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, editProfile, createProfile, getProfileList}
+const getProfileCountByDate = async (req, res) => {
+  try {
+    if (req.body.startDate.length == 0) {
+      return res.status(400).send({
+        status: 400,
+        message: "startDate is missing"
+      })
+    }
+
+    if (req.body.endDate.length == 0) {
+      return res.status(400).send({
+        status: 400,
+        message: "endDate is missing."
+      })
+    }
+
+    let startDate = req.body.startDate;
+    let endDate = req.body.endDate;
+    
+    await profile.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: new Date(startDate), // Start date
+            $lt: new Date(endDate) // End date
+          }
+        }
+      },
+      {
+        $group: {
+          _id: {
+            year: { $year: '$createdAt' },
+            month: { $month: '$createdAt' }
+          },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          monthYear: {
+            $concat: [
+              { $toString: '$_id.year' },
+              '-',
+              { $cond: { if: { $lt: ['$_id.month', 10] }, then: '0', else: '' } },
+              { $toString: '$_id.month' }
+            ]
+          },
+          count: 1
+        }
+      }
+    ])
+      .then((data) => {
+        res.status(200)
+          .send({
+            status: 200,
+            message: "successfully fetched profile details!!",
+            response: data
+          })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message:
+            Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { getProfile, editProfile, createProfile, getProfileList,getProfileCountByDate}
