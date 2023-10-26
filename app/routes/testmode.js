@@ -8,7 +8,7 @@ const trimRequest = require('trim-request')
 
 const {getTestQuestionsToPratices,getTestResponse,
       addTestResponse,evaluteTestResponse,mistakeTest,personalstatistics,
-      fetchCommonTest,removemistakequestion,reviewMistakeTest} = require('../controllers/testmode');
+      fetchCommonTest,removemistakequestion,reviewMistakeTest,testStatistics} = require('../controllers/testmode');
 
 /**routes*/
 
@@ -72,5 +72,12 @@ router.post(
   '/personalstatistics',
   trimRequest.all,
   personalstatistics
+)
+
+/**fetch Test Questions To Pratices**/
+router.get(
+  '/testStatistics',
+  trimRequest.all,
+  testStatistics
 )
 module.exports = router
