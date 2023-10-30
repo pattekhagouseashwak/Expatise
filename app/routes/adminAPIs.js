@@ -46,7 +46,7 @@ router.post(
 router.post(
   '/profiles/count',
   trimRequest.all,
-  //requireAuth,
+  requireAuth,
   getProfileCountByDate
 )
 /**********************************add driving Material details**/
@@ -224,7 +224,7 @@ router.get('/transaction/details',
 
 router.post('/transaction/sales',
   trimRequest.all,
-  //requireAuth,
+  requireAuth,
   getTransactionCountByDate
 )
 
