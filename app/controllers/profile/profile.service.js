@@ -163,7 +163,7 @@ const getProfileList = async (req, res) => {
   }
 }
 
-const getProfileCountByDate = async (req, res) => {
+const getProfileGraph = async (req, res) => {
   try {
     if (req.body.startDate.length == 0) {
       return res.status(400).send({
@@ -235,4 +235,82 @@ const getProfileCountByDate = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, editProfile, createProfile, getProfileList,getProfileCountByDate}
+const getProfileCountByDate = async (req, res) => {
+  try {
+    if (req.body.startDate.length == 0) {
+      return res.status(400).send({
+        status: 400,
+        message: "startDate is missing"
+      })
+    }
+
+    if (req.body.endDate.length == 0) {
+      return res.status(400).send({
+        status: 400,
+        message: "endDate is missing."
+      })
+    }
+
+    let startDate = req.body.startDate;
+    let endDate = req.body.endDate;
+    
+    await profile.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: new Date(startDate), // Start date
+            $lt: new Date(endDate) // End date
+          }
+        }
+      },
+      {
+        $group: {
+          _id: "$type",
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          count: 1,
+          guest: {
+            $cond: [{ $eq: ["$_id", "guest"] }, "$count", 0]
+          },
+          nonpremium: {
+            $cond: [{ $eq: ["$_id", "non-premium"] }, "$count", 0]
+          },
+          premium: {
+            $cond: [{ $eq: ["$_id", "premium"] }, "$count", 0]
+          }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          guest: { $sum: "$guest" },
+          nonpremium: { $sum: "$nonpremium" },
+          premium: { $sum: "$premium" }
+        }
+      } 
+    ])
+      .then((data) => {
+        res.status(200)
+          .send({
+            status: 200,
+            message: "successfully fetched profile details!!",
+            response: data
+          })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message:
+            Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { getProfile, editProfile, createProfile, getProfileList,getProfileGraph,getProfileCountByDate}

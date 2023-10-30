@@ -18,6 +18,11 @@ const profileSchema = new mongoose.Schema(
     dateOfBrith: { type: String },
 
     gender: { type: String },
+
+    type: {
+      type: String, require: true,
+      enum: ['guest', 'non-premium', 'premium'], require: true
+    },
   },
   {
     versionKey: false,

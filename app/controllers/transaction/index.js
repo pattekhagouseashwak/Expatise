@@ -1,3 +1,4 @@
-const { postTransaction, getTransaction, getTransactionByUserId } = require('./transaction.service')
+const { postTransaction, getTransaction, getTransactionByUserId, 
+        getTransactionCountByDate } = require('./transaction.service')
 
-module.exports = { postTransaction, getTransaction, getTransactionByUserId }
+module.exports = { postTransaction, getTransaction, getTransactionByUserId, getTransactionCountByDate }

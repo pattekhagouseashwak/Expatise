@@ -7,7 +7,7 @@ const requireAuth = passport.authenticate('jwt', {
   session: false
 })
 
-const {getProfileList,getProfileCountByDate} = require('../controllers/profile');
+const {getProfileList,getProfileGraph, getProfileCountByDate} = require('../controllers/profile');
 
 const {getAnnouncement, editAnnouncement, deleteAnnouncement,
        createAnnouncement, getAnnouncementList} = require('../controllers/announcement');
@@ -24,7 +24,7 @@ const { addPricePlans, updatePricePlansById,
 const { addCoupons, updateCoupons, removeCoupons,
        getCoupons, getCouponsById } = require('../controllers/coupons')
 
-const {getTransaction} = require('../controllers/transaction')
+const {getTransaction,getTransactionCountByDate} = require('../controllers/transaction')
 
 
 /** ADMIN Profile routes*/
@@ -38,6 +38,13 @@ router.get(
 
 router.post(
   '/profiles/graph',
+  trimRequest.all,
+  //requireAuth,
+  getProfileGraph
+)
+
+router.post(
+  '/profiles/count',
   trimRequest.all,
   //requireAuth,
   getProfileCountByDate
@@ -206,13 +213,19 @@ trimRequest.all,
 removeCoupons
 )
 
-/******* transaction routes*/
+/************************************ transaction routes*/
 
 /**get all transaction details**/
 router.get('/transaction/details',
   trimRequest.all,
   requireAuth,
   getTransaction
+)
+
+router.post('/transaction/sales',
+  trimRequest.all,
+  //requireAuth,
+  getTransactionCountByDate
 )
 
 module.exports = router

@@ -7,6 +7,7 @@ const transactionSchema = new mongoose.Schema({
     ref: 'profile', // Reference to the User model
     required: true,
   },
+  priceplan:{ type: String, required: true },
   amount: { type: String, required: true },
   status: { type: String, required: true },
   log: [{ type: String, required: true }]
