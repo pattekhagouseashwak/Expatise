@@ -2,6 +2,9 @@ const { handleError } = require('../../middleware/utils')
 const profile = require('./../../models/profile')
 const appInfo = require('./../../../settings.json')
 const mongoose = require('mongoose');
+const drivingmaterial = require('./../../models/drivingMaterial')
+const surveys = require('./../../models/survey')
+const transaction = require('./../../models/transaction')
 
 /**
  * Register function called by route
@@ -65,6 +68,7 @@ const editProfile = async (req, res) => {
     const country = req.body.country;
     const dateOfBrith = req.body.dateOfBrith;
     const gender = req.body.gender;
+    const weChat =  req.body.weChat;
 
     await profile.findOneAndUpdate({ _id: id },
       {
@@ -75,7 +79,8 @@ const editProfile = async (req, res) => {
         city,
         country,
         dateOfBrith,
-        gender
+        gender,
+        weChat
       }, { new: true })
       .select("-createdAt -updatedAt")
       .then((data) => {
@@ -104,6 +109,7 @@ const createProfile = async (req, res) => {
     const country = req.body.country;
     const dateOfBrith = req.body.dateOfBrith;
     const gender = req.body.gender;
+    const weChat = req.body.weChat;
 
     await profile.create({
       profilePhoto,
@@ -113,7 +119,8 @@ const createProfile = async (req, res) => {
       city,
       country,
       dateOfBrith,
-      gender
+      gender,
+      weChat
     }).then((data) => {
       res.status(200).send({ status: 200, message: "successfully created profile Details has updated!!", data })
     }
@@ -313,4 +320,62 @@ const getProfileCountByDate = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, editProfile, createProfile, getProfileList,getProfileGraph,getProfileCountByDate}
+const deleteProfileById = async (req, res) => {
+  try {
+    const id = req.query.id
+    await profile.findByIdAndDelete({ _id: id })
+      .then((data) => {
+        res.status(200)
+          .send({
+            status: 200,
+            message: "successfully deleted profile!!"
+          })
+      })
+      .catch(Err => {
+        res.status(500)
+          .send({
+            status: 500,
+            message: Err.message || "Internal Error."
+          });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+const adminDashboardApi = async (req, res) => {
+  try {
+    const usersCount = await profile.find().count();
+
+    const surveyCount = await drivingmaterial.find().count();
+
+    const questionsCount = await surveys.find().count();
+
+    const transactionData = await transaction.find({});
+
+    let transactionCount = 0;
+    await transactionData.forEach(document => {
+      const amount = parseFloat(document.amount.replace('$', ''));
+      transactionCount += amount;
+    });
+
+    res.status(200)
+      .send({
+        status: 200,
+        message: "successfully fetched  dashboard api!!",
+        response: {
+          usersCount: usersCount,
+          surveyCount: surveyCount,
+          questionsCount: questionsCount,
+          transactionCount: transactionCount
+        }
+      })
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { getProfile, editProfile, createProfile, getProfileList,
+                   getProfileGraph,getProfileCountByDate, deleteProfileById, adminDashboardApi}

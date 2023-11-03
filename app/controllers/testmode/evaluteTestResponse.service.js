@@ -168,7 +168,7 @@ const insertquerymistakes = async(payload)=>{
   });
 }
 
-// To fetch pratices question.....
+// To remove mistake question.....
 const removemistakequestion = async (req, res) => {
   try {
     if (!req.query.id || req.query.id.length < 0) {
@@ -280,7 +280,6 @@ const reviewMistakeTest = async (req, res) => {
     const objectId = mongoose.Types.ObjectId(req.query.id);
     let response;
     let limitPerQuestion = 3;
-    console.log(req.query.userid);
     await commonmistakes.aggregate([
       {
         $match: {
@@ -336,4 +335,39 @@ const reviewMistakeTest = async (req, res) => {
   }
 }
 
-module.exports = {evaluteTestResponse,mistakeTest,fetchCommonTest,removemistakequestion,reviewMistakeTest}
+// fetch mistake Test to review.....
+const removeReviewMistakeQuestions = async (req, res) => {
+  try {
+    if (!req.query.questionid || req.query.questionid.length < 0) {
+      return res.status(400).send({ status: 400, message: "Invalid Payload: questionid missing" })
+    }
+
+    if (!req.query.userid || req.query.userid.length < 0) {
+      return res.status(400).send({ status: 400, message: "Invalid Payload: userid missing" })
+    }
+    
+    const objectId = mongoose.Types.ObjectId(req.query.questionid);
+    const userid = mongoose.Types.ObjectId(req.query.userid);
+
+    await commonmistakes.deleteMany({questionId:objectId,userId:userid}).
+      then(() => {
+        res.status(200)
+          .send({
+            status: 200,
+            message: "successfully deleted question!!"
+          })
+      })
+      .catch(Err => {
+        res.status(500)
+          .send({
+            status: 500,
+            message: Err.message || "Internal Error."
+          });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+module.exports = {evaluteTestResponse,mistakeTest,fetchCommonTest,
+                  removemistakequestion,reviewMistakeTest,removeReviewMistakeQuestions}

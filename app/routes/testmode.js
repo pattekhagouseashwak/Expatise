@@ -8,7 +8,8 @@ const trimRequest = require('trim-request')
 
 const {getTestQuestionsToPratices,getTestResponse,
       addTestResponse,evaluteTestResponse,mistakeTest,personalstatistics,
-      fetchCommonTest,removemistakequestion,reviewMistakeTest,testStatistics} = require('../controllers/testmode');
+      fetchCommonTest,removemistakequestion,reviewMistakeTest,
+      testStatistics,resetPersonalstatistics,removeReviewMistakeQuestions} = require('../controllers/testmode');
 
 /**routes*/
 
@@ -61,11 +62,11 @@ router.get(
   fetchCommonTest
 )
 
-router.delete(
-  '/remove/mistakequestion',
-  trimRequest.all,
-  removemistakequestion
-)
+// router.delete(
+//   '/remove/mistakequestion',
+//   trimRequest.all,
+//   removemistakequestion
+// )
 
 /**Get personalstatistics by id**/
 router.post(
@@ -79,5 +80,19 @@ router.get(
   '/testStatistics',
   trimRequest.all,
   testStatistics
+)
+
+/**fetch remove mistake Questions from review**/
+router.delete(
+  '/remove/mistakequestion',
+  trimRequest.all,
+  removeReviewMistakeQuestions)
+
+
+  /**fetch Test Questions To Pratices**/
+router.delete(
+  '/personalStatistics/reset',
+  trimRequest.all,
+  resetPersonalstatistics
 )
 module.exports = router

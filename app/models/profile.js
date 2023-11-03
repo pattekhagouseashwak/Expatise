@@ -19,6 +19,8 @@ const profileSchema = new mongoose.Schema(
 
     gender: { type: String },
 
+    weChat:{type:String},
+    
     type: {
       type: String, require: true,
       enum: ['guest', 'non-premium', 'premium'], require: true

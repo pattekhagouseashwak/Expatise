@@ -87,7 +87,7 @@ const personalstatistics = async (req, res) => {
       })
     }
     
-    const bestData = await storeTestResponse.aggregate([
+    let bestData = await storeTestResponse.aggregate([
       {
         $match: {
           user: objectId, // Match documents with the specified userId
@@ -110,15 +110,31 @@ const personalstatistics = async (req, res) => {
 
     const scoreData = await storeTestResponse.find({ score: { $gte: appInfo.PASS_PERCENTAGE } })
                                              .select('-_id score');
-    //console.log('------------',scoreData.length,bestData[0].totaltestCompleted);
-    let passrate = scoreData.length*100/bestData[0].totaltestCompleted;
+    let totaltestCompleted = bestData[0]?.totaltestCompleted?bestData[0]?.totaltestCompleted:0;
 
-    bestData[0].passrate = passrate;
+    let passrate = scoreData.length*100/totaltestCompleted;
 
+    console.log('------------',scoreData.length,totaltestCompleted,bestData,passrate,appInfo.PASS_PERCENTAGE);
+
+    if(bestData.length != 0){
+    bestData[0].passrate = isNaN(passrate) ?0:passrate;
     bestData[0].screentime = 400;
-
     delete bestData[0]._id;
+    }
+    else{
+      let data = [{
+        "totaltestCompleted": 0,
+        "totaltesttime": 0,
+        "bestScore": 0,
+        "bestTime": 0,
+        "passrate": 0,
+        "screentime": 0
+      }];
 
+      data[0].passrate = isNaN(passrate) ?0:passrate;
+      data[0].screentime = 0;
+      bestData = data;
+    }
     res.status(200).send({
       status: 200,
       message: "personal statistics details.",
@@ -130,4 +146,39 @@ const personalstatistics = async (req, res) => {
   }
 }
 
-module.exports = { getTestResponse, addTestResponse, personalstatistics };
+
+// Reset personal statistics test.....
+const resetPersonalstatistics = async (req, res) => {
+  try {
+    if (req.query.userid && req.query.userid.length != 0) {
+      objectId = mongoose.Types.ObjectId(req.query.userid);
+    } else {
+      return res.status(400).send({
+        status: 400,
+        message: "userid is missing"
+      })
+    }
+    
+    await storeTestResponse.deleteMany({ user: objectId})
+      .then(() => {
+        res.status(200)
+          .send({
+            status: 200,
+            message: "successfully reset test details!!"
+          })
+      })
+      .catch(Err => {
+        res.status(500)
+          .send({
+            status: 500,
+            message: Err.message || "Internal Error."
+          });
+      });
+                                             
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { getTestResponse, addTestResponse, personalstatistics, resetPersonalstatistics};

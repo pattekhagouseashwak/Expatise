@@ -7,7 +7,8 @@ const requireAuth = passport.authenticate('jwt', {
   session: false
 })
 
-const {getProfileList,getProfileGraph, getProfileCountByDate} = require('../controllers/profile');
+const {getProfileList,getProfileGraph, 
+      getProfileCountByDate,deleteProfileById,adminDashboardApi} = require('../controllers/profile');
 
 const {getAnnouncement, editAnnouncement, deleteAnnouncement,
        createAnnouncement, getAnnouncementList} = require('../controllers/announcement');
@@ -49,6 +50,21 @@ router.post(
   requireAuth,
   getProfileCountByDate
 )
+
+router.delete(
+  '/profile',
+  trimRequest.all,
+  requireAuth,
+  deleteProfileById
+)
+
+router.get(
+  '/dashboardDetails',
+  trimRequest.all,
+  requireAuth,
+  adminDashboardApi
+)
+
 /**********************************add driving Material details**/
 router.post(
   '/drivingQuestion/add',
