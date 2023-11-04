@@ -27,6 +27,8 @@ const { addCoupons, updateCoupons, removeCoupons,
 
 const {getTransaction,getTransactionCountByDate} = require('../controllers/transaction')
 
+const {createNotificationBanner,getNotifications} = require('../controllers/notifications')
+
 
 /** ADMIN Profile routes*/
 
@@ -242,6 +244,23 @@ router.post('/transaction/sales',
   trimRequest.all,
   requireAuth,
   getTransactionCountByDate
+)
+
+
+/************************************ transaction routes*/
+
+/**create Notifications**/
+router.post('/notifications/create',
+  trimRequest.all,
+  requireAuth,
+  createNotificationBanner
+)
+
+/**get all notifications details**/
+router.get('/notifications/list',
+  trimRequest.all,
+  requireAuth,
+  getNotifications
 )
 
 module.exports = router
