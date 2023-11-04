@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const drivingmaterial = require('./../../models/drivingMaterial')
 const surveys = require('./../../models/survey')
 const transaction = require('./../../models/transaction')
+const storeTestResponse = require('../../models/storeTestResponse');
 
 /**
  * Register function called by route
@@ -377,5 +378,64 @@ const adminDashboardApi = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, editProfile, createProfile, getProfileList,
-                   getProfileGraph,getProfileCountByDate, deleteProfileById, adminDashboardApi}
+const lastseenUpdate = async (req, res) => {
+  try {
+
+    //const id = req.user._id;
+
+    if (!req.body.id || req.body.id.length <= 0) {
+      return res.status(400).send({ status: 400, message: "id missing" });
+    }
+    const id = req.body.id
+    
+    await profile.findOneAndUpdate({ _id: id },{ new: true }).select('lastSeen')
+      .then((data) => {
+        res.status(200).send({ status: 200, message: "successfully updated lastseen!!", response: data })
+      })
+      .catch(Err => {
+        res.status(500)
+          .send({
+            status: 500,
+            message: Err.message || "Internal Error."
+          });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+const userDashboard = async (req, res) => {
+  try {
+
+    if (!req.query.id || req.query.id.length <= 0) {
+      return res.status(400).send({ status: 400, message: "id missing" });
+    }
+    let id = req.query.id;
+    const lastSeenInfo = await profile.findById({ _id: id }).select('lastSeen');
+
+    const lastTestInfo = await storeTestResponse.findOne({ user: id })
+                                                .sort({createdAt:-1}).select("score")
+
+    const usersOnline =  Math.floor(Math.random() * 11);;
+    console.log(lastSeenInfo,lastTestInfo,usersOnline);
+    let lastseen = lastSeenInfo?.lastSeen? lastSeenInfo?.lastSeen : '00:00:00';
+    let lasttestinfo = lastTestInfo?.score? lastTestInfo?.score: 0;
+    
+    res.status(200)
+      .send({
+        status: 200,
+        message: "successfully fetched  dashboard api!!",
+        response: {
+          usersOnline: usersOnline,
+          lastSeen: lastseen,
+          lastTest: lasttestinfo
+        }
+      })
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { getProfile, editProfile, createProfile, getProfileList,lastseenUpdate,userDashboard,getProfileGraph,getProfileCountByDate, deleteProfileById, adminDashboardApi}

@@ -20,6 +20,8 @@ const profileSchema = new mongoose.Schema(
     gender: { type: String },
 
     weChat:{type:String},
+
+    lastSeen : {type:Date,default: Date.now},
     
     type: {
       type: String, require: true,

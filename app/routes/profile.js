@@ -11,7 +11,9 @@ const {
   getProfile,
   editProfile,
   createProfile,
-  getProfileList
+  getProfileList,
+  lastseenUpdate,
+  userDashboard
   } = require('../controllers/profile')
 
 /*
@@ -40,6 +42,18 @@ router.post(
   '/profile/create',
   trimRequest.all,
   createProfile
+)
+
+router.put(
+  '/profiles/lastseen',
+  trimRequest.all,
+  lastseenUpdate
+)
+
+router.get(
+  '/profiles/dasboard',
+  trimRequest.all,
+  userDashboard
 )
 
 module.exports = router

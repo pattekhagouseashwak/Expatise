@@ -121,7 +121,7 @@ const storeNotificationResponse = async (req, res) => {
 const getNotificationsByUserid = async (req, res) => {
   try {
 
-    if (!req.query.userId || req.query.length <= 0) {
+    if (!req.query.userId || req.query.userId.length <= 0) {
       return res.status(400).send({ status: 400, message: "userId can't be empty" });
     }
 
