@@ -37,13 +37,32 @@ const getAnnouncement = async (req, res) => {
 
 const editAnnouncement = async (req, res) => {
   try {
+
+    if (!req.body.id || req.body.id.length <= 0) {
+      return res.status(400).send({ status: 400, message: "id missing" });
+    }
+
+    if (!req.body.heading || req.body.heading.length <= 0) {
+      return res.status(400).send({ status: 400, message: "id missing" });
+    }
+
+    if (!req.body.subject || req.body.subject.length <= 0) {
+      return res.status(400).send({ status: 400, message: "subject missing" });
+    }
+
+    if (!req.body.headingColorCode || req.body.id.headingColorCode <= 0) {
+      return res.status(400).send({ status: 400, message: "headingColorCode missing" });
+    }
+
     const id = req.body.id
     const heading = req.body.heading;
+    const headingColorCode = req.body.headingColorCode;
     const subject = req.body.subject;
 
     await announcements.findOneAndUpdate({ _id: id },
       {
         heading,
+        headingColorCode,
         subject
       }, { new: true })
       .select("-createdAt -updatedAt")
@@ -69,10 +88,24 @@ const editAnnouncement = async (req, res) => {
 
 const createAnnouncement = async (req, res) => {
   try {
+
+    if (!req.body.heading || req.body.heading.length <= 0) {
+      return res.status(400).send({ status: 400, message: "id missing" });
+    }
+
+    if (!req.body.subject || req.body.subject.length <= 0) {
+      return res.status(400).send({ status: 400, message: "subject missing" });
+    }
+
+    if (!req.body.headingColorCode || req.body.headingColorCode <= 0) {
+      return res.status(400).send({ status: 400, message: "headingColorCode missing" });
+    }
+
     const heading = req.body.heading;
     const subject = req.body.subject;
+    const headingColorCode = req.body.headingColorCode;
 
-    await announcements.create({ heading, subject })
+    await announcements.create({ heading, subject, headingColorCode })
       .then((data) => {
         res.
           status(200)

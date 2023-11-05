@@ -1,7 +1,8 @@
 const { handleError } = require('../../middleware/utils')
 const storeTestResponse = require('../../models/storeTestResponse');
 const mongoose = require('mongoose');
-const appInfo = require('./../../../settings.json')
+const appInfo = require('./../../../settings.json');
+const profile = require('../../models/profile');
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -110,15 +111,20 @@ const personalstatistics = async (req, res) => {
 
     const scoreData = await storeTestResponse.find({ score: { $gte: appInfo.PASS_PERCENTAGE } })
                                              .select('-_id score');
+
+    const userScreenTime = await profile.find({_id:objectId}).select('screenTime');
+    
     let totaltestCompleted = bestData[0]?.totaltestCompleted?bestData[0]?.totaltestCompleted:0;
 
     let passrate = scoreData.length*100/totaltestCompleted;
 
-    console.log('------------',scoreData.length,totaltestCompleted,bestData,passrate,appInfo.PASS_PERCENTAGE);
+    let screentime = userScreenTime[0]?.screenTime?userScreenTime[0]?.screenTime:0;
+
+    console.log('------------',scoreData.length,totaltestCompleted,bestData,passrate,appInfo.PASS_PERCENTAGE,userScreenTime);
 
     if(bestData.length != 0){
     bestData[0].passrate = isNaN(passrate) ?0:passrate;
-    bestData[0].screentime = 400;
+    bestData[0].screentime = screentime
     delete bestData[0]._id;
     }
     else{
@@ -132,7 +138,7 @@ const personalstatistics = async (req, res) => {
       }];
 
       data[0].passrate = isNaN(passrate) ?0:passrate;
-      data[0].screentime = 0;
+      data[0].screentime = screentime;
       bestData = data;
     }
     res.status(200).send({
@@ -159,6 +165,8 @@ const resetPersonalstatistics = async (req, res) => {
       })
     }
     
+    await profile.findByIdAndUpdate({_id:objectId},{screenTime:0});
+
     await storeTestResponse.deleteMany({ user: objectId})
       .then(() => {
         res.status(200)

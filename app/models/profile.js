@@ -22,6 +22,8 @@ const profileSchema = new mongoose.Schema(
     weChat:{type:String},
 
     lastSeen : {type:Date,default: Date.now},
+
+    screenTime : {type:Number,default: 0},   // In sotring in minutes and convert in UI to hours
     
     type: {
       type: String, require: true,

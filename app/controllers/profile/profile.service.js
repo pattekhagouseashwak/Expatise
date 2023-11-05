@@ -386,9 +386,22 @@ const lastseenUpdate = async (req, res) => {
     if (!req.body.id || req.body.id.length <= 0) {
       return res.status(400).send({ status: 400, message: "id missing" });
     }
+
+    if (!req.body.screenTime || req.body.screenTime.length <= 0) {
+      return res.status(400).send({ status: 400, message: "screenTime missing" });
+    }
+
     const id = req.body.id
+
+    const userInfo = await profile.find({_id:id}).select('screenTime');
+
+    let screentime = (userInfo?.screenTime? userInfo?.screenTime : 0)+req.body.screenTime;
+
+    let lastseen = new Date();
     
-    await profile.findOneAndUpdate({ _id: id },{ new: true }).select('lastSeen')
+    await profile.findOneAndUpdate({ _id: id },
+                                   {lastSeen:lastseen,screenTime:screentime},
+                                   { new: true }).select('lastSeen')
       .then((data) => {
         res.status(200).send({ status: 200, message: "successfully updated lastseen!!", response: data })
       })
@@ -411,15 +424,25 @@ const userDashboard = async (req, res) => {
     if (!req.query.id || req.query.id.length <= 0) {
       return res.status(400).send({ status: 400, message: "id missing" });
     }
+
     let id = req.query.id;
-    const lastSeenInfo = await profile.findById({ _id: id }).select('lastSeen');
 
-    const lastTestInfo = await storeTestResponse.findOne({ user: id })
-                                                .sort({createdAt:-1}).select("score")
+    let oneMinuteAgo = new Date();
+    oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 5);
 
-    const usersOnline =  Math.floor(Math.random() * 11);;
-    console.log(lastSeenInfo,lastTestInfo,usersOnline);
-    let lastseen = lastSeenInfo?.lastSeen? lastSeenInfo?.lastSeen : '00:00:00';
+    const lastSeenInfo    = await profile.findById({ _id: id }).select('lastSeen');
+
+    const usersOnlineInfo = await profile.countDocuments({ lastSeen: { $gt: oneMinuteAgo } });
+
+    const lastTestInfo = await storeTestResponse.findOne({user: id,
+                                                      examType: 'realtest',
+                                                      testResponse: { $exists: true, $size: 41 },  // replace at production to 100 questions count
+                                                    })
+                                                .sort({ createdAt: -1 }).select("score");
+
+    let usersOnline = usersOnlineInfo;
+    console.log("-------",lastSeenInfo,lastTestInfo,usersOnline,oneMinuteAgo);
+    let lastseen = lastSeenInfo?.lastSeen? lastSeenInfo?.lastSeen : '0000-00-00T00:00:00.000Z';
     let lasttestinfo = lastTestInfo?.score? lastTestInfo?.score: 0;
     
     res.status(200)
@@ -429,7 +452,7 @@ const userDashboard = async (req, res) => {
         response: {
           usersOnline: usersOnline,
           lastSeen: lastseen,
-          lastTest: lasttestinfo
+          lastTest: lasttestinfo+"%"
         }
       })
   } catch (error) {
