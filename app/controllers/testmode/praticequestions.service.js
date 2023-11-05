@@ -85,7 +85,7 @@ const commonMistakeFunction = async (payload,userid) => {
       }
       if(String(payload[i]._id) == String(response[j]._id)){
       colorcode = response[j].testset.map((x) => x.status);
-      payload[i].colorcode = colorcode;
+      payload[i].colorcode = String(colorcode);
       conditionToSkip = 1;
       }
     }

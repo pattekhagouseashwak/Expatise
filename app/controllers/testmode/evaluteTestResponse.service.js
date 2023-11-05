@@ -69,6 +69,7 @@ const evaluteTest = async (testResponse,user,examType) => {
       wrong++;
       filterResponse.push({
         userId: user,
+        examType:examType,
         questionId: testResponse[test_index].questionId,
         status: 0
       });
@@ -271,7 +272,7 @@ const fetchCommonTest = async (req, res) => {
   }
 }
 
-// fetch mistake Test to review.....
+// remove common Test to review..... dublicate code
 const reviewMistakeTest = async (req, res) => {
   try {
     if (!req.query.id || req.query.id.length < 0) {
