@@ -126,8 +126,7 @@ const mistakeTest = async (req, res) => {
     let filterobject = [];
     for (let j = 0; j < response.length; j++) {
       colorcode = response[j].testset.map((x) => x.status);
-      response[j].questionobject[0].colorcode = colorcode;
-      conditionToSkip = 1;
+      response[j].questionobject[0].colorcode = colorcode.join(',');
       delete response[j].testset;
       delete response[j]._id;
       if (response[j].colorcode === [1, 1, 1]) {
@@ -200,11 +199,11 @@ const fetchCommonTest = async (req, res) => {
     let response;
     let limitPerQuestion = 3;
     await commonmistakes.aggregate([
-      {
-        $match: {
-          'examType': 'realtest',
-        },
-      },
+      // {
+      //   $match: {
+      //     'examType': 'realtest',
+      //   },
+      // },
       { $sample: { size: 100 } },
       {
         $sort: { timestamp: -1 }, // Sort by timestamp in descending order (latest first)
@@ -235,7 +234,7 @@ const fetchCommonTest = async (req, res) => {
     let filterobject = [];
     for (let j = 0; j < response.length; j++) {
       colorcode = response[j].testset.map((x) => x.status);
-      response[j].questionobject[0].colorcode = colorcode;
+      response[j].questionobject[0].colorcode = colorcode.join(',');
       conditionToSkip = 1;
       delete response[j].testset;
       delete response[j]._id;
@@ -249,19 +248,14 @@ const fetchCommonTest = async (req, res) => {
     let Response = [];
     if (filterobject.length == 0) {
       Status = 400,
-      Message = "mistake questions are empty."
+      Message = "Common mistake questions are empty."
     }
-    else if (filterobject.length > 45) {
+    else if (filterobject.length < 45) {
       Status = 200;
-      Message = "fetched details.";
+      Message = "fetched Common mistake details.";
       Response = filterobject;
     }
-    else if (filterobject.length < 45 && process.env.NODE_ENV == 'development') {
-      Status = 400;
-      Message = "mistake questions are less than 45";
-      Response = filterobject;
-    }
-    return res.status(200).send({
+    return res.status(Status).send({
       status: Status,
       message: Message,
       response: Response
@@ -316,7 +310,6 @@ const reviewMistakeTest = async (req, res) => {
     let filterobject = [];
     for (let j = 0; j < response.length; j++) {
       colorcode = response[j].testset.map((x) => x.status);
-      conditionToSkip = 1;
       delete response[j].testset;
       delete response[j]._id;
       if (colorcode === [1, 1, 1]){
