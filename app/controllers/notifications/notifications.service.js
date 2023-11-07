@@ -149,12 +149,12 @@ const getNotificationsByUserid = async (req, res) => {
     const filteredArray =  [];
     let object = new Object();
     await notifications.find({
-      $or: [
+     $or: [
         {
-          userId: {
+          userIds: {
             $in: userIdsToSearch
           }
-        },
+      },
         {
           $or: [
             {
@@ -171,13 +171,13 @@ const getNotificationsByUserid = async (req, res) => {
       .select('title description')
       .sort({ createdAt: -1 })
       .then(async(data) => {
-
+      //  console.log('---------------',data);stop;
         for (const notification of data) {
           const response = await notificationResponse.find({
             notificationId: notification._id,
             userId: userIdsToSearch
           });
-          //console.log('--------------180',notification,response);
+          console.log('--------------180',notification,response);
           if (response.length>0) {
             object = {
               _id: notification._id,

@@ -71,18 +71,18 @@ const editProfile = async (req, res) => {
     const gender = req.body.gender;
     const weChat =  req.body.weChat;
 
-    await profile.findOneAndUpdate({ _id: id },
+    await profile.findByIdAndUpdate({ _id: id },
       {
-        profilePhoto,
-        name,
-        email,
-        phoneNumber,
-        city,
-        country,
-        dateOfBrith,
-        gender,
-        weChat
-      }, { new: true })
+        profilePhoto:profilePhoto,
+        name:name,
+        email:email,
+        phoneNumber:phoneNumber,
+        city:city,
+        country:country,
+        dateOfBrith:dateOfBrith,
+        gender:gender,
+        weChat:weChat
+      },{new:true})
       .select("-createdAt -updatedAt")
       .then((data) => {
         res.status(200).send({ status: 200, message: "successfully updated profile!!", response: data })
