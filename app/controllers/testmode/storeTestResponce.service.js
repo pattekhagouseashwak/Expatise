@@ -105,22 +105,26 @@ const personalstatistics = async (req, res) => {
           totaltesttime: { $sum: '$testCompleted' }, // Count of testCompleted
           bestScore: { $max: '$score' }, // Maximum score
           bestTime: { $min: '$testCompleted' }, // Minimum testCompleted score
+          totalScore: { $sum: '$score' }
         },
       },
     ]).exec();
 
-    const scoreData = await storeTestResponse.find({ score: { $gte: appInfo.PASS_PERCENTAGE } })
-                                             .select('-_id score');
-
+    // const scoreData = await storeTestResponse.find({ score: { $gte: appInfo.PASS_PERCENTAGE } })
+    //                                          .select('-_id score');
+    
     const userScreenTime = await profile.find({_id:objectId}).select('screenTime');
+
+    let scoreData = bestData[0]?.totalScore ? bestData[0]?.totalScore : 0;
     
     let totaltestCompleted = bestData[0]?.totaltestCompleted?bestData[0]?.totaltestCompleted:0;
 
-    let passrate = scoreData.length*100/totaltestCompleted;
+    let passrate = (scoreData/totaltestCompleted).toFixed(1);
 
     let screentime = userScreenTime[0]?.screenTime?userScreenTime[0]?.screenTime:0;
 
-    console.log('------------',scoreData.length,totaltestCompleted,bestData,passrate,appInfo.PASS_PERCENTAGE,userScreenTime);
+    console.log('------------',scoreData.length,totaltestCompleted,bestData,passrate,
+                appInfo.PASS_PERCENTAGE,userScreenTime);
 
     if(bestData.length != 0){
     bestData[0].passrate = isNaN(passrate) ?0:passrate;
