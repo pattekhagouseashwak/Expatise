@@ -436,7 +436,7 @@ const userDashboard = async (req, res) => {
 
     const lastTestInfo = await storeTestResponse.findOne({user: id,
                                                       examType: 'realtest',
-                                                      testResponse: { $exists: true, $size: 41 },  // replace at production to 100 questions count
+                                                      testResponse: { $exists: true, $size: 100 },  // replace at production to 100 questions count
                                                     })
                                                 .sort({ createdAt: -1 }).select("score");
 
