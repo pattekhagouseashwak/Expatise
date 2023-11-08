@@ -132,7 +132,7 @@ const mistakeTest = async (req, res) => {
       if (response[j].questionobject[0].colorcode === "1,1,1"|| 
           response[j].questionobject[0].colorcode === "1,1" || 
           response[j].questionobject[0].colorcode === '1') 
-      {console.log('-------------1');
+      {
         delete response[j];
       }else{
       filterobject.push(response[j].questionobject[0]);
@@ -244,7 +244,7 @@ const fetchCommonTest = async (req, res) => {
       if (response[j].questionobject[0].colorcode === "1,1,1"|| 
           response[j].questionobject[0].colorcode === "1,1" || 
           response[j].questionobject[0].colorcode === '1') 
-      {console.log('-------------1');
+      {
         delete response[j];
       }else
       {
@@ -318,13 +318,15 @@ const reviewMistakeTest = async (req, res) => {
     let colorcode = 0;
     let filterobject = [];
     for (let j = 0; j < response.length; j++) {
+      //console.log('-------',response[j]);
       colorcode = response[j].testset.map((x) => x.status);
+      response[j].questionobject[0].colorcode = colorcode.join(',');
       delete response[j].testset;
       delete response[j]._id;
       if (response[j].questionobject[0].colorcode === "1,1,1"|| 
           response[j].questionobject[0].colorcode === "1,1" || 
           response[j].questionobject[0].colorcode === '1') 
-      {console.log('-------------1');
+      {
         delete response[j];
       }else
       {
