@@ -129,10 +129,14 @@ const mistakeTest = async (req, res) => {
       response[j].questionobject[0].colorcode = colorcode.join(',');
       delete response[j].testset;
       delete response[j]._id;
-      if (response[j].colorcode === [1, 1, 1]) {
+      if (response[j].questionobject[0].colorcode === "1,1,1"|| 
+          response[j].questionobject[0].colorcode === "1,1" || 
+          response[j].questionobject[0].colorcode === '1') 
+      {console.log('-------------1');
         delete response[j];
-      }
+      }else{
       filterobject.push(response[j].questionobject[0]);
+      }
     }
     let Status;
     let Message;
@@ -199,11 +203,11 @@ const fetchCommonTest = async (req, res) => {
     let response;
     let limitPerQuestion = 3;
     await commonmistakes.aggregate([
-      // {
-      //   $match: {
-      //     'examType': 'realtest',
-      //   },
-      // },
+      {
+        $match: {
+          'examType': 'realtest',
+        },
+      },
       { $sample: { size: 100 } },
       {
         $sort: { timestamp: -1 }, // Sort by timestamp in descending order (latest first)
@@ -229,7 +233,6 @@ const fetchCommonTest = async (req, res) => {
       },
     ]).exec()
       .then(async (data) => { response = data }).catch(Err => { throw Err });
-
     let colorcode = 0;
     let filterobject = [];
     for (let j = 0; j < response.length; j++) {
@@ -238,10 +241,15 @@ const fetchCommonTest = async (req, res) => {
       conditionToSkip = 1;
       delete response[j].testset;
       delete response[j]._id;
-      if (response[j].colorcode === [1, 1, 1]) {
+      if (response[j].questionobject[0].colorcode === "1,1,1"|| 
+          response[j].questionobject[0].colorcode === "1,1" || 
+          response[j].questionobject[0].colorcode === '1') 
+      {console.log('-------------1');
         delete response[j];
-      }
+      }else
+      {
       filterobject.push(response[j].questionobject[0]);
+      }
     }
     let Status;
     let Message;
@@ -250,11 +258,12 @@ const fetchCommonTest = async (req, res) => {
       Status = 400,
       Message = "Common mistake questions are empty."
     }
-    else if (filterobject.length < 45) {
+    else{
       Status = 200;
       Message = "fetched Common mistake details.";
       Response = filterobject;
     }
+    
     return res.status(Status).send({
       status: Status,
       message: Message,
@@ -312,10 +321,15 @@ const reviewMistakeTest = async (req, res) => {
       colorcode = response[j].testset.map((x) => x.status);
       delete response[j].testset;
       delete response[j]._id;
-      if (colorcode === [1, 1, 1]){
+      if (response[j].questionobject[0].colorcode === "1,1,1"|| 
+          response[j].questionobject[0].colorcode === "1,1" || 
+          response[j].questionobject[0].colorcode === '1') 
+      {console.log('-------------1');
         delete response[j];
-      }
+      }else
+      {
       filterobject.push(response[j].questionobject[0]);
+      }
     }
    
     return res.status(200).send({
