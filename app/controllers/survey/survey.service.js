@@ -124,6 +124,10 @@ const addStoreSurveyResponse = async (req, res) => {
     const user = req.body.user;
     const responses = req.body.responses;
 
+    if (!req.body.user || req.body.user.length < 0) {
+      res.status(400).send({ status: 400, message: "user is missing" });
+    }
+
     let response = await surveys.find({ _id: survey, isActive: true }).select('_id');
     console.log('------ response', response);
     if (response.length == 0) {

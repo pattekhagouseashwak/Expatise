@@ -135,7 +135,7 @@ const getAnnouncementList = async (req, res) => {
     const totalItems = await announcements.find().countDocuments();
     const totalpages = Math.ceil(totalItems / itemsPerPage);
 
-    await announcements.find({}).skip(startIndex).limit(itemsPerPage)
+    await announcements.find({}).skip(startIndex).limit(itemsPerPage).sort({createdAt:-1})
       .then((data) => {
         res.status(200)
           .send({

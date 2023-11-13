@@ -387,10 +387,6 @@ const lastseenUpdate = async (req, res) => {
       return res.status(400).send({ status: 400, message: "id missing" });
     }
 
-    if (!req.body.screenTime || req.body.screenTime.length <= 0) {
-      return res.status(400).send({ status: 400, message: "screenTime missing" });
-    }
-
     const id = req.body.id
 
     const userInfo = await profile.find({_id:id}).select('screenTime');
@@ -400,8 +396,11 @@ const lastseenUpdate = async (req, res) => {
     let lastseen = new Date();
     
     await profile.findOneAndUpdate({ _id: id },
-                                   {lastSeen:lastseen,screenTime:screentime},
-                                   { new: true }).select('lastSeen')
+      {
+        $inc: { screenTime: 1 }, // Increment screentime by 1 in future if 
+        $set: { lastSeen:lastseen}, // Set lastseen given value
+      },
+      { new: true }).select('lastSeen screenTime')
       .then((data) => {
         res.status(200).send({ status: 200, message: "successfully updated lastseen!!", response: data })
       })

@@ -96,7 +96,7 @@ const mistakeTest = async (req, res) => {
           'userId': objectId, // req.query.userid
         },
       },
-      { $sample: { size: 100 } },
+      //{ $sample: { size: 100 } },
       {
         $sort: { timestamp: -1 }, // Sort by timestamp in descending order (latest first)
       },
@@ -290,6 +290,7 @@ const reviewMistakeTest = async (req, res) => {
           'userId': objectId, // req.query.userid
         },
       },
+      //{ $sample: { size: 100 } },
       {
         $sort: { timestamp: -1 }, // Sort by timestamp in descending order (latest first)
       },
