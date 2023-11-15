@@ -3,6 +3,7 @@ const storeTestResponse = require('../../models/storeTestResponse');
 const mongoose = require('mongoose');
 const appInfo = require('./../../../settings.json');
 const profile = require('../../models/profile');
+const commonmistakes = require('../../models/commonmistakes');
 /**
  * Register function called by route
  * @param {Object} req - request object
@@ -170,7 +171,7 @@ const resetPersonalstatistics = async (req, res) => {
     }
     
     await profile.findByIdAndUpdate({_id:objectId},{screenTime:0});
-
+    await commonmistakes.deleteMany({userId:objectId});
     await storeTestResponse.deleteMany({ user: objectId})
       .then(() => {
         res.status(200)
