@@ -284,25 +284,68 @@ const reviewMistakeTest = async (req, res) => {
     const objectId = mongoose.Types.ObjectId(req.query.id);
     let response;
     let limitPerQuestion = 3;
+    // await commonmistakes.aggregate([
+    //   {
+    //     $match: {
+    //       'userId': objectId, // req.query.userid
+    //     },
+    //   },
+    //   //{ $sample: { size: 100 } },
+    //   {
+    //     $sort: { createdAt: -1 }, // Sort by timestamp in descending order (latest first)
+    //   },
+    //   {
+    //     $group: { _id: "$questionId", testset: { $push: "$$ROOT" } }
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: 'drivingmaterials', // Replace with the name of the collection you're populating from
+    //       localField: '_id',
+    //       foreignField: '_id',
+    //       as: 'questionobject', // The name of the field where the populated data will be stored
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       testset: {
+    //         $slice: ['$testset', limitPerQuestion], // Take the latest 'limitPerQuestion' responses per group
+    //       },
+    //       questionobject: 1
+    //     },
+    //   },
+    // ]).exec()
+    //   .then(async (data) => { response = data }).catch(Err => { throw Err });
+
     await commonmistakes.aggregate([
       {
         $match: {
           'userId': objectId, // req.query.userid
         },
       },
-      //{ $sample: { size: 100 } },
       {
-        $sort: { timestamp: -1 }, // Sort by timestamp in descending order (latest first)
-      },
-      {
-        $group: { _id: "$questionId", testset: { $push: "$$ROOT" } }
+        $group: {
+          _id: "$questionId",
+          testset: {
+            $push: "$$ROOT",
+          },
+        },
       },
       {
         $lookup: {
-          from: 'drivingmaterials', // Replace with the name of the collection you're populating from
+          from: 'drivingmaterials',
           localField: '_id',
           foreignField: '_id',
-          as: 'questionobject', // The name of the field where the populated data will be stored
+          as: 'questionobject',
+        },
+      },
+      {
+        $unwind: "$questionobject",
+      },
+      {
+        $group: {
+          _id: "$_id",
+          testset: { $first: "$testset" },
+          questionobject: { $push: "$questionobject" },
         },
       },
       {
@@ -313,9 +356,12 @@ const reviewMistakeTest = async (req, res) => {
           questionobject: 1
         },
       },
+      {
+        $sort: { _id: 1 }, // Sort by _id in ascending order (latest first)
+      }
     ]).exec()
-      .then(async (data) => { response = data }).catch(Err => { throw Err });
-
+    .then(async (data) => { response = data })
+    .catch(Err => { throw Err });
     let colorcode = 0;
     let filterobject = [];
     for (let j = 0; j < response.length; j++) {
