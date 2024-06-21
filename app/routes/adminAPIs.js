@@ -13,7 +13,7 @@ const {getProfileList,getProfileGraph,
 const {getAnnouncement, editAnnouncement, deleteAnnouncement,
        createAnnouncement, getAnnouncementList} = require('../controllers/announcement');
 
-const {postTestQuestions,removeTestQuestion} = require('../controllers/drivingmaterial');
+const {postTestQuestions,removeTestQuestion, postTestQuestionsBulk} = require('../controllers/drivingmaterial');
 
 const {postSurvey,removeSurvey,getSurveyList,
       getStoreSurveyResponse,getStoreSurveyResponseByID} = require('../controllers/survey');
@@ -81,6 +81,15 @@ router.delete(
   trimRequest.all,
   requireAuth,
   removeTestQuestion
+)
+
+
+/**add bulk driving Materials**/
+router.post(
+  '/drivingQuestion/bulkUploadQuestions',
+  trimRequest.all,
+  //requireAuth,
+  postTestQuestionsBulk
 )
 
 /**************************************************announcement routes*/

@@ -83,4 +83,53 @@ const removeFile = async (req, res) => {
   }
 }
 
-module.exports = { uploadFile, removeFile }
+// To get files from s3 bucket.....
+const getUrlsFromFolderInS3 = async (req, res) => {
+  try {
+    console.log('-------folder',req.params.folder)
+    if(!req.params.folder || req.params.folder.length <0){
+      return res.status(400)
+      .send({ status: 400, 
+              message: "folder type is missing.",
+            });
+    }
+
+    if(req.params.folder !== 'testdrivingimages'){
+      return res.status(400)
+      .send({ status: 400, 
+              message: "folder value doesn't match.",
+            });
+    }
+
+    const bucketName = appConstants.AWS_BUCKET_NAME;
+    const folder = appConstants.AWS_TEST_DRIVING_IMAGE_FOLDER_NAME;
+   
+    const params = {
+      Bucket: bucketName,
+      Prefix: folder+"/"
+    };
+    console.log('-----',params);
+    s3bucket.listObjectsV2(params, (err, data) => {
+      if (err) {
+        console.error('Error while getting files:', err);
+        res.status(500).send({ status: 500, message: "Internal Error."})
+      } else {
+        const urls = data.Contents.map(obj => `https://${params.Bucket}.s3.amazonaws.com/${obj.Key}`);
+
+        // Now 'urls' is an array containing all the URLs
+        console.log(urls); // log all URLs
+
+        res.status(200)
+           .send({ status: 200, 
+                   message: "Successfully get all files.",
+                   urlObject : urls,
+                 });
+        }
+    });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+module.exports = { uploadFile, removeFile, getUrlsFromFolderInS3 }

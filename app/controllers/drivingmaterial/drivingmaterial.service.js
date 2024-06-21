@@ -135,4 +135,28 @@ const searchTestQuestion = async (req, res) => {
   }
 }
 
-module.exports = { postTestQuestions, getTestQuestions, removeTestQuestion,searchTestQuestion}
+// To add bulk question into drivingmaterial database.....
+const postTestQuestionsBulk = async (req, res) => {
+  try {
+    const questions = req.body.questions; // assuming questions is an array of question objects
+    await drivingmaterial.insertMany(questions)
+      .then(() => {
+        res.status(200).send({
+          status: 200,
+          message: "Successfully posted questions."
+        })
+      }).catch(Err => {
+        res.status(500).send({
+          status: 500,
+          message: Err.message || "Internal Error."
+        });
+      });
+  } catch (error) {
+    console.log(error)
+    handleError(res, error)
+  }
+}
+
+
+module.exports = { postTestQuestions, getTestQuestions, 
+                    removeTestQuestion,searchTestQuestion, postTestQuestionsBulk}

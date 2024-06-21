@@ -9,7 +9,8 @@ var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
 const {
   uploadFile,
-  removeFile
+  removeFile,
+  getUrlsFromFolderInS3
   } = require('../controllers/aws.operations')
 
 /*
@@ -27,6 +28,12 @@ router.delete(
   '/removefile',
   trimRequest.all,
   removeFile
+)
+
+router.get(
+  '/getFiles/folder/:folder',
+  trimRequest.all,
+  getUrlsFromFolderInS3
 )
 
 module.exports = router
